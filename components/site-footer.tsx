@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TrackedLink } from "@/components/tracked-link";
 import { businessFullName, GIFT_CARD_URL, primaryNav, studioAddress } from "@/data/site-content";
 
 export function SiteFooter() {
@@ -11,20 +12,33 @@ export function SiteFooter() {
           <ul className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-[#d7c4a1]">
             {primaryNav.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="inline-block py-1 hover:underline">
-                  {item.label}
-                </Link>
+                {item.href === "/shop" ? (
+                  <TrackedLink
+                    href={item.href}
+                    eventName="shop_click"
+                    eventParams={{ source: "footer_nav" }}
+                    className="inline-block py-1 hover:underline"
+                  >
+                    {item.label}
+                  </TrackedLink>
+                ) : (
+                  <Link href={item.href} className="inline-block py-1 hover:underline">
+                    {item.label}
+                  </Link>
+                )}
               </li>
             ))}
             <li>
-              <Link
+              <TrackedLink
                 href={GIFT_CARD_URL}
+                eventName="gift_card_click"
+                eventParams={{ source: "footer_nav" }}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block py-1 hover:underline"
               >
                 Gift Cards ↗
-              </Link>
+              </TrackedLink>
             </li>
           </ul>
         </nav>

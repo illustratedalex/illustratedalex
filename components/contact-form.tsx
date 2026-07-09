@@ -1,14 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 
 type FormState = "idle" | "submitting" | "success";
 
 export function ContactForm() {
   const [formState, setFormState] = useState<FormState>("idle");
+  const [hasTrackedStart, setHasTrackedStart] = useState(false);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    trackEvent("contact_form_submit_mock", { source: "contact_form" });
     setFormState("submitting");
     setTimeout(() => setFormState("success"), 1200);
   }
@@ -29,7 +32,15 @@ export function ContactForm() {
   const labelClass = "block text-xs font-semibold uppercase tracking-[0.14em] text-[#be9a62]";
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form
+      onSubmit={handleSubmit}
+      onFocusCapture={() => {
+        if (hasTrackedStart) return;
+        setHasTrackedStart(true);
+        trackEvent("contact_form_start", { source: "contact_form" });
+      }}
+      className="space-y-6"
+    >
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="space-y-1.5">
           <label htmlFor="name" className={labelClass}>Name</label>

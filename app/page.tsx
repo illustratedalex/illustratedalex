@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { businessTagline, BOOKING_URL, galleryItems, shopUrl, GIFT_CARD_URL } from "@/data/site-content";
+import { TrackedLink } from "@/components/tracked-link";
+import { clientReviews, PUBLIC_SITE_SLUG, REVIEWS_SOURCE_URL } from "@/data/reviews";
+import { businessTagline, BOOKING_URL, galleryItems, shopUrl, GIFT_CARD_URL, TEXT_STUDIO_URL } from "@/data/site-content";
 
 export const metadata: Metadata = {
   title: "Illustrated Alex — Tattoo & Piercing",
@@ -24,6 +26,10 @@ const piercingPreview = galleryItems
   .filter((item) => item.status === "published" && item.category === "Piercings")
   .sort((a, b) => a.sortOrder - b.sortOrder)
   .slice(0, 2);
+
+const featuredReviews = clientReviews
+  .filter((review) => review.siteSlug === PUBLIC_SITE_SLUG && review.status === "published" && review.featured)
+  .sort((a, b) => a.sortOrder - b.sortOrder);
 
 export default function Home() {
   return (
@@ -66,26 +72,32 @@ export default function Home() {
             </div>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <Link
+              <TrackedLink
                 href={BOOKING_URL}
+                eventName="book_now_click"
+                eventParams={{ source: "homepage_hero" }}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="min-h-11 w-full rounded-full border border-[#bc8f4d] bg-[#bc8f4d] px-5 py-2.5 text-center text-[11px] font-semibold tracking-[0.1em] text-[#1e1408] sm:w-auto"
               >
                 BOOK APPOINTMENT
-              </Link>
-              <Link
+              </TrackedLink>
+              <TrackedLink
                 href={shopUrl}
+                eventName="shop_click"
+                eventParams={{ source: "homepage_hero" }}
                 className="min-h-11 w-full rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-center text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4] sm:w-auto"
               >
                 SHOP JEWELRY &amp; AFTERCARE
-              </Link>
-              <Link
-                href="/contact"
+              </TrackedLink>
+              <TrackedLink
+                href={TEXT_STUDIO_URL}
+                eventName="text_studio_click"
+                eventParams={{ source: "homepage_hero" }}
                 className="min-h-11 w-full rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-center text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4] sm:w-auto"
               >
                 TEXT REFERENCE IMAGE
-              </Link>
+              </TrackedLink>
             </div>
           </div>
 
@@ -112,12 +124,14 @@ export default function Home() {
           </div>
         </div>
 
-        <Link
-          href="/contact"
+        <TrackedLink
+          href={TEXT_STUDIO_URL}
+          eventName="text_studio_click"
+          eventParams={{ source: "floating_button" }}
           className="fixed right-3 bottom-3 z-40 min-h-11 rounded-full border border-[#bc8f4d] bg-[#17120d]/92 px-4 py-2 text-[11px] font-semibold tracking-[0.08em] text-[#f2dfbf] shadow-lg backdrop-blur sm:right-4 sm:bottom-4"
         >
           💬 TEXT THE STUDIO
-        </Link>
+        </TrackedLink>
       </section>
 
       <section className="border-t border-[#7d5b2e]/40 bg-[#0f0f0f] py-14 text-[#f0dfbf]">
@@ -146,6 +160,45 @@ export default function Home() {
           </div>
           <Link href="/portfolio" className="mt-6 inline-block text-sm text-[#e1c18c] underline underline-offset-4">
             View full portfolio
+          </Link>
+        </div>
+      </section>
+
+      <section className="border-t border-[#7d5b2e]/35 bg-[#121212] py-14 text-[#f0dfbf]">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="font-display text-3xl font-semibold tracking-[0.02em] sm:text-4xl">Client Reviews</h2>
+          <p className="mt-2 text-sm text-[#d4c09c]">Real feedback from tattoo and piercing clients.</p>
+          <p className="mt-1 text-xs text-[#bfa47a]">Curated review highlights shown here until live review sync is connected.</p>
+
+          <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {featuredReviews.map((review) => (
+              <article key={review.id} className="rounded-xl border border-[#7d5b2e]/40 bg-[#0f0f0f] p-5">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-1" aria-label={`${review.rating} out of 5 stars`}>
+                    {Array.from({ length: 5 }, (_, index) => (
+                      <span key={`${review.id}-star-${index}`} className={index < review.rating ? "text-[#d8b06d]" : "text-[#5a4a2d]"}>
+                        ★
+                      </span>
+                    ))}
+                  </div>
+                  <span className="rounded-full border border-[#8e6a36]/50 bg-[#1a140d] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#e2c48d]">
+                    Google Review
+                  </span>
+                </div>
+                <p className="mt-4 text-sm leading-7 text-[#e7d7b8]">&ldquo;{review.quote}&rdquo;</p>
+                <p className="mt-4 text-sm font-semibold text-[#f0dfbf]">{review.reviewerName}</p>
+                <p className="mt-1 text-[11px] uppercase tracking-[0.12em] text-[#be9a62]">{review.serviceType}</p>
+              </article>
+            ))}
+          </div>
+
+          <Link
+            href={REVIEWS_SOURCE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-flex items-center rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-xs font-semibold tracking-[0.1em] text-[#e7d4b4]"
+          >
+            Read More Reviews on Google ↗
           </Link>
         </div>
       </section>
@@ -189,20 +242,24 @@ export default function Home() {
               the schedule allows, but texting first is the best way to check availability before stopping in.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                href="/contact"
+              <TrackedLink
+                href={TEXT_STUDIO_URL}
+                eventName="text_studio_click"
+                eventParams={{ source: "homepage_location" }}
                 className="min-h-11 rounded-full border border-[#bc8f4d] bg-[#bc8f4d] px-5 py-2.5 text-[11px] font-semibold tracking-[0.1em] text-[#1e1408]"
               >
                 TEXT THE STUDIO
-              </Link>
-              <Link
+              </TrackedLink>
+              <TrackedLink
                 href={BOOKING_URL}
+                eventName="book_now_click"
+                eventParams={{ source: "homepage_location" }}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="min-h-11 rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4]"
               >
                 BOOK APPOINTMENT
-              </Link>
+              </TrackedLink>
             </div>
           </div>
         </div>
@@ -231,28 +288,32 @@ export default function Home() {
               next steps.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link
+              <TrackedLink
                 href={BOOKING_URL}
+                eventName="book_now_click"
+                eventParams={{ source: "homepage_book_section" }}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="min-h-11 rounded-full border border-[#bc8f4d] bg-[#bc8f4d] px-5 py-2.5 text-[11px] font-semibold tracking-[0.1em] text-[#1e1408]"
               >
                 BOOK APPOINTMENT
-              </Link>
+              </TrackedLink>
               <Link
                 href="/portfolio"
                 className="min-h-11 rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4]"
               >
                 VIEW PORTFOLIO
               </Link>
-              <Link
+              <TrackedLink
                 href={GIFT_CARD_URL}
+                eventName="gift_card_click"
+                eventParams={{ source: "homepage_book_section" }}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="min-h-11 rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4]"
               >
                 GIFT CARDS ↗
-              </Link>
+              </TrackedLink>
             </div>
           </div>
         </div>

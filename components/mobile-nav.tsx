@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 
 type NavItem = { href: string; label: string; external?: boolean };
 
@@ -35,7 +36,15 @@ export function MobileNav({ items }: { items: NavItem[] }) {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                      if (item.label === "Book Now") {
+                        trackEvent("book_now_click", { source: "mobile_nav" });
+                      }
+                      if (item.href === "/shop") {
+                        trackEvent("shop_click", { source: "mobile_nav" });
+                      }
+                      setOpen(false);
+                    }}
                     {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                     className="block px-5 py-3 text-xs uppercase tracking-[0.12em] text-[#e8d8b9] transition hover:bg-[#1a1a1a] hover:text-white"
                   >

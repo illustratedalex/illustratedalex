@@ -3,6 +3,7 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import Image from "next/image";
 import Link from "next/link";
+import { TEXT_STUDIO_URL } from "@/data/site-content";
 
 export const metadata: Metadata = {
   title: "Travel & Guest Artist",
@@ -257,7 +258,7 @@ export default function TravelPage() {
               REQUEST A GUEST SPOT
             </Link>
             <Link
-              href="/contact"
+              href={TEXT_STUDIO_URL}
               className="rounded-full border border-[#bc8f4d] bg-transparent px-8 py-3 text-center text-xs font-semibold tracking-[0.1em] text-[#e7d4b4]"
             >
               TEXT THE STUDIO

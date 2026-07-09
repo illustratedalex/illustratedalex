@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactForm } from "@/components/contact-form";
+import { clientReviews, PUBLIC_SITE_SLUG, REVIEWS_SOURCE_URL } from "@/data/reviews";
 import { instagramHandles, studioAddress } from "@/data/site-content";
 
 export const metadata: Metadata = {
@@ -8,6 +9,10 @@ export const metadata: Metadata = {
   description:
     "Book a tattoo or piercing consultation with Illustrated Alex at 30 Opera House Square, Claremont, NH. Appointments are recommended, and walk-ins may be available depending on schedule.",
 };
+
+const featuredReviewPreview = clientReviews
+  .filter((review) => review.siteSlug === PUBLIC_SITE_SLUG && review.status === "published" && review.featured)
+  .sort((a, b) => a.sortOrder - b.sortOrder)[0];
 
 export default function ContactPage() {
   return (
@@ -51,6 +56,26 @@ export default function ContactPage() {
             </div>
           </div>
         </div>
+
+        {featuredReviewPreview ? (
+          <div className="mt-8 rounded-xl border border-[#7d5b2e]/35 bg-[#0f0f0f] p-6 sm:p-8">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#be9a62]">Client Reviews</p>
+            <p className="mt-2 text-sm leading-7 text-[#dbc8a7]">
+              Curated review highlights are shown on-site. Recent feedback from clients remains available on Google.
+            </p>
+            <p className="mt-4 text-sm leading-7 text-[#e7d7b8]">&ldquo;{featuredReviewPreview.quote}&rdquo;</p>
+            <p className="mt-3 text-sm font-semibold text-[#f0dfbf]">{featuredReviewPreview.reviewerName}</p>
+            <p className="mt-1 text-[11px] uppercase tracking-[0.12em] text-[#be9a62]">{featuredReviewPreview.serviceType}</p>
+            <Link
+              href={REVIEWS_SOURCE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex items-center rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-xs font-semibold tracking-[0.1em] text-[#e7d4b4]"
+            >
+              Read More Reviews on Google ↗
+            </Link>
+          </div>
+        ) : null}
       </div>
     </div>
   );

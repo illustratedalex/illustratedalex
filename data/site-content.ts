@@ -61,6 +61,10 @@ export const BOOKING_URL =
 export const bookingUrl = BOOKING_URL;
 export const shopUrl = "/shop";
 export const GIFT_CARD_URL = "https://shop.illustratedalex.com/s/gift-cards";
+export const STUDIO_PHONE = "+16038437005";
+export const TEXT_STUDIO_URL =
+  "sms:+16038437005?&body=Hi%20Alex%2C%20I%27m%20interested%20in%20booking%20a%20tattoo%20or%20piercing.";
+export const GA_MEASUREMENT_ID = "G-Z9393L9072";
 
 export const primaryNav = [
   { href: "/portfolio", label: "Portfolio" },

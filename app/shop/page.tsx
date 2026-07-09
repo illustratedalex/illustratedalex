@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { TrackedLink } from "@/components/tracked-link";
 import { bookingUrl, GIFT_CARD_URL } from "@/data/site-content";
 
 export const metadata: Metadata = {
@@ -47,16 +48,18 @@ export default function ShopPage() {
         <div className="grid gap-3 sm:grid-cols-2">
           {shopCategories.map((cat) =>
             cat.title === "Gift Cards" ? (
-              <Link
+              <TrackedLink
                 key={cat.title}
                 href={GIFT_CARD_URL}
+                eventName="gift_card_click"
+                eventParams={{ source: "shop_category_card" }}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group rounded-xl border border-[#7d5b2e]/35 bg-[#0f0f0f] p-6 hover:border-[#bc8f4d]/60 transition-colors"
               >
                 <h2 className="font-display text-2xl font-semibold text-[#f0dfbf] group-hover:text-[#e7c98a]">{cat.title} ↗</h2>
                 <p className="mt-2 text-sm leading-7 text-[#dbc8a7]">{cat.description}</p>
-              </Link>
+              </TrackedLink>
             ) : (
               <div key={cat.title} className="rounded-xl border border-[#7d5b2e]/35 bg-[#0f0f0f] p-6">
                 <h2 className="font-display text-2xl font-semibold text-[#f0dfbf]">{cat.title}</h2>
@@ -73,22 +76,26 @@ export default function ShopPage() {
             or check available merchandise. Tattoo and piercing appointments are also booked through Square.
           </p>
           <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-            <Link
+            <TrackedLink
               href="https://squareup.com"
+              eventName="shop_click"
+              eventParams={{ source: "shop_page_store_cta" }}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-full border border-[#bc8f4d] bg-transparent px-6 py-2.5 text-xs font-semibold tracking-[0.1em] text-[#e7d4b4]"
             >
               OPEN STORE ↗
-            </Link>
-            <Link
+            </TrackedLink>
+            <TrackedLink
               href={GIFT_CARD_URL}
+              eventName="gift_card_click"
+              eventParams={{ source: "shop_page_store_cta" }}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-full border border-[#bc8f4d] bg-transparent px-6 py-2.5 text-xs font-semibold tracking-[0.1em] text-[#e7d4b4]"
             >
               BUY GIFT CARD ↗
-            </Link>
+            </TrackedLink>
             <Link
               href={bookingUrl}
               target="_blank"
