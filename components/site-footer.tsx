@@ -1,48 +1,46 @@
-import { existsSync } from "node:fs";
-import path from "node:path";
-import Image from "next/image";
 import Link from "next/link";
-import { businessFullName } from "@/data/site-content";
-
-const deadSignalIconPath = "/images/deadsignal/deadsignal-icon-transparent.png";
-
-function hasPublicAsset(src: string) {
-  const normalized = src.replace(/^\//, "");
-  return existsSync(path.join(process.cwd(), "public", normalized));
-}
+import { businessFullName, GIFT_CARD_URL, primaryNav, studioAddress } from "@/data/site-content";
 
 export function SiteFooter() {
-  const hasDeadSignalIcon = hasPublicAsset(deadSignalIconPath);
-
   return (
-    <footer className="mt-20 border-t border-stone-800/60 bg-[#0a0907]">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
-        <div>
-          <p className="font-serif text-sm font-semibold text-stone-300">
-            {businessFullName}
+    <footer className="mt-16 border-t border-[#7d5b2e]/35 bg-[#0d0d0d] text-[#f0dfbf]">
+      <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+        <p className="text-sm font-medium">{businessFullName}</p>
+        <p className="mt-1 text-sm text-[#dbc8a7]">{studioAddress}</p>
+        <nav aria-label="Footer navigation" className="mt-3">
+          <ul className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-[#d7c4a1]">
+            {primaryNav.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="inline-block py-1 hover:underline">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link
+                href={GIFT_CARD_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block py-1 hover:underline"
+              >
+                Gift Cards ↗
+              </Link>
+            </li>
+          </ul>
+        </nav>
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-2 border-t border-[#7d5b2e]/35 pt-4">
+          <p className="text-xs text-[#be9a62]">
+            © {new Date().getFullYear()} {businessFullName}
           </p>
-          <p className="mt-0.5 text-xs text-stone-600">
-            30 Opera House Square, Claremont, NH
-          </p>
+          <Link
+            href="https://deadsignal.co"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[10px] text-[#9d8865] hover:text-[#c9b18a]"
+          >
+            Built &amp; Managed by DeadSignal
+          </Link>
         </div>
-        <Link
-          href="https://deadsignal.co"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-xs text-stone-600 transition hover:text-stone-400"
-        >
-          {hasDeadSignalIcon ? (
-            <Image
-              src={deadSignalIconPath}
-              alt=""
-              width={14}
-              height={14}
-              aria-hidden
-              className="opacity-40"
-            />
-          ) : null}
-          <span>Built &amp; Managed by DeadSignal</span>
-        </Link>
       </div>
     </footer>
   );

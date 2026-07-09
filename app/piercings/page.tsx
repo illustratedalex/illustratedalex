@@ -1,111 +1,98 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { SectionHeading } from "@/components/section-heading";
 import { bookingUrl } from "@/data/site-content";
 
 export const metadata: Metadata = {
   title: "Piercings",
   description:
-    "Professional body piercing at Illustrated Alex — correct anatomy assessment, quality jewelry, and real aftercare guidance. Claremont, NH.",
+    "Professional body piercing by Illustrated Alex — practiced since the 1990s. Implant-grade jewelry, correct anatomy assessment, and real aftercare guidance in Claremont, NH.",
 };
 
-const piercingInfo = [
-  {
-    heading: "Professional Technique",
-    body: "Piercing since the 1990s means a practiced hand and a grounded understanding of healing, anatomy, and jewelry fit. No guessing, no rushing.",
-  },
-  {
-    heading: "Quality Jewelry",
-    body: "Implant-grade materials only. The right starter jewelry matters more than most people realize — it directly affects how well a piercing heals.",
-  },
-  {
-    heading: "Aftercare Included",
-    body: "Every piercing comes with clear aftercare guidance tailored to the placement. Ask questions during the appointment.",
-  },
-  {
-    heading: "Anatomy First",
-    body: "Not every placement works on every body. If something isn't going to heal well or wear well long-term, that gets discussed honestly before anything starts.",
-  },
-];
-
 const piercingTypes = [
-  "Earlobes",
-  "Helix & Cartilage",
-  "Tragus & Daith",
-  "Industrial",
-  "Nostril & Septum",
-  "Eyebrow",
-  "Lip & Labret",
-  "Navel",
-  "Surface Piercings",
-  "Various body placements",
+  "Earlobes", "Helix & Cartilage", "Tragus & Daith", "Industrial",
+  "Nostril & Septum", "Eyebrow", "Lip & Labret", "Navel",
+  "Surface Piercings", "Various body placements",
 ];
 
 export default function PiercingsPage() {
   return (
-    <div className="mx-auto w-full max-w-6xl space-y-12 px-4 py-16 sm:px-6 lg:px-8">
-      <SectionHeading
-        eyebrow="Piercings"
-        title="Professional Body Piercing"
-        description="Practiced since the 1990s. Quality materials, correct technique, and honest aftercare guidance on every placement."
-      />
-
-      <div className="grid gap-3 sm:grid-cols-2">
-        {piercingInfo.map((item) => (
-          <div
-            key={item.heading}
-            className="rounded-lg border border-stone-800 bg-stone-900/40 p-6"
-          >
-            <h2 className="font-serif text-base font-semibold text-stone-200">
-              {item.heading}
-            </h2>
-            <p className="mt-2 text-sm leading-7 text-stone-400">{item.body}</p>
-          </div>
-        ))}
-      </div>
-
-      <section className="space-y-4">
-        <h2 className="font-serif text-xl font-semibold text-stone-200">
-          Common Placements
-        </h2>
-        <ul className="grid gap-2 rounded-lg border border-stone-800 bg-stone-900/40 p-6 sm:grid-cols-2">
-          {piercingTypes.map((type) => (
-            <li key={type} className="flex items-center gap-2 text-sm text-stone-400">
-              <span className="text-stone-700" aria-hidden>
-                —
-              </span>
-              {type}
-            </li>
-          ))}
-        </ul>
-        <p className="text-sm text-stone-600">
-          Not sure if your placement is listed? Ask — this isn&rsquo;t an
-          exhaustive list.
-        </p>
-      </section>
-
-      <div className="rounded-lg border border-stone-800 bg-stone-900/40 p-6 space-y-4">
-        <p className="font-serif text-lg font-semibold text-stone-100">
-          Ready to book?
-        </p>
-        <p className="text-sm text-stone-400">
-          All piercing appointments are by consultation. Reach out to discuss
-          placement, jewelry, and timing before booking.
-        </p>
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <Link
-            href={bookingUrl}
-            className="inline-flex items-center justify-center rounded bg-stone-100 px-6 py-2.5 text-sm font-semibold text-stone-950 transition hover:bg-stone-200"
-          >
-            Book a Piercing
-          </Link>
-          <Link
-            href="/aftercare"
-            className="inline-flex items-center justify-center rounded border border-stone-700 px-6 py-2.5 text-sm font-semibold text-stone-300 transition hover:border-stone-500 hover:text-stone-100"
-          >
-            Piercing Aftercare
-          </Link>
+    <div className="bg-[#111] text-[#f0dfbf]">
+      <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mb-12 space-y-4">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#be9a62]">Piercings</p>
+          <h1 className="font-display text-5xl font-semibold text-[#f0dfbf] sm:text-6xl">Professional Body Piercing</h1>
+          <p className="max-w-3xl text-lg leading-8 text-[#dbc8a7]">
+            Practiced since the 1990s. Implant-grade materials, correct anatomy assessment, and honest aftercare guidance on every placement.
+          </p>
         </div>
+
+        <section className="rounded-xl border border-[#7d5b2e]/40 bg-[#0f0f0f] p-6 sm:p-8">
+          <div className="space-y-8">
+            {[
+              {
+                heading: "Quality Jewelry",
+                body: "Implant-grade materials only. The right starter jewelry affects how well a piercing heals — this isn't a place to cut corners.",
+              },
+              {
+                heading: "Anatomy First",
+                body: "Not every placement works on every body. If something isn't going to heal well or wear well long-term, that gets discussed honestly before anything starts.",
+              },
+              {
+                heading: "Real Aftercare",
+                body: "Every piercing comes with clear aftercare guidance tailored to the placement. Ask questions — it's part of the appointment.",
+              },
+              {
+                heading: "Experience",
+                body: "Piercing since the 1990s means a practiced hand and a grounded understanding of healing, anatomy, and what actually works.",
+              },
+            ].map((item) => (
+              <div key={item.heading} className="border-b border-[#7d5b2e]/30 pb-6 last:border-0">
+                <h2 className="font-display text-2xl font-semibold text-[#f0dfbf]">{item.heading}</h2>
+                <p className="mt-3 text-base leading-7 text-[#dbc8a7]">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-8 rounded-xl border border-[#7d5b2e]/40 bg-[#0f0f0f] p-6 sm:p-8">
+          <p className="mb-6 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#be9a62]">Common Placements</p>
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {piercingTypes.map((type) => (
+              <li key={type} className="flex items-center gap-3 text-sm text-[#dbc8a7]">
+                <span className="text-[#be9a62]">—</span>
+                {type}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 text-xs text-[#be9a62]">
+            Not seeing your placement? Ask — this isn&rsquo;t a complete list.
+          </p>
+        </section>
+
+        <section className="mt-8 rounded-xl border border-[#7d5b2e]/40 bg-[#0f0f0f] p-6 sm:p-8">
+          <h2 className="font-display text-3xl font-semibold text-[#f0dfbf]">Ready to book?</h2>
+          <p className="mt-3 mb-6 text-sm leading-7 text-[#dbc8a7]">
+            Piercing appointments start with a consultation — placement, jewelry, and aftercare discussed before
+            anything starts. Walk-ins for quick services may be available when the schedule allows, but texting first is
+            the fastest way to check.
+          </p>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Link
+              href={bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-[#bc8f4d] bg-[#bc8f4d] px-8 py-3 text-center text-xs font-semibold tracking-[0.1em] text-[#1e1408]"
+            >
+              BOOK A PIERCING
+            </Link>
+            <Link
+              href="/aftercare"
+              className="rounded-full border border-[#bc8f4d] bg-transparent px-8 py-3 text-center text-xs font-semibold tracking-[0.1em] text-[#e7d4b4]"
+            >
+              PIERCING AFTERCARE
+            </Link>
+          </div>
+        </section>
       </div>
     </div>
   );

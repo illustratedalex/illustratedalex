@@ -1,268 +1,260 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { GalleryGrid } from "@/components/gallery-grid";
-import { SectionHeading } from "@/components/section-heading";
-import {
-  aboutSummary,
-  bookingUrl,
-  galleryItems,
-  locations,
-  portfolioCategories,
-  shopUrl,
-  timeline,
-} from "@/data/site-content";
+import { businessTagline, BOOKING_URL, galleryItems, shopUrl, GIFT_CARD_URL } from "@/data/site-content";
 
 export const metadata: Metadata = {
   title: "Illustrated Alex — Tattoo & Piercing",
   description:
-    "Custom tattoos, professional piercing, and nearly four decades of experience. Private studio in Claremont, NH.",
+    "Custom tattoos, professional body piercing, and nearly four decades of experience at 30 Opera House Square in Claremont, NH. Appointments are recommended, and walk-ins may be available when the schedule allows.",
 };
 
-const featuredGallery = galleryItems
-  .filter((item) => item.status === "published" && item.featured)
+const featuredPortfolio = galleryItems
+  .filter(
+    (item) =>
+      item.status === "published" &&
+      item.category !== "Piercings" &&
+      item.category !== "Studio" &&
+      item.category !== "In Progress",
+  )
   .sort((a, b) => a.sortOrder - b.sortOrder)
-  .slice(0, 4);
+  .slice(0, 6);
+
+const piercingPreview = galleryItems
+  .filter((item) => item.status === "published" && item.category === "Piercings")
+  .sort((a, b) => a.sortOrder - b.sortOrder)
+  .slice(0, 2);
 
 export default function Home() {
   return (
-    <div className="mx-auto w-full max-w-6xl space-y-24 px-4 py-16 sm:px-6 lg:px-8">
-
-      {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="space-y-6 border-b border-stone-800/50 pb-16">
-        <p className="text-xs font-semibold uppercase tracking-[0.32em] text-stone-500">
-          Tattoo &nbsp;•&nbsp; Piercing &nbsp;•&nbsp; Art
-        </p>
-        <h1 className="font-serif text-5xl font-bold tracking-tight text-stone-100 sm:text-6xl lg:text-7xl">
-          Illustrated Alex
-        </h1>
-        <p className="max-w-2xl text-base leading-8 text-stone-400 sm:text-lg">
-          Custom tattoos, professional piercing, and nearly four decades of
-          experience in clean, client-focused body art. Based in Claremont,
-          New Hampshire.
-        </p>
-        <div className="flex flex-col gap-3 pt-2 sm:flex-row">
-          <Link
-            href={bookingUrl}
-            className="inline-flex items-center justify-center rounded bg-stone-100 px-7 py-3 text-sm font-semibold text-stone-950 transition hover:bg-stone-200"
-          >
-            Book Appointment
-          </Link>
-          <Link
-            href={shopUrl}
-            className="inline-flex items-center justify-center rounded border border-stone-700 px-7 py-3 text-sm font-semibold text-stone-300 transition hover:border-stone-500 hover:text-stone-100"
-          >
-            Shop Jewelry &amp; Aftercare
-          </Link>
-        </div>
-      </section>
-
-      {/* ── Featured Work ────────────────────────────────────── */}
-      <section className="space-y-8">
-        <SectionHeading
-          eyebrow="Portfolio"
-          title="Featured Work"
-          description="A private studio practice built around portfolio-first tattooing and professional piercing."
+    <div className="bg-[#0a0a0a]">
+      <section className="relative min-h-[82vh] overflow-hidden">
+        <Image
+          src="/images/studio/alex-tattooing.jpg"
+          alt="Alex tattooing in studio"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
         />
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {portfolioCategories.map((cat) => (
-            <Link
-              key={cat}
-              href="/portfolio"
-              className="group flex aspect-[4/3] items-end rounded-lg border border-stone-800 bg-stone-900/60 p-5 transition hover:border-stone-700 hover:bg-stone-900"
-            >
-              <div>
-                <p className="font-serif text-base font-semibold text-stone-200 transition group-hover:text-stone-100">
-                  {cat}
-                </p>
-                <p className="mt-0.5 text-xs text-stone-600 transition group-hover:text-stone-500">
-                  View work →
+        <div className="absolute inset-0 bg-gradient-to-r from-black/88 via-black/72 to-black/45" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-[#0a0a0a]/30" />
+
+        <div className="relative mx-auto grid w-full max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:px-8 lg:py-20">
+          <div>
+            <p className="text-[11px] font-semibold tracking-[0.2em] text-[#d6b27d]">{businessTagline.toUpperCase()}</p>
+            <h1 className="font-display mt-4 text-4xl leading-[0.95] font-semibold tracking-[0.04em] text-[#f4e6c9] sm:text-6xl md:text-7xl lg:text-8xl">
+              ILLUSTRATED
+              <br />
+              ALEX
+            </h1>
+            <p className="mt-6 max-w-2xl text-base leading-7 text-[#e6d7ba] sm:text-lg sm:leading-8">
+              Custom tattoos, professional piercing, and nearly four decades of experience. Based in Claremont, New
+              Hampshire, with guest artist appearances in Connecticut and California.
+            </p>
+
+            <div className="mt-7 flex flex-wrap gap-2.5">
+              <span className="rounded-full border border-[#9f7a3f]/60 bg-black/35 px-3 py-2 text-[10px] leading-tight text-[#ead6b3] sm:px-4 sm:py-1.5 sm:text-[11px]">
+                30 Opera House Square, Claremont NH
+              </span>
+              <span className="rounded-full border border-[#9f7a3f]/60 bg-black/35 px-3 py-2 text-[10px] leading-tight text-[#ead6b3] sm:px-4 sm:py-1.5 sm:text-[11px]">
+                Guest Artist: Enfield CT
+              </span>
+              <span className="rounded-full border border-[#9f7a3f]/60 bg-black/35 px-3 py-2 text-[10px] leading-tight text-[#ead6b3] sm:px-4 sm:py-1.5 sm:text-[11px]">
+                Guest Artist: Redondo Beach CA
+              </span>
+            </div>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Link
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="min-h-11 w-full rounded-full border border-[#bc8f4d] bg-[#bc8f4d] px-5 py-2.5 text-center text-[11px] font-semibold tracking-[0.1em] text-[#1e1408] sm:w-auto"
+              >
+                BOOK APPOINTMENT
+              </Link>
+              <Link
+                href={shopUrl}
+                className="min-h-11 w-full rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-center text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4] sm:w-auto"
+              >
+                SHOP JEWELRY &amp; AFTERCARE
+              </Link>
+              <Link
+                href="/contact"
+                className="min-h-11 w-full rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-center text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4] sm:w-auto"
+              >
+                TEXT REFERENCE IMAGE
+              </Link>
+            </div>
+          </div>
+
+          <div className="w-full">
+            <div className="relative mx-auto w-full max-w-[420px] rounded-3xl border border-[#8c6a37]/45 bg-black/35 p-5 backdrop-blur-md lg:ml-auto">
+              <div className="absolute -inset-1 -z-10 rounded-3xl bg-gradient-to-br from-[#b48b4a]/18 to-transparent" />
+              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-[#8c6a37]/35 bg-gradient-to-b from-[#1a130b] to-black/80">
+                <div className="absolute inset-5 z-0 rounded-[1.2rem] border border-[#a88245]/38 bg-[rgba(245,239,225,0.78)] shadow-[inset_0_1px_0_rgba(255,255,255,0.45),inset_0_-12px_24px_rgba(86,60,26,0.14)] backdrop-blur-sm" />
+                <Image
+                  src="/images/brand/illustratedalex-logo-main.png"
+                  alt="Illustrated Alex main logo"
+                  fill
+                  sizes="420px"
+                  className="object-contain p-8"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/18 via-transparent to-transparent" />
+              </div>
+              <div className="mt-3 rounded-xl border border-[#8c6a37]/35 bg-black/45 px-3 py-2 text-center">
+                <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-[#ecd9b7]">
+                  Private Studio • Claremont NH
                 </p>
               </div>
-            </Link>
-          ))}
+            </div>
+          </div>
         </div>
+
         <Link
-          href="/portfolio"
-          className="text-sm text-stone-500 transition hover:text-stone-300"
+          href="/contact"
+          className="fixed right-3 bottom-3 z-40 min-h-11 rounded-full border border-[#bc8f4d] bg-[#17120d]/92 px-4 py-2 text-[11px] font-semibold tracking-[0.08em] text-[#f2dfbf] shadow-lg backdrop-blur sm:right-4 sm:bottom-4"
         >
-          Browse full portfolio →
+          💬 TEXT THE STUDIO
         </Link>
       </section>
 
-      {/* ── The Studio ───────────────────────────────────────── */}
-      <section className="grid gap-8 lg:grid-cols-2 lg:gap-12">
-        <div className="space-y-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.26em] text-stone-500">
-            The Studio
-          </p>
-          <h2 className="font-serif text-3xl font-bold tracking-tight text-stone-100 sm:text-4xl">
-            Private. Personal. Appointment-Based.
-          </h2>
-          <p className="text-base leading-8 text-stone-400">
-            The studio at 30 Opera House Square in Claremont, NH is a
-            one-on-one space — not a walk-in shop, not a factory. Tattooing,
-            piercing, art, plants, natural textures, and a deliberately calm
-            atmosphere that makes the work easier for everyone.
-          </p>
-          <p className="text-base leading-8 text-stone-400">
-            Every appointment is built around the client: placement, design,
-            healing, and long-term wear all considered before anything starts.
-          </p>
-          <Link
-            href="/about"
-            className="text-sm text-stone-500 transition hover:text-stone-300"
-          >
-            About Illustrated Alex →
+      <section className="border-t border-[#7d5b2e]/40 bg-[#0f0f0f] py-14 text-[#f0dfbf]">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="font-display text-3xl font-semibold tracking-[0.02em] sm:text-4xl">Featured Portfolio</h2>
+          <p className="mt-2 text-sm text-[#d4c09c]">Custom tattoo work from recent sessions.</p>
+          <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {featuredPortfolio.map((item) => (
+              <article key={item.id} className="group overflow-hidden rounded-xl border border-[#7d5b2e]/30 bg-black/25">
+                <div className="relative h-[220px] sm:h-[200px]">
+                  <Image
+                    src={item.imageUrl}
+                    alt={item.altText}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 33vw"
+                    className="object-cover transition duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                </div>
+                <div className="border-t border-[#7d5b2e]/30 px-3 py-2.5">
+                  <p className="text-sm font-medium text-[#f2e1c2]">{item.title}</p>
+                  <p className="mt-0.5 text-[11px] uppercase tracking-[0.12em] text-[#c4aa7f]">{item.category}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+          <Link href="/portfolio" className="mt-6 inline-block text-sm text-[#e1c18c] underline underline-offset-4">
+            View full portfolio
           </Link>
         </div>
-
-        <div className="space-y-3">
-          {[
-            {
-              label: "Home Studio",
-              value: "30 Opera House Square",
-              sub: "Claremont, NH",
-            },
-            {
-              label: "By Appointment",
-              value: "Private studio",
-              sub: "No walk-ins",
-            },
-            {
-              label: "Experience",
-              value: "Tattooing since 1986",
-              sub: "Piercing since the 1990s",
-            },
-          ].map((item) => (
-            <div
-              key={item.label}
-              className="rounded-lg border border-stone-800 bg-stone-900/40 px-5 py-4"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-stone-600">
-                {item.label}
-              </p>
-              <p className="mt-1 text-sm font-medium text-stone-200">
-                {item.value}
-              </p>
-              <p className="text-xs text-stone-500">{item.sub}</p>
-            </div>
-          ))}
-        </div>
       </section>
 
-      {/* ── Where To Find Me ─────────────────────────────────── */}
-      <section className="space-y-8">
-        <SectionHeading eyebrow="Locations" title="Where to Find Me" />
-        <div className="grid gap-3 sm:grid-cols-3">
-          {locations.map((loc) => (
-            <div
-              key={loc.name}
-              className="space-y-2 rounded-lg border border-stone-800 bg-stone-900/40 p-5"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-600">
-                {loc.label}
-              </p>
-              <p className="font-serif text-base font-semibold text-stone-200">
-                {loc.name}
-              </p>
-              <p className="text-xs leading-5 text-stone-500">
-                {loc.description}
-              </p>
-              <p className="text-xs text-stone-600">{loc.address}</p>
-            </div>
-          ))}
-        </div>
-        <Link
-          href="/travel"
-          className="text-sm text-stone-500 transition hover:text-stone-300"
-        >
-          Guest artist &amp; travel info →
-        </Link>
-      </section>
-
-      {/* ── About ────────────────────────────────────────────── */}
-      <section className="grid gap-8 border-t border-stone-800/50 pt-16 lg:grid-cols-2 lg:gap-12">
-        <div className="space-y-6">
-          <SectionHeading
-            eyebrow="About"
-            title="Nearly Four Decades in the Craft"
-            description={aboutSummary}
-          />
-          <div className="grid gap-3 sm:grid-cols-2">
-            {timeline.slice(0, 4).map((item) => (
-              <div key={item.label}>
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-stone-600">
-                  {item.label}
-                </p>
-                <p className="mt-0.5 text-sm text-stone-300">{item.value}</p>
+      <section className="border-t border-[#7d5b2e]/35 bg-[#121212] py-14 text-[#f0dfbf]">
+        <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+          <div>
+            <h2 className="font-display text-3xl font-semibold tracking-[0.02em] sm:text-4xl">Piercing Services</h2>
+            <p className="mt-4 text-base leading-8 text-[#dbc8a7]">
+              Professional piercing with anatomy-aware placement, quality jewelry, and clear aftercare guidance.
+            </p>
+            <Link href="/piercings" className="mt-5 inline-block text-sm text-[#e1c18c] underline underline-offset-4">
+              Piercing information
+            </Link>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {piercingPreview.map((item) => (
+              <div key={item.id} className="relative aspect-[4/5] overflow-hidden rounded-xl border border-[#7d5b2e]/40">
+                <Image src={item.imageUrl} alt={item.altText} fill sizes="(max-width: 1024px) 100vw, 25vw" className="object-cover" />
               </div>
             ))}
           </div>
-          <Link
-            href="/about"
-            className="text-sm text-stone-500 transition hover:text-stone-300"
-          >
-            Full story →
-          </Link>
-        </div>
-
-        <div className="space-y-3">
-          {featuredGallery.length > 0 ? (
-            <GalleryGrid items={featuredGallery} columns={2} />
-          ) : (
-            <div className="grid grid-cols-2 gap-3">
-              {Array.from({ length: 4 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="flex aspect-square items-center justify-center rounded-lg border border-stone-800 bg-stone-900"
-                >
-                  <p className="text-[10px] uppercase tracking-[0.14em] text-stone-700">
-                    Portfolio
-                  </p>
-                </div>
-              ))}
-            </div>
-          )}
-          <Link
-            href="/portfolio"
-            className="block text-sm text-stone-500 transition hover:text-stone-300"
-          >
-            View full portfolio →
-          </Link>
         </div>
       </section>
 
-      {/* ── Booking & Store ──────────────────────────────────── */}
-      <section className="grid gap-4 border-t border-stone-800/50 pt-16 sm:grid-cols-2">
-        <div className="space-y-4 rounded-lg border border-stone-800 bg-stone-900/40 p-7">
-          <p className="font-serif text-xl font-semibold text-stone-100">
-            Book an Appointment
-          </p>
-          <p className="text-sm leading-7 text-stone-400">
-            Tattoo consultations, piercing appointments, and guest artist
-            bookings — all handled through Square.
-          </p>
-          <Link
-            href={bookingUrl}
-            className="inline-flex items-center rounded bg-stone-100 px-5 py-2.5 text-sm font-semibold text-stone-950 transition hover:bg-stone-200"
-          >
-            Book Now
-          </Link>
+      <section className="border-t border-[#7d5b2e]/35 bg-[#131313] py-14 text-[#f0dfbf]">
+        <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-[#7d5b2e]/35">
+            <Image
+              src="/images/studio/studio-front.jpg"
+              alt="Illustrated Alex studio front in Claremont"
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover"
+            />
+          </div>
+          <div>
+            <h2 className="font-display text-3xl font-semibold tracking-[0.02em] text-[#f0dfbf] sm:text-4xl">Studio &amp; Location</h2>
+            <p className="mt-4 text-base leading-8 text-[#dbc8a7]">
+              Appointments are recommended at 30 Opera House Square in Claremont, NH. Walk-ins may be available when
+              the schedule allows, but texting first is the best way to check availability before stopping in.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="/contact"
+                className="min-h-11 rounded-full border border-[#bc8f4d] bg-[#bc8f4d] px-5 py-2.5 text-[11px] font-semibold tracking-[0.1em] text-[#1e1408]"
+              >
+                TEXT THE STUDIO
+              </Link>
+              <Link
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="min-h-11 rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4]"
+              >
+                BOOK APPOINTMENT
+              </Link>
+            </div>
+          </div>
         </div>
-        <div className="space-y-4 rounded-lg border border-stone-800 bg-stone-900/40 p-7">
-          <p className="font-serif text-xl font-semibold text-stone-100">
-            Shop
-          </p>
-          <p className="text-sm leading-7 text-stone-400">
-            Jewelry, aftercare products, gift cards, and merchandise — available
-            through the Square store.
-          </p>
-          <Link
-            href={shopUrl}
-            className="inline-flex items-center rounded border border-stone-700 px-5 py-2.5 text-sm font-semibold text-stone-300 transition hover:border-stone-500 hover:text-stone-100"
-          >
-            Visit Store
-          </Link>
+      </section>
+
+      <section className="border-t border-[#7d5b2e]/35 bg-[#131313] pb-16">
+        <div className="mx-auto w-full max-w-7xl px-4 pt-14 sm:px-6 lg:px-8">
+          <div className="mb-8 rounded-xl border border-[#7d5b2e]/45 bg-[#0f0f0f] p-6 sm:p-8">
+            <h2 className="font-display text-3xl font-semibold text-[#f0dfbf] sm:text-4xl">About Alex</h2>
+            <p className="mt-3 max-w-3xl text-base leading-8 text-[#dbc8a7]">
+              Alex has been tattooing since 1986 and has spent decades building a career around custom work, piercing,
+              consistency, and craftsmanship.
+            </p>
+            <Link
+              href="/about"
+              className="mt-5 inline-block rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-xs font-semibold tracking-[0.1em] text-[#e7d4b4]"
+            >
+              READ FULL STORY
+            </Link>
+          </div>
+
+          <div className="rounded-xl border border-[#7d5b2e]/45 bg-[#0f0f0f] p-6 sm:p-8">
+            <h2 className="font-display text-3xl font-semibold text-[#f0dfbf] sm:text-4xl">Book an appointment</h2>
+            <p className="mt-3 max-w-2xl text-base leading-8 text-[#dbc8a7]">
+              Send your concept, reference imagery, and preferred placement. We&apos;ll follow up with availability and
+              next steps.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="min-h-11 rounded-full border border-[#bc8f4d] bg-[#bc8f4d] px-5 py-2.5 text-[11px] font-semibold tracking-[0.1em] text-[#1e1408]"
+              >
+                BOOK APPOINTMENT
+              </Link>
+              <Link
+                href="/portfolio"
+                className="min-h-11 rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4]"
+              >
+                VIEW PORTFOLIO
+              </Link>
+              <Link
+                href={GIFT_CARD_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="min-h-11 rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4]"
+              >
+                GIFT CARDS ↗
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </div>

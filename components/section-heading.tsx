@@ -2,25 +2,22 @@ type SectionHeadingProps = {
   eyebrow?: string;
   title: string;
   description?: string;
+  centered?: boolean;
 };
 
-export function SectionHeading({
-  eyebrow,
-  title,
-  description,
-}: SectionHeadingProps) {
+export function SectionHeading({ eyebrow, title, description, centered }: SectionHeadingProps) {
   return (
-    <div className="space-y-3">
+    <div className={`space-y-4 ${centered ? "text-center" : ""}`}>
       {eyebrow ? (
-        <p className="text-xs font-semibold uppercase tracking-[0.26em] text-stone-500">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#968b80]">
           {eyebrow}
         </p>
       ) : null}
-      <h2 className="font-serif text-3xl font-bold tracking-tight text-stone-100 sm:text-4xl">
+      <h2 className="font-serif text-3xl font-bold tracking-tight text-[#120f0d] sm:text-4xl">
         {title}
       </h2>
       {description ? (
-        <p className="max-w-3xl text-base leading-7 text-stone-400">
+        <p className={`text-base leading-7 text-[#5c5047] ${centered ? "mx-auto" : ""} max-w-2xl`}>
           {description}
         </p>
       ) : null}

@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { bookingUrl } from "@/data/site-content";
 
-type NavItem = { href: string; label: string };
+type NavItem = { href: string; label: string; external?: boolean };
 
 export function MobileNav({ items }: { items: NavItem[] }) {
   const [open, setOpen] = useState(false);
@@ -15,37 +14,21 @@ export function MobileNav({ items }: { items: NavItem[] }) {
         onClick={() => setOpen(!open)}
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
-        className="flex h-9 w-9 items-center justify-center rounded text-stone-400 transition hover:text-stone-100"
+        className="flex h-11 w-11 items-center justify-center rounded-md border border-[#7f6232]/40 bg-[#0f0f0f] text-[#d8c7a6] transition hover:text-[#f5e6c8]"
       >
         {open ? (
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            aria-hidden
-          >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
             <path d="M2 2l14 14M16 2L2 16" />
           </svg>
         ) : (
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            aria-hidden
-          >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
             <path d="M2 4h14M2 9h14M2 14h14" />
           </svg>
         )}
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-1 w-56 rounded-lg border border-stone-800 bg-[#0e0c0a] py-2 shadow-xl">
+        <div className="absolute right-0 top-full z-50 mt-2 w-64 max-w-[calc(100vw-1rem)] rounded-lg border border-[#7f6232]/50 bg-[#0f0f0f] py-2 shadow-xl">
           <nav>
             <ul>
               {items.map((item) => (
@@ -53,21 +36,13 @@ export function MobileNav({ items }: { items: NavItem[] }) {
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="block px-4 py-2.5 text-sm text-stone-300 transition hover:bg-stone-900 hover:text-stone-100"
+                    {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    className="block px-5 py-3 text-xs uppercase tracking-[0.12em] text-[#e8d8b9] transition hover:bg-[#1a1a1a] hover:text-white"
                   >
                     {item.label}
                   </Link>
                 </li>
               ))}
-              <li className="mx-3 mt-2 border-t border-stone-800 pt-2">
-                <Link
-                  href={bookingUrl}
-                  onClick={() => setOpen(false)}
-                  className="block rounded px-1 py-2 text-center text-sm font-semibold text-stone-100 transition hover:text-stone-200"
-                >
-                  Book Appointment
-                </Link>
-              </li>
             </ul>
           </nav>
         </div>

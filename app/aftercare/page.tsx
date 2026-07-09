@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { SectionHeading } from "@/components/section-heading";
 
 export const metadata: Metadata = {
   title: "Aftercare",
   description:
-    "Tattoo and piercing aftercare guidance from Illustrated Alex. Always follow the direct instructions from your appointment.",
+    "Tattoo and piercing aftercare guidance from Illustrated Alex. Separate sections for tattoos and piercings. Always follow the instructions from your appointment first.",
 };
 
 const tattooAftercare = [
   "Keep the wrap or bandage on for the time your artist specified — usually 1–4 hours, or overnight for second-skin film.",
-  "Wash gently with unscented, antibacterial soap using clean hands. Pat dry with a clean paper towel.",
-  "Apply a thin layer of unscented lotion or the product recommended by your artist. Skin needs to breathe — don't over-apply.",
+  "Wash gently with unscented antibacterial soap using clean hands. Pat dry with a clean paper towel.",
+  "Apply a thin layer of unscented lotion or the product your artist recommended. Skin needs to breathe — don't over-apply.",
   "Keep out of direct sun while healing. Once healed, always use SPF on tattooed skin.",
   "Avoid soaking — no pools, hot tubs, lakes, or long baths until fully healed (typically 2–4 weeks).",
   "Don't pick, scratch, or peel flaking skin. Let it shed on its own.",
-  "Loose, clean clothing over fresh work. Avoid friction from tight waistbands, straps, or shoes depending on placement.",
+  "Loose, clean clothing over fresh work. Avoid friction from straps, waistbands, or shoes depending on placement.",
 ];
 
 const piercingAftercare = [
@@ -23,85 +22,68 @@ const piercingAftercare = [
   "Leave it alone. Avoid twisting, turning, or touching the jewelry unnecessarily.",
   "Don't use alcohol, hydrogen peroxide, Bactine, or harsh soaps — these damage healing tissue.",
   "Avoid submerging in pools, hot tubs, or open water during healing.",
-  "Be mindful of sleeping pressure for ear and facial piercings. A travel pillow can help for ear work.",
-  "Some redness, swelling, and clear or white discharge is normal early on. Yellow or green discharge, or worsening pain, is a sign to reach out.",
-  "Healing timelines vary widely — earlobes may take 6–8 weeks, cartilage and other placements 6–12+ months.",
+  "Be mindful of sleeping pressure for ear and facial piercings.",
+  "Some redness, swelling, and clear or white discharge is normal early on. Yellow or green discharge or worsening pain — reach out.",
+  "Healing timelines vary widely. Earlobes: 6–8 weeks. Cartilage and other placements: 6–12+ months.",
 ];
 
 export default function AftercarePage() {
   return (
-    <div className="mx-auto w-full max-w-6xl space-y-12 px-4 py-16 sm:px-6 lg:px-8">
-      <SectionHeading
-        eyebrow="Aftercare"
-        title="Protect your work while it heals"
-        description="Healing is part of the process. What you do after your session matters as much as the session itself."
-      />
+    <div className="bg-[#111] text-[#f0dfbf]">
+      <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mb-12 space-y-4">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#be9a62]">Aftercare</p>
+          <h1 className="font-display text-5xl font-semibold text-[#f0dfbf] sm:text-6xl">Healing Your Work</h1>
+          <p className="max-w-3xl text-lg leading-8 text-[#dbc8a7]">
+            What you do after the session matters as much as the session itself.
+          </p>
+        </div>
 
-      <div className="rounded border border-stone-700/40 bg-stone-900/30 px-5 py-4">
-        <p className="text-sm leading-7 text-stone-400">
-          <strong className="font-semibold text-stone-300">Note:</strong> These
-          are general guidelines. Aftercare may vary based on your specific
-          tattoo, piercing, placement, or healing. Always follow the direct
-          instructions given to you during your appointment. If something feels
-          off,{" "}
-          <Link
-            href="/contact"
-            className="text-stone-300 underline hover:text-stone-100"
-          >
+        <div className="mb-8 rounded-xl border border-[#7d5b2e]/40 bg-[#0f0f0f] px-6 py-5 text-sm leading-7 text-[#dbc8a7]">
+          These are general guidelines. Aftercare varies by placement and individual healing. Always follow the direct
+          instructions given during your appointment. If something feels off,{" "}
+          <Link href="/contact" className="text-[#e1c18c] underline underline-offset-2 hover:text-[#f0dfbf]">
             reach out to the studio
           </Link>{" "}
           rather than guessing.
-        </p>
-      </div>
+        </div>
 
-      {/* Tattoo */}
-      <section className="space-y-4">
-        <h2 className="font-serif text-xl font-semibold text-stone-200">
-          Tattoo Aftercare
-        </h2>
-        <ul className="space-y-3 rounded-lg border border-stone-800 bg-stone-900/40 p-6">
-          {tattooAftercare.map((tip) => (
-            <li key={tip} className="flex gap-3 text-sm leading-7 text-stone-400">
-              <span className="mt-1 shrink-0 text-stone-600" aria-hidden>
-                —
-              </span>
-              {tip}
-            </li>
-          ))}
-        </ul>
-      </section>
+        <section className="rounded-xl border border-[#7d5b2e]/40 bg-[#0f0f0f] p-6 sm:p-8">
+          <h2 className="font-display text-3xl font-semibold text-[#f0dfbf]">Tattoo Aftercare</h2>
+          <ul className="mt-6 space-y-4">
+            {tattooAftercare.map((tip, i) => (
+              <li key={i} className="flex gap-4 border-b border-[#7d5b2e]/30 pb-4 last:border-0">
+                <span className="mt-0.5 shrink-0 text-xs font-semibold text-[#be9a62]">{String(i + 1).padStart(2, "0")}</span>
+                <p className="text-sm leading-7 text-[#dbc8a7]">{tip}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
 
-      {/* Piercing */}
-      <section className="space-y-4">
-        <h2 className="font-serif text-xl font-semibold text-stone-200">
-          Piercing Aftercare
-        </h2>
-        <ul className="space-y-3 rounded-lg border border-stone-800 bg-stone-900/40 p-6">
-          {piercingAftercare.map((tip) => (
-            <li key={tip} className="flex gap-3 text-sm leading-7 text-stone-400">
-              <span className="mt-1 shrink-0 text-stone-600" aria-hidden>
-                —
-              </span>
-              {tip}
-            </li>
-          ))}
-        </ul>
-      </section>
+        <section className="mt-8 rounded-xl border border-[#7d5b2e]/40 bg-[#0f0f0f] p-6 sm:p-8">
+          <h2 className="font-display text-3xl font-semibold text-[#f0dfbf]">Piercing Aftercare</h2>
+          <ul className="mt-6 space-y-4">
+            {piercingAftercare.map((tip, i) => (
+              <li key={i} className="flex gap-4 border-b border-[#7d5b2e]/30 pb-4 last:border-0">
+                <span className="mt-0.5 shrink-0 text-xs font-semibold text-[#be9a62]">{String(i + 1).padStart(2, "0")}</span>
+                <p className="text-sm leading-7 text-[#dbc8a7]">{tip}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
 
-      <div className="rounded-lg border border-stone-800 bg-stone-900/40 p-6">
-        <p className="text-base font-medium text-stone-200">
-          Questions during healing?
-        </p>
-        <p className="mt-2 text-sm text-stone-500">
-          Early attention prevents most healing issues. Don&rsquo;t wait — get
-          in touch if anything looks or feels unusual.
-        </p>
-        <Link
-          href="/contact"
-          className="mt-4 inline-flex items-center rounded border border-stone-700 px-5 py-2 text-sm font-medium text-stone-300 transition hover:border-stone-500 hover:text-stone-100"
-        >
-          Contact the Studio
-        </Link>
+        <div className="mt-8 rounded-xl border border-[#7d5b2e]/40 bg-[#0f0f0f] p-6 sm:p-8">
+          <p className="text-base font-medium text-[#f0dfbf]">Questions during healing?</p>
+          <p className="mt-2 mb-5 text-sm text-[#dbc8a7]">
+            Early attention prevents most healing issues. Don&rsquo;t wait — reach out if anything looks or feels unusual.
+          </p>
+          <Link
+            href="/contact"
+            className="rounded-full border border-[#bc8f4d] bg-transparent px-6 py-2.5 text-xs font-semibold tracking-[0.1em] text-[#e7d4b4]"
+          >
+            CONTACT THE STUDIO
+          </Link>
+        </div>
       </div>
     </div>
   );
