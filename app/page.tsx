@@ -72,34 +72,18 @@ export default function Home() {
             </div>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <TrackedLink
-                href={BOOKING_URL}
-                eventName="book_now_click"
-                eventParams={{ source: "homepage_hero" }}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/portfolio"
                 className="min-h-11 w-full rounded-full border border-[#bc8f4d] bg-[#bc8f4d] px-5 py-2.5 text-center text-[11px] font-semibold tracking-[0.1em] text-[#1e1408] sm:w-auto"
               >
-                BOOK APPOINTMENT
-              </TrackedLink>
-              <TrackedLink
-                href={SHOP_URL}
-                eventName="shop_click"
-                eventParams={{ source: "homepage_hero" }}
-                target="_blank"
-                rel="noopener noreferrer"
+                VIEW PORTFOLIO
+              </Link>
+              <Link
+                href="/contact"
                 className="min-h-11 w-full rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-center text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4] sm:w-auto"
               >
-                SHOP JEWELRY &amp; AFTERCARE
-              </TrackedLink>
-              <TrackedLink
-                href={TEXT_STUDIO_URL}
-                eventName="text_studio_click"
-                eventParams={{ source: "homepage_hero" }}
-                className="min-h-11 w-full rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-center text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4] sm:w-auto"
-              >
-                TEXT REFERENCE IMAGE
-              </TrackedLink>
+                CONTACT THE STUDIO
+              </Link>
             </div>
           </div>
 
@@ -119,7 +103,7 @@ export default function Home() {
               </div>
               <div className="mt-3 rounded-xl border border-[#8c6a37]/35 bg-black/45 px-3 py-2 text-center">
                 <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-[#ecd9b7]">
-                  Private Studio • Claremont NH
+                  Personal Studio Experience • Claremont NH
                 </p>
               </div>
             </div>
@@ -238,31 +222,12 @@ export default function Home() {
             />
           </div>
           <div>
-            <h2 className="font-display text-3xl font-semibold tracking-[0.02em] text-[#f0dfbf] sm:text-4xl">Studio &amp; Location</h2>
+            <h2 className="font-display text-3xl font-semibold tracking-[0.02em] text-[#f0dfbf] sm:text-4xl">Personal Studio Experience</h2>
             <p className="mt-4 text-base leading-8 text-[#dbc8a7]">
-              Appointments are recommended at 30 Opera House Square in Claremont, NH. Walk-ins may be available when
-              the schedule allows, but texting first is the best way to check availability before stopping in.
+              Appointments are recommended so each client gets focused time and clear communication. Walk-ins may be
+              available when the schedule allows, especially for quick piercings or smaller services. Text first to
+              check availability before stopping in.
             </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <TrackedLink
-                href={TEXT_STUDIO_URL}
-                eventName="text_studio_click"
-                eventParams={{ source: "homepage_location" }}
-                className="min-h-11 rounded-full border border-[#bc8f4d] bg-[#bc8f4d] px-5 py-2.5 text-[11px] font-semibold tracking-[0.1em] text-[#1e1408]"
-              >
-                TEXT THE STUDIO
-              </TrackedLink>
-              <TrackedLink
-                href={BOOKING_URL}
-                eventName="book_now_click"
-                eventParams={{ source: "homepage_location" }}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="min-h-11 rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4]"
-              >
-                BOOK APPOINTMENT
-              </TrackedLink>
-            </div>
           </div>
         </div>
       </section>
@@ -284,10 +249,10 @@ export default function Home() {
           </div>
 
           <div className="rounded-xl border border-[#7d5b2e]/45 bg-[#0f0f0f] p-6 sm:p-8">
-            <h2 className="font-display text-3xl font-semibold text-[#f0dfbf] sm:text-4xl">Book an appointment</h2>
+            <h2 className="font-display text-3xl font-semibold text-[#f0dfbf] sm:text-4xl">Appointments, Jewelry &amp; Aftercare</h2>
             <p className="mt-3 max-w-2xl text-base leading-8 text-[#dbc8a7]">
-              Send your concept, reference imagery, and preferred placement. We&apos;ll follow up with availability and
-              next steps.
+              Book appointments, shop jewelry and aftercare, purchase gift cards, or text the studio if you need help
+              choosing the right service.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <TrackedLink
@@ -300,12 +265,16 @@ export default function Home() {
               >
                 BOOK APPOINTMENT
               </TrackedLink>
-              <Link
-                href="/portfolio"
+              <TrackedLink
+                href={SHOP_URL}
+                eventName="shop_click"
+                eventParams={{ source: "homepage_book_section" }}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="min-h-11 rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4]"
               >
-                VIEW PORTFOLIO
-              </Link>
+                SHOP JEWELRY &amp; AFTERCARE
+              </TrackedLink>
               <TrackedLink
                 href={GIFT_CARD_URL}
                 eventName="gift_card_click"
@@ -315,6 +284,14 @@ export default function Home() {
                 className="min-h-11 rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4]"
               >
                 GIFT CARDS ↗
+              </TrackedLink>
+              <TrackedLink
+                href={TEXT_STUDIO_URL}
+                eventName="text_studio_click"
+                eventParams={{ source: "homepage_book_section" }}
+                className="min-h-11 rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4]"
+              >
+                TEXT THE STUDIO
               </TrackedLink>
             </div>
           </div>
