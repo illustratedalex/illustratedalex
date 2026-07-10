@@ -94,13 +94,13 @@ export default function MountainsideLegacyPage() {
           <div className="rounded-xl border border-[#7d5b2e]/35 bg-gradient-to-br from-[#17120e] to-[#0e0e0e] p-6">
             <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#be9a62]">Original Shop</p>
             <p className="mt-3 text-sm leading-7 text-[#d9c39d]">
-              Image placeholder for the original downtown Mountainside location in Bellows Falls.
+              Original downtown Mountainside location in Bellows Falls.
             </p>
           </div>
           <div className="rounded-xl border border-[#7d5b2e]/35 bg-gradient-to-br from-[#17120e] to-[#0e0e0e] p-6">
             <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#be9a62]">The Square Years</p>
             <p className="mt-3 text-sm leading-7 text-[#d9c39d]">
-              Image placeholder for the move to the Square and expansion into a larger multi-floor shop.
+              Mountainside&rsquo;s move to the Square and expansion into a larger multi-floor shop.
             </p>
           </div>
         </section>

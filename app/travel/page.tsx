@@ -227,7 +227,7 @@ export default function TravelPage() {
             ) : (
               <div className="flex h-[260px] items-center justify-center rounded-xl border border-[#7d5b2e]/35 bg-gradient-to-br from-[#17120e] to-[#0e0e0e] p-6 text-center sm:h-[300px]">
                 <p className="text-sm leading-7 text-[#d9c39d]">
-                  Travel setup image will be added here when the ambulance photo is available.
+                  Travel-ready mobile setup supports guest spots, studio invites, and road bookings.
                 </p>
               </div>
             )}

@@ -59,7 +59,9 @@ export const BOOKING_URL =
   "https://book.squareup.com/appointments/7s9snq3nsbhzgk/location/L3SN2SYR67KKJ/services?buttonTextColor=ffffff&color=212121&locale=en&referrer=so";
 /** @deprecated Use BOOKING_URL */
 export const bookingUrl = BOOKING_URL;
-export const shopUrl = "/shop";
+export const SHOP_URL = "https://shop.illustratedalex.com";
+/** @deprecated Use SHOP_URL */
+export const shopUrl = SHOP_URL;
 export const GIFT_CARD_URL = "https://shop.illustratedalex.com/s/gift-cards";
 export const STUDIO_PHONE = "+16038437005";
 export const TEXT_STUDIO_URL =

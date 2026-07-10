@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { TrackedLink } from "@/components/tracked-link";
 import { clientReviews, PUBLIC_SITE_SLUG, REVIEWS_SOURCE_URL } from "@/data/reviews";
-import { businessTagline, BOOKING_URL, galleryItems, shopUrl, GIFT_CARD_URL, TEXT_STUDIO_URL } from "@/data/site-content";
+import { businessTagline, BOOKING_URL, galleryItems, SHOP_URL, GIFT_CARD_URL, TEXT_STUDIO_URL } from "@/data/site-content";
 
 export const metadata: Metadata = {
   title: "Illustrated Alex — Tattoo & Piercing",
@@ -83,9 +83,11 @@ export default function Home() {
                 BOOK APPOINTMENT
               </TrackedLink>
               <TrackedLink
-                href={shopUrl}
+                href={SHOP_URL}
                 eventName="shop_click"
                 eventParams={{ source: "homepage_hero" }}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="min-h-11 w-full rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-center text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4] sm:w-auto"
               >
                 SHOP JEWELRY &amp; AFTERCARE
@@ -168,7 +170,7 @@ export default function Home() {
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="font-display text-3xl font-semibold tracking-[0.02em] sm:text-4xl">Client Reviews</h2>
           <p className="mt-2 text-sm text-[#d4c09c]">Real feedback from tattoo and piercing clients.</p>
-          <p className="mt-1 text-xs text-[#bfa47a]">Curated review highlights shown here until live review sync is connected.</p>
+          <p className="mt-1 text-xs text-[#bfa47a]">Curated review highlights shown here from published client feedback.</p>
 
           <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {featuredReviews.map((review) => (

@@ -117,8 +117,7 @@ export default function AboutPage() {
             </div>
             <div className="flex items-center rounded-xl border border-[#7d5b2e]/35 bg-gradient-to-br from-[#17120e] to-[#0e0e0e] p-6">
               <p className="text-sm leading-7 text-[#d9c39d]">
-                Historical Mountainside photos are being added as older shop images are restored and organized. This
-                section will document the Bellows Falls years, the original studio, the move to the Square, and the
+                This section documents the Bellows Falls years, the original studio, the move to the Square, and the
                 clients who helped shape the shop&rsquo;s story.
               </p>
             </div>

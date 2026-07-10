@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { TrackedLink } from "@/components/tracked-link";
-import { bookingUrl, GIFT_CARD_URL } from "@/data/site-content";
+import { BOOKING_URL, SHOP_URL, GIFT_CARD_URL } from "@/data/site-content";
+import type { AnalyticsEventName } from "@/lib/analytics";
 
 export const metadata: Metadata = {
   title: "Shop",
@@ -9,106 +9,113 @@ export const metadata: Metadata = {
     "Implant-grade body jewelry, aftercare products, gift cards, and studio merchandise from Illustrated Alex — available through Square.",
 };
 
-const shopCategories = [
+type ShopCard = {
+  label: string;
+  title: string;
+  description: string;
+  buttonLabel: string;
+  href: string;
+  eventName: AnalyticsEventName;
+  eventSource: string;
+  imageUrl?: string;
+};
+
+const shopCards: ShopCard[] = [
   {
-    title: "Body Jewelry",
+    label: "Booking",
+    title: "Book Appointment",
     description:
-      "Implant-grade rings, studs, barbells, and specialty pieces. The right material and fit matters — especially for fresh piercings. Quality jewelry available for new placements and healed piercings alike.",
+      "Schedule tattoo or piercing appointments through Square.",
+    buttonLabel: "Book Now",
+    href: BOOKING_URL,
+    eventName: "book_now_click",
+    eventSource: "shop_page_booking_card",
+    imageUrl: "/images/brand/illustratedalex-logo-main.png",
   },
   {
-    title: "Aftercare Products",
+    label: "Shop",
+    title: "Body Jewelry & Aftercare",
     description:
-      "Sterile saline spray, unscented healing lotion, and other essentials used and recommended in-studio. The same products recommended during appointments.",
+      "Shop available jewelry, aftercare products, and studio items through the Square store.",
+    buttonLabel: "Shop Now",
+    href: SHOP_URL,
+    eventName: "shop_click",
+    eventSource: "shop_page_shop_card",
+    imageUrl: "/images/gallery/facial-piercings.jpg",
   },
   {
+    label: "Gift Cards",
     title: "Gift Cards",
-    description:
-      "Gift cards cover tattoo sessions, piercing appointments, jewelry, and merchandise. Available in any amount — a good option if you want to give someone the choice of what to book.",
-  },
-  {
-    title: "Merchandise",
-    description:
-      "Illustrated Alex studio apparel and accessories. Availability varies — check the store for what's currently in stock.",
+    description: "Purchase Illustrated Alex gift cards through Square.",
+    buttonLabel: "Buy Gift Card",
+    href: GIFT_CARD_URL,
+    eventName: "gift_card_click",
+    eventSource: "shop_page_gift_card_card",
+    imageUrl: "/images/brand/illustratedalex-logo-main.png",
   },
 ];
 
 export default function ShopPage() {
   return (
     <div className="bg-[#111] text-[#f0dfbf]">
-      <div className="mx-auto w-full max-w-6xl space-y-8 px-4 py-20 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-6xl space-y-10 px-4 py-20 sm:px-6 lg:px-8">
         <div className="space-y-4">
           <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#be9a62]">Shop</p>
-          <h1 className="font-display text-5xl font-semibold text-[#f0dfbf] sm:text-6xl">Jewelry, Aftercare &amp; More</h1>
+          <h1 className="font-display text-5xl font-semibold text-[#f0dfbf] sm:text-6xl">Shop &amp; Booking</h1>
           <p className="max-w-3xl text-base leading-8 text-[#dbc8a7]">
-            Implant-grade body jewelry, aftercare essentials, gift cards, and merchandise — all handled through
-            Square. Appointments are booked there too.
+            Book appointments, shop jewelry and aftercare, or purchase Illustrated Alex gift cards through Square.
           </p>
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-2">
-          {shopCategories.map((cat) =>
-            cat.title === "Gift Cards" ? (
-              <TrackedLink
-                key={cat.title}
-                href={GIFT_CARD_URL}
-                eventName="gift_card_click"
-                eventParams={{ source: "shop_category_card" }}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group rounded-xl border border-[#7d5b2e]/35 bg-[#0f0f0f] p-6 hover:border-[#bc8f4d]/60 transition-colors"
+        <div className="grid gap-4 md:grid-cols-3">
+          {shopCards.map((card) => (
+            <article
+              key={card.title}
+              className="overflow-hidden rounded-2xl border border-[#7d5b2e]/40 bg-[#0f0f0f] shadow-[0_8px_26px_rgba(0,0,0,0.35)]"
+            >
+              <div
+                className="relative h-52 bg-gradient-to-br from-[#1b140c] via-[#231a10] to-[#0d0d0d] bg-cover bg-center"
+                style={card.imageUrl ? { backgroundImage: `url("${card.imageUrl}")` } : undefined}
+                aria-hidden="true"
               >
-                <h2 className="font-display text-2xl font-semibold text-[#f0dfbf] group-hover:text-[#e7c98a]">{cat.title} ↗</h2>
-                <p className="mt-2 text-sm leading-7 text-[#dbc8a7]">{cat.description}</p>
-              </TrackedLink>
-            ) : (
-              <div key={cat.title} className="rounded-xl border border-[#7d5b2e]/35 bg-[#0f0f0f] p-6">
-                <h2 className="font-display text-2xl font-semibold text-[#f0dfbf]">{cat.title}</h2>
-                <p className="mt-2 text-sm leading-7 text-[#dbc8a7]">{cat.description}</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/5" />
+                {!card.imageUrl ? (
+                  <div className="absolute inset-0 flex items-center justify-center text-xs font-semibold uppercase tracking-[0.16em] text-[#d5b47c]">
+                    Image preview
+                  </div>
+                ) : null}
               </div>
-            ),
-          )}
+              <div className="space-y-4 p-6">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#be9a62]">{card.label}</p>
+                <h2 className="font-display text-3xl font-semibold text-[#f0dfbf]">{card.title}</h2>
+                <p className="text-sm leading-7 text-[#dbc8a7]">{card.description}</p>
+                <TrackedLink
+                  href={card.href}
+                  eventName={card.eventName}
+                  eventParams={{ source: card.eventSource }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-full border border-[#bc8f4d] bg-transparent px-6 py-2.5 text-xs font-semibold tracking-[0.1em] text-[#e7d4b4] hover:bg-[#bc8f4d]/10"
+                >
+                  {card.buttonLabel} ↗
+                </TrackedLink>
+              </div>
+            </article>
+          ))}
         </div>
 
-        <div className="rounded-xl border border-[#7d5b2e]/35 bg-[#0f0f0f] p-6 sm:p-8">
-          <p className="font-display text-3xl font-semibold text-[#f0dfbf]">Visit the Square Store</p>
-          <p className="mt-3 text-sm leading-7 text-[#dbc8a7]">
-            All purchases are handled through Square — browse jewelry, pick up aftercare products, grab a gift card,
-            or check available merchandise. Tattoo and piercing appointments are also booked through Square.
+        <p className="text-sm leading-7 text-[#be9a62]">
+          Checkout opens through Square. For appointments, use the Book Appointment button. For gift certificates, use
+          the Gift Cards button.
+        </p>
+
+        <section className="rounded-xl border border-[#7d5b2e]/35 bg-[#0f0f0f] p-6 sm:p-8">
+          <h2 className="font-display text-3xl font-semibold text-[#f0dfbf]">Coming Later: Merch &amp; Apparel</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-[#dbc8a7]">
+            T-shirts, hoodies, hats, stickers, and other Illustrated Alex merchandise may be added as products become
+            available.
           </p>
-          <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-            <TrackedLink
-              href="https://squareup.com"
-              eventName="shop_click"
-              eventParams={{ source: "shop_page_store_cta" }}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full border border-[#bc8f4d] bg-transparent px-6 py-2.5 text-xs font-semibold tracking-[0.1em] text-[#e7d4b4]"
-            >
-              OPEN STORE ↗
-            </TrackedLink>
-            <TrackedLink
-              href={GIFT_CARD_URL}
-              eventName="gift_card_click"
-              eventParams={{ source: "shop_page_store_cta" }}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full border border-[#bc8f4d] bg-transparent px-6 py-2.5 text-xs font-semibold tracking-[0.1em] text-[#e7d4b4]"
-            >
-              BUY GIFT CARD ↗
-            </TrackedLink>
-            <Link
-              href={bookingUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full border border-[#bc8f4d] bg-[#bc8f4d] px-6 py-2.5 text-xs font-semibold tracking-[0.1em] text-[#1e1408]"
-            >
-              BOOK APPOINTMENT
-            </Link>
-          </div>
-          <p className="mt-3 text-xs text-[#be9a62]">
-            Store link will be updated with the live Square URL when available.
-          </p>
-        </div>
+        </section>
       </div>
     </div>
   );
