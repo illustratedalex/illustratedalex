@@ -60,6 +60,8 @@ export const BOOKING_URL =
 /** @deprecated Use BOOKING_URL */
 export const bookingUrl = BOOKING_URL;
 export const SHOP_URL = "https://shop.illustratedalex.com";
+export const AFTERCARE_SHOP_URL =
+  "https://shop.illustratedalex.com/shop/aftercare/TKJXRAGCXIFVYPBT3CPWRAGL?page=1&limit=30&sort_by=category_order&sort_order=asc";
 /** @deprecated Use SHOP_URL */
 export const shopUrl = SHOP_URL;
 export const GIFT_CARD_URL = "https://shop.illustratedalex.com/s/gift-cards";

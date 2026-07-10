@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { ContactForm } from "@/components/contact-form";
-import { clientReviews, PUBLIC_SITE_SLUG, REVIEWS_SOURCE_URL } from "@/data/reviews";
-import { instagramHandles, studioAddress } from "@/data/site-content";
+import { BOOKING_URL, STUDIO_PHONE, TEXT_STUDIO_URL } from "@/data/site-content";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -10,73 +9,107 @@ export const metadata: Metadata = {
     "Book a tattoo or piercing consultation with Illustrated Alex at 30 Opera House Square, Claremont, NH. Appointments are recommended, and walk-ins may be available depending on schedule.",
 };
 
-const featuredReviewPreview = clientReviews
-  .filter((review) => review.siteSlug === PUBLIC_SITE_SLUG && review.status === "published" && review.featured)
-  .sort((a, b) => a.sortOrder - b.sortOrder)[0];
-
 export default function ContactPage() {
   return (
     <div className="bg-[#111] text-[#f0dfbf]">
-      <div id="book" className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div id="book" className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         <div className="mb-12 space-y-4">
           <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#be9a62]">Contact</p>
-          <h1 className="font-display text-4xl font-semibold text-[#f0dfbf] sm:text-6xl">Book a Consultation</h1>
+          <h1 className="font-display text-4xl font-semibold text-[#f0dfbf] sm:text-6xl">Contact the Studio</h1>
           <p className="max-w-3xl text-base leading-7 text-[#dbc8a7] sm:text-lg sm:leading-8">
-            Send your concept, placement ideas, and preferred timing. You&rsquo;ll hear back with next steps.
+            Text first for tattoo references, piercing questions, and booking guidance.
           </p>
         </div>
 
-        <div className="rounded-xl border border-[#7d5b2e]/35 bg-[#0f0f0f] p-6 sm:p-8">
-          <ContactForm />
-        </div>
+        <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="space-y-6">
+            <section className="rounded-xl border border-[#7d5b2e]/40 bg-[#0f0f0f] p-6 sm:p-8">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#be9a62]">Shop Cell</p>
+              <p className="mt-2 font-display text-3xl font-semibold text-[#f0dfbf] sm:text-4xl">(603) 843-7005</p>
+              <p className="mt-4 max-w-2xl text-sm leading-7 text-[#dbc8a7]">
+                If you have a tattoo reference image, text it to me first. I&rsquo;ll let you know how much time to
+                book online through Square.
+              </p>
+            </section>
 
-        <div className="mt-8 grid gap-8 rounded-xl border border-[#7d5b2e]/35 bg-[#0f0f0f] p-6 sm:grid-cols-2 sm:p-8">
-          <div className="space-y-2">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#be9a62]">Studio</p>
-            <p className="text-sm text-[#f0dfbf]">{studioAddress}</p>
-            <p className="text-xs text-[#dbc8a7]">
-              Appointments are recommended. Walk-ins may be available when the schedule allows, but texting first is the
-              best way to check availability before stopping in.
-            </p>
-          </div>
-          <div className="space-y-3">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#be9a62]">Instagram</p>
-            <div className="flex flex-wrap gap-3">
-              {instagramHandles.map((handle) => (
-                <Link
-                  key={handle}
-                  href={`https://instagram.com/${handle.replace("@", "")}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block py-1 text-sm text-[#dbc8a7] underline underline-offset-4 hover:text-[#f0dfbf]"
-                >
-                  {handle}
-                </Link>
+            <section className="space-y-4">
+              {[
+                {
+                  number: "1",
+                  title: "FOR TATTOO IDEAS",
+                  body: "Text the image, approximate size, body placement, and whether it is new work or a cover-up.",
+                },
+                {
+                  number: "2",
+                  title: "FOR PIERCING QUESTIONS",
+                  body: "Text your question, jewelry issue, or healing concern. Photos help when appropriate.",
+                },
+                {
+                  number: "3",
+                  title: "FOR BOOKING HELP",
+                  body: "If you are unsure which Square service to choose, text first and I’ll point you in the right direction.",
+                },
+              ].map((item) => (
+                <article key={item.number} className="rounded-xl border border-[#7d5b2e]/35 bg-[#0f0f0f] p-5 sm:p-6">
+                  <div className="flex items-start gap-4">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#bc8f4d]/70 text-xs font-semibold text-[#e7c98a]">
+                      {item.number}
+                    </span>
+                    <div>
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#be9a62]">{item.title}</p>
+                      <p className="mt-2 text-sm leading-7 text-[#dbc8a7]">{item.body}</p>
+                    </div>
+                  </div>
+                </article>
               ))}
+            </section>
+
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Link
+                href={TEXT_STUDIO_URL}
+                className="min-h-11 rounded-full border border-[#bc8f4d] bg-[#bc8f4d] px-6 py-2.5 text-center text-xs font-semibold tracking-[0.1em] text-[#1e1408]"
+              >
+                TEXT NOW
+              </Link>
+              <Link
+                href={`tel:${STUDIO_PHONE}`}
+                className="min-h-11 rounded-full border border-[#bc8f4d] bg-transparent px-6 py-2.5 text-center text-xs font-semibold tracking-[0.1em] text-[#e7d4b4]"
+              >
+                CALL THE STUDIO
+              </Link>
+              <Link
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="min-h-11 rounded-full border border-[#bc8f4d] bg-transparent px-6 py-2.5 text-center text-xs font-semibold tracking-[0.1em] text-[#e7d4b4]"
+              >
+                BOOK ONLINE
+              </Link>
+            </div>
+          </div>
+
+          <div className="relative overflow-hidden rounded-2xl border border-[#7d5b2e]/40 bg-[#0f0f0f]">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+            <div className="relative h-[360px] sm:h-[460px] lg:h-full lg:min-h-[690px]">
+              <Image
+                src="/images/studio/studio-front.jpg"
+                alt="Illustrated Alex studio storefront in Claremont"
+                fill
+                sizes="(max-width: 1023px) 100vw, 45vw"
+                className="object-cover"
+                priority
+              />
             </div>
           </div>
         </div>
-
-        {featuredReviewPreview ? (
-          <div className="mt-8 rounded-xl border border-[#7d5b2e]/35 bg-[#0f0f0f] p-6 sm:p-8">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#be9a62]">Client Reviews</p>
-            <p className="mt-2 text-sm leading-7 text-[#dbc8a7]">
-              Curated review highlights are shown on-site. Recent feedback from clients remains available on Google.
-            </p>
-            <p className="mt-4 text-sm leading-7 text-[#e7d7b8]">&ldquo;{featuredReviewPreview.quote}&rdquo;</p>
-            <p className="mt-3 text-sm font-semibold text-[#f0dfbf]">{featuredReviewPreview.reviewerName}</p>
-            <p className="mt-1 text-[11px] uppercase tracking-[0.12em] text-[#be9a62]">{featuredReviewPreview.serviceType}</p>
-            <Link
-              href={REVIEWS_SOURCE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-xs font-semibold tracking-[0.1em] text-[#e7d4b4]"
-            >
-              Read More Reviews on Google ↗
-            </Link>
-          </div>
-        ) : null}
       </div>
+
+      <Link
+        href={TEXT_STUDIO_URL}
+        className="fixed right-3 bottom-3 z-40 min-h-11 rounded-full border border-[#bc8f4d] bg-[#17120d]/92 px-4 py-2 text-[11px] font-semibold tracking-[0.08em] text-[#f2dfbf] shadow-lg backdrop-blur sm:right-4 sm:bottom-4"
+      >
+        💬 TEXT THE STUDIO
+      </Link>
     </div>
   );
 }

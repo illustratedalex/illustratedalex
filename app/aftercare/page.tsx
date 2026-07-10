@@ -1,31 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PiercingAftercareSelector } from "@/components/piercing-aftercare-selector";
+import {
+  PIERCING_AFTERCARE_SHOP_URL,
+  piercingAftercareItems,
+  tattooAftercareSteps,
+} from "@/data/aftercare";
 
 export const metadata: Metadata = {
   title: "Aftercare",
   description:
     "Tattoo and piercing aftercare guidance from Illustrated Alex. Separate sections for tattoos and piercings. Always follow the instructions from your appointment first.",
 };
-
-const tattooAftercare = [
-  "Keep the wrap or bandage on for the time your artist specified — usually 1–4 hours, or overnight for second-skin film.",
-  "Wash gently with unscented antibacterial soap using clean hands. Pat dry with a clean paper towel.",
-  "Apply a thin layer of unscented lotion or the product your artist recommended. Skin needs to breathe — don't over-apply.",
-  "Keep out of direct sun while healing. Once healed, always use SPF on tattooed skin.",
-  "Avoid soaking — no pools, hot tubs, lakes, or long baths until fully healed (typically 2–4 weeks).",
-  "Don't pick, scratch, or peel flaking skin. Let it shed on its own.",
-  "Loose, clean clothing over fresh work. Avoid friction from straps, waistbands, or shoes depending on placement.",
-];
-
-const piercingAftercare = [
-  "Rinse with sterile saline wound wash (0.9% sodium chloride) 1–2 times per day. Don't over-clean.",
-  "Leave it alone. Avoid twisting, turning, or touching the jewelry unnecessarily.",
-  "Don't use alcohol, hydrogen peroxide, Bactine, or harsh soaps — these damage healing tissue.",
-  "Avoid submerging in pools, hot tubs, or open water during healing.",
-  "Be mindful of sleeping pressure for ear and facial piercings.",
-  "Some redness, swelling, and clear or white discharge is normal early on. Yellow or green discharge or worsening pain — reach out.",
-  "Healing timelines vary widely. Earlobes: 6–8 weeks. Cartilage and other placements: 6–12+ months.",
-];
 
 export default function AftercarePage() {
   return (
@@ -40,8 +26,8 @@ export default function AftercarePage() {
         </div>
 
         <div className="mb-8 rounded-xl border border-[#7d5b2e]/40 bg-[#0f0f0f] px-6 py-5 text-sm leading-7 text-[#dbc8a7]">
-          These are general guidelines. Aftercare varies by placement and individual healing. Always follow the direct
-          instructions given during your appointment. If something feels off,{" "}
+          This is general studio aftercare guidance, not medical advice. Always follow the direct instructions given
+          during your appointment and contact the studio with questions. If something feels off,{" "}
           <Link href="/contact" className="text-[#e1c18c] underline underline-offset-2 hover:text-[#f0dfbf]">
             reach out to the studio
           </Link>{" "}
@@ -49,27 +35,51 @@ export default function AftercarePage() {
         </div>
 
         <section className="rounded-xl border border-[#7d5b2e]/40 bg-[#0f0f0f] p-6 sm:p-8">
-          <h2 className="font-display text-3xl font-semibold text-[#f0dfbf]">Tattoo Aftercare</h2>
+          <h2 className="font-display text-3xl font-semibold text-[#f0dfbf]">Tattoo Aftercare with Tegaderm</h2>
+          <p className="mt-3 max-w-4xl text-sm leading-7 text-[#dbc8a7]">
+            Illustrated Alex uses Tegaderm-style transparent film dressing on freshly finished tattoos whenever
+            appropriate. This breathable protective film helps protect the tattoo during the early healing stage while
+            reducing friction from clothing and daily movement.
+          </p>
           <ul className="mt-6 space-y-4">
-            {tattooAftercare.map((tip, i) => (
+            {tattooAftercareSteps.map((step, i) => (
               <li key={i} className="flex gap-4 border-b border-[#7d5b2e]/30 pb-4 last:border-0">
                 <span className="mt-0.5 shrink-0 text-xs font-semibold text-[#be9a62]">{String(i + 1).padStart(2, "0")}</span>
-                <p className="text-sm leading-7 text-[#dbc8a7]">{tip}</p>
+                <div>
+                  <p className="text-sm font-semibold text-[#f0dfbf]">{step.title}</p>
+                  <p className="mt-1 text-sm leading-7 text-[#dbc8a7]">{step.body}</p>
+                </div>
               </li>
             ))}
           </ul>
+          <div className="mt-6 rounded-lg border border-[#bc8f4d]/45 bg-[#1a140d] px-4 py-4 text-sm leading-7 text-[#e6d2af]">
+            If you notice spreading redness, unusual swelling, heat, pus, fever, severe pain, or symptoms that concern
+            you, contact a medical professional.
+          </div>
         </section>
 
         <section className="mt-8 rounded-xl border border-[#7d5b2e]/40 bg-[#0f0f0f] p-6 sm:p-8">
           <h2 className="font-display text-3xl font-semibold text-[#f0dfbf]">Piercing Aftercare</h2>
-          <ul className="mt-6 space-y-4">
-            {piercingAftercare.map((tip, i) => (
-              <li key={i} className="flex gap-4 border-b border-[#7d5b2e]/30 pb-4 last:border-0">
-                <span className="mt-0.5 shrink-0 text-xs font-semibold text-[#be9a62]">{String(i + 1).padStart(2, "0")}</span>
-                <p className="text-sm leading-7 text-[#dbc8a7]">{tip}</p>
-              </li>
-            ))}
-          </ul>
+          <p className="mt-3 max-w-4xl text-sm leading-7 text-[#dbc8a7]">
+            Choose your piercing type below for focused aftercare notes. Most piercings heal best with simple care:
+            clean hands, sterile saline wound wash, patience, and avoiding unnecessary touching or twisting.
+          </p>
+          <PiercingAftercareSelector items={piercingAftercareItems} />
+
+          <div className="mt-6 rounded-xl border border-[#7d5b2e]/40 bg-[#12100d] p-5 sm:p-6">
+            <p className="font-display text-2xl font-semibold text-[#f0dfbf]">Need piercing aftercare?</p>
+            <p className="mt-2 text-sm leading-7 text-[#dbc8a7]">
+              Sterile saline wound wash and aftercare products are available through the shop.
+            </p>
+            <Link
+              href={PIERCING_AFTERCARE_SHOP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex rounded-full border border-[#bc8f4d] bg-[#bc8f4d] px-6 py-2.5 text-xs font-semibold tracking-[0.1em] text-[#1e1408]"
+            >
+              SHOP PIERCING AFTERCARE
+            </Link>
+          </div>
         </section>
 
         <div className="mt-8 rounded-xl border border-[#7d5b2e]/40 bg-[#0f0f0f] p-6 sm:p-8">
