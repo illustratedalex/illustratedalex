@@ -1,9 +1,18 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { FloatingTextButton } from "@/components/floating-text-button";
 import { TrackedLink } from "@/components/tracked-link";
 import { clientReviews, PUBLIC_SITE_SLUG, REVIEWS_SOURCE_URL } from "@/data/reviews";
-import { businessTagline, BOOKING_URL, galleryItems, SHOP_URL, GIFT_CARD_URL, TEXT_STUDIO_URL } from "@/data/site-content";
+import {
+  AFTERCARE_SHOP_URL,
+  BOOKING_URL,
+  GIFT_CARD_URL,
+  SHOP_URL,
+  TEXT_STUDIO_URL,
+  businessTagline,
+  galleryItems,
+} from "@/data/site-content";
 
 export const metadata: Metadata = {
   title: "Illustrated Alex — Tattoo & Piercing",
@@ -30,6 +39,8 @@ const piercingPreview = galleryItems
 const featuredReviews = clientReviews
   .filter((review) => review.siteSlug === PUBLIC_SITE_SLUG && review.status === "published" && review.featured)
   .sort((a, b) => a.sortOrder - b.sortOrder);
+
+const heroShopUrl = AFTERCARE_SHOP_URL || SHOP_URL;
 
 export default function Home() {
   return (
@@ -72,18 +83,34 @@ export default function Home() {
             </div>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <Link
-                href="/portfolio"
+              <TrackedLink
+                href={BOOKING_URL}
+                eventName="book_now_click"
+                eventParams={{ source: "homepage_hero" }}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="min-h-11 w-full rounded-full border border-[#bc8f4d] bg-[#bc8f4d] px-5 py-2.5 text-center text-[11px] font-semibold tracking-[0.1em] text-[#1e1408] sm:w-auto"
               >
-                VIEW PORTFOLIO
-              </Link>
-              <Link
-                href="/contact"
+                BOOK APPOINTMENT
+              </TrackedLink>
+              <TrackedLink
+                href={heroShopUrl}
+                eventName="shop_click"
+                eventParams={{ source: "homepage_hero" }}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="min-h-11 w-full rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-center text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4] sm:w-auto"
               >
-                CONTACT THE STUDIO
-              </Link>
+                SHOP JEWELRY &amp; AFTERCARE
+              </TrackedLink>
+              <TrackedLink
+                href={TEXT_STUDIO_URL}
+                eventName="text_studio_click"
+                eventParams={{ source: "homepage_hero" }}
+                className="min-h-11 w-full rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-center text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4] sm:w-auto"
+              >
+                TEXT REFERENCE IMAGE
+              </TrackedLink>
             </div>
           </div>
 
@@ -110,14 +137,7 @@ export default function Home() {
           </div>
         </div>
 
-        <TrackedLink
-          href={TEXT_STUDIO_URL}
-          eventName="text_studio_click"
-          eventParams={{ source: "floating_button" }}
-          className="fixed right-3 bottom-3 z-40 min-h-11 rounded-full border border-[#bc8f4d] bg-[#17120d]/92 px-4 py-2 text-[11px] font-semibold tracking-[0.08em] text-[#f2dfbf] shadow-lg backdrop-blur sm:right-4 sm:bottom-4"
-        >
-          💬 TEXT THE STUDIO
-        </TrackedLink>
+        <FloatingTextButton trackSource="floating_button" />
       </section>
 
       <section className="border-t border-[#7d5b2e]/40 bg-[#0f0f0f] py-14 text-[#f0dfbf]">

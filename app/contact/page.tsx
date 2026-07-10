@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { FloatingTextButton } from "@/components/floating-text-button";
 import { BOOKING_URL, STUDIO_PHONE, TEXT_STUDIO_URL } from "@/data/site-content";
 
 export const metadata: Metadata = {
@@ -104,12 +105,7 @@ export default function ContactPage() {
         </div>
       </div>
 
-      <Link
-        href={TEXT_STUDIO_URL}
-        className="fixed right-3 bottom-3 z-40 min-h-11 rounded-full border border-[#bc8f4d] bg-[#17120d]/92 px-4 py-2 text-[11px] font-semibold tracking-[0.08em] text-[#f2dfbf] shadow-lg backdrop-blur sm:right-4 sm:bottom-4"
-      >
-        💬 TEXT THE STUDIO
-      </Link>
+      <FloatingTextButton />
     </div>
   );
 }

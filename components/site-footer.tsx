@@ -4,8 +4,8 @@ import { businessFullName, GIFT_CARD_URL, primaryNav, studioAddress } from "@/da
 
 export function SiteFooter() {
   return (
-    <footer className="mt-16 border-t border-[#7d5b2e]/35 bg-[#0d0d0d] text-[#f0dfbf]">
-      <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+    <footer id="site-footer" className="mt-16 border-t border-[#7d5b2e]/35 bg-[#0d0d0d] text-[#f0dfbf]">
+      <div className="mx-auto w-full max-w-6xl px-4 pt-8 pb-28 sm:px-6 md:pb-20 lg:px-8">
         <p className="text-sm font-medium">{businessFullName}</p>
         <p className="mt-1 text-sm text-[#dbc8a7]">{studioAddress}</p>
         <nav aria-label="Footer navigation" className="mt-3">
