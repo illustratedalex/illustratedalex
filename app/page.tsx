@@ -255,16 +255,16 @@ export default function Home() {
       <section className="border-t border-[#7d5b2e]/35 bg-[#131313] pb-16">
         <div className="mx-auto w-full max-w-7xl px-4 pt-14 sm:px-6 lg:px-8">
           <div className="mb-8 rounded-xl border border-[#7d5b2e]/45 bg-[#0f0f0f] p-6 sm:p-8">
-            <h2 className="font-display text-3xl font-semibold text-[#f0dfbf] sm:text-4xl">About Alex</h2>
+            <h2 className="font-display text-3xl font-semibold text-[#f0dfbf] sm:text-4xl">Meet the Artists</h2>
             <p className="mt-3 max-w-3xl text-base leading-8 text-[#dbc8a7]">
               Alex has been tattooing since 1986 and has spent decades building a career around custom work, piercing,
               consistency, and craftsmanship.
             </p>
             <Link
-              href="/about"
+              href="/artists"
               className="mt-5 inline-block rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-xs font-semibold tracking-[0.1em] text-[#e7d4b4]"
             >
-              READ FULL STORY
+              MEET ALEX &amp; CHI
             </Link>
           </div>
 

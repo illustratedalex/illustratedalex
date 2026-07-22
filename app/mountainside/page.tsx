@@ -45,10 +45,10 @@ export default function MountainsidePage() {
 
       <div className="mt-12 flex flex-col gap-3 sm:flex-row">
         <Link
-          href="/about"
+          href="/artists"
           className="rounded-sm border border-[#1a1511]/25 px-7 py-3 text-center text-sm font-semibold text-[#1a1511] transition hover:border-[#1a1511]/50"
         >
-          Full Story
+          Meet the Artists
         </Link>
         <Link
           href={bookingUrl}

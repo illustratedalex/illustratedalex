@@ -107,10 +107,10 @@ export default function MountainsideLegacyPage() {
 
         <div className="mt-10 flex flex-col gap-3 sm:flex-row">
           <Link
-            href="/about"
+            href="/artists"
             className="rounded-full border border-[#bc8f4d] bg-transparent px-6 py-2.5 text-center text-xs font-semibold tracking-[0.1em] text-[#e7d4b4]"
           >
-            BACK TO ABOUT
+            BACK TO ARTISTS
           </Link>
           <Link
             href={bookingUrl}

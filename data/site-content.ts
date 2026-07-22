@@ -75,7 +75,7 @@ export const primaryNav = [
   { href: "/piercings", label: "Piercings" },
   { href: "/aftercare", label: "Aftercare" },
   { href: "/travel", label: "Travel" },
-  { href: "/about", label: "About" },
+  { href: "/artists", label: "Artists" },
   { href: "/shop", label: "Shop" },
   { href: "/contact", label: "Contact" },
 ];

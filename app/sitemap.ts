@@ -9,7 +9,7 @@ const routes = [
   "/piercings",
   "/aftercare",
   "/travel",
-  "/about",
+  "/artists",
   "/mountainside",
   "/contact",
 ];
