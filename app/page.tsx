@@ -1,7 +1,11 @@
+import { existsSync } from "node:fs";
+import path from "node:path";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { FloatingTextButton } from "@/components/floating-text-button";
+import { StudioGalleryLightbox } from "@/components/studio-gallery-lightbox";
+import { StudioMedia } from "@/components/studio-media";
 import { TrackedLink } from "@/components/tracked-link";
 import { clientReviews, PUBLIC_SITE_SLUG, REVIEWS_SOURCE_URL } from "@/data/reviews";
 import {
@@ -41,6 +45,23 @@ const featuredReviews = clientReviews
   .sort((a, b) => a.sortOrder - b.sortOrder);
 
 const heroShopUrl = AFTERCARE_SHOP_URL || SHOP_URL;
+const studioGalleryFallback = "/images/studio/new-studio-exterior.jpg";
+const studioGalleryItems = [
+  { src: "/images/studio/studio-interior-1.jpg", alt: "Studio interior view 1 at 18 Opera House Square" },
+  { src: "/images/studio/studio-interior-2.jpg", alt: "Studio interior view 2 at 18 Opera House Square" },
+  { src: "/images/studio/studio-interior-3.jpg", alt: "Studio interior view 3 at 18 Opera House Square" },
+  { src: "/images/studio/studio-interior-4.jpg", alt: "Studio interior view 4 at 18 Opera House Square" },
+];
+
+function hasPublicAsset(src: string) {
+  const normalized = src.replace(/^\//, "");
+  return existsSync(path.join(process.cwd(), "public", normalized));
+}
+
+const studioGalleryDisplayItems = studioGalleryItems.map((item) => ({
+  ...item,
+  src: hasPublicAsset(item.src) ? item.src : studioGalleryFallback,
+}));
 
 export default function Home() {
   return (
@@ -231,23 +252,28 @@ export default function Home() {
       </section>
 
       <section className="border-t border-[#7d5b2e]/35 bg-[#131313] py-14 text-[#f0dfbf]">
-        <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-[#7d5b2e]/35">
-            <Image
-              src="/images/studio/studio-front.jpg"
-              alt="Illustrated Alex studio front in Claremont"
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="font-display text-3xl font-semibold tracking-[0.02em] text-[#f0dfbf] sm:text-4xl">Personal Studio Experience</h2>
+          <div className="mt-7 relative aspect-[16/10] overflow-hidden rounded-xl border border-[#7d5b2e]/35">
+            <StudioMedia
+              imageSrc="/images/studio/new-studio-exterior.jpg"
+              imageAlt="Exterior of Illustrated Alex studio at 18 Opera House Square"
+              sizes="(max-width: 1024px) 100vw, 70vw"
+              className="h-full w-full"
             />
           </div>
-          <div>
-            <h2 className="font-display text-3xl font-semibold tracking-[0.02em] text-[#f0dfbf] sm:text-4xl">Personal Studio Experience</h2>
-            <p className="mt-4 text-base leading-8 text-[#dbc8a7]">
-              Appointments are recommended so each client gets focused time and clear communication. Walk-ins may be
-              available when the schedule allows, especially for quick piercings or smaller services. Text first to
-              check availability before stopping in.
+          <div className="mt-6">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#be9a62]">STEP INSIDE</p>
+            <p className="mt-3 max-w-4xl text-base leading-8 text-[#dbc8a7]">
+              Welcome to my new studio at 18 Opera House Square in Claremont, New Hampshire.
             </p>
+            <p className="mt-3 max-w-4xl text-base leading-8 text-[#dbc8a7]">
+              Designed to provide a brighter, cleaner and more comfortable experience, the studio offers one-on-one
+              tattoo and piercing appointments in a professional environment.
+            </p>
+          </div>
+          <div className="mt-8">
+            <StudioGalleryLightbox items={studioGalleryDisplayItems} />
           </div>
         </div>
       </section>

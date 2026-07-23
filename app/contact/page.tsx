@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { FloatingTextButton } from "@/components/floating-text-button";
+import { StudioMedia } from "@/components/studio-media";
 import { BOOKING_URL, STUDIO_PHONE, TEXT_STUDIO_URL } from "@/data/site-content";
 
 export const metadata: Metadata = {
@@ -90,16 +90,23 @@ export default function ContactPage() {
           </div>
 
           <div className="relative overflow-hidden rounded-2xl border border-[#7d5b2e]/40 bg-[#0f0f0f]">
-            <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
             <div className="relative h-[360px] sm:h-[460px] lg:h-full lg:min-h-[690px]">
-              <Image
-                src="/images/studio/studio-front.jpg"
-                alt="Illustrated Alex studio storefront in Claremont"
-                fill
+              <StudioMedia
+                imageSrc="/images/studio/new-studio-exterior.jpg"
+                imageAlt="Exterior of Illustrated Alex studio at 18 Opera House Square"
                 sizes="(max-width: 1023px) 100vw, 45vw"
-                className="object-cover"
                 priority
+                className="h-full w-full"
               />
+              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/65 via-black/15 to-transparent" />
+              <div className="absolute bottom-5 left-5 sm:bottom-6 sm:left-6">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#be9a62]">Visit the Studio</p>
+                <p className="mt-2 text-base leading-7 text-[#f0dfbf]">
+                  18 Opera House Square
+                  <br />
+                  Claremont, NH
+                </p>
+              </div>
             </div>
           </div>
         </div>
