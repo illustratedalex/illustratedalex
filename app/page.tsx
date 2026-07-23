@@ -46,64 +46,63 @@ const studioPhotos = [
     src: "/images/studio/IMG_2491.jpeg",
     alt: "Exterior of Illustrated Alex Tattoo and Piercing at 18 Opera House Square in Claremont, New Hampshire",
     className: "sm:col-span-2 lg:col-span-3",
-    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 100vw, 100vw",
-    priority: true,
+    loading: "eager" as const,
     aspectClass: "aspect-[16/9]",
   },
   {
     src: "/images/studio/IMG_2483.jpeg",
     alt: "Spacious gallery and waiting area inside Illustrated Alex Tattoo and Piercing",
     className: "",
-    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw",
+    loading: "lazy" as const,
     aspectClass: "aspect-[4/3]",
   },
   {
     src: "/images/studio/IMG_2484.jpeg",
     alt: "Reception counter and jewelry display inside Illustrated Alex Tattoo and Piercing",
     className: "",
-    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw",
+    loading: "lazy" as const,
     aspectClass: "aspect-[4/3]",
   },
   {
     src: "/images/studio/IMG_2485.jpeg",
     alt: "Front showroom with illuminated display cases and historic pressed-tin ceiling",
     className: "sm:col-span-2 lg:col-span-2",
-    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 100vw, 66vw",
+    loading: "lazy" as const,
     aspectClass: "aspect-[16/10]",
   },
   {
     src: "/images/studio/IMG_2486.jpeg",
     alt: "Open studio interior with hardwood floors and comfortable waiting area",
     className: "",
-    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw",
+    loading: "lazy" as const,
     aspectClass: "aspect-[4/3]",
   },
   {
     src: "/images/studio/IMG_2487.jpeg",
     alt: "Bright gallery and consultation area inside the studio",
     className: "",
-    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw",
+    loading: "lazy" as const,
     aspectClass: "aspect-[4/3]",
   },
   {
     src: "/images/studio/IMG_2488.jpeg",
     alt: "Spacious professional tattoo work area at Illustrated Alex",
     className: "sm:col-span-2",
-    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 100vw, 66vw",
+    loading: "lazy" as const,
     aspectClass: "aspect-[16/10]",
   },
   {
     src: "/images/studio/IMG_2489.jpeg",
     alt: "Tattoo stations inside the new Illustrated Alex studio",
     className: "",
-    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw",
+    loading: "lazy" as const,
     aspectClass: "aspect-[4/3]",
   },
   {
     src: "/images/studio/IMG_2490.jpeg",
     alt: "Clean tattoo workspace with open floor plan and studio television",
     className: "",
-    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw",
+    loading: "lazy" as const,
     aspectClass: "aspect-[4/3]",
   },
 ];
@@ -333,13 +332,12 @@ export default function Home() {
               {studioPhotos.map((photo) => (
                 <article key={photo.src} className={photo.className}>
                   <div className={`group relative overflow-hidden rounded-xl border border-[#7d5b2e]/35 ${photo.aspectClass}`}>
-                    <Image
+                    <img
                       src={photo.src}
                       alt={photo.alt}
-                      fill
-                      sizes={photo.sizes}
-                      priority={photo.priority}
-                      className="object-cover transition duration-500 group-hover:scale-[1.04]"
+                      loading={photo.loading}
+                      decoding="async"
+                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                     />
                   </div>
                 </article>
