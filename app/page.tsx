@@ -1,11 +1,7 @@
-import { existsSync } from "node:fs";
-import path from "node:path";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { FloatingTextButton } from "@/components/floating-text-button";
-import { StudioGalleryLightbox } from "@/components/studio-gallery-lightbox";
-import { StudioMedia } from "@/components/studio-media";
 import { TrackedLink } from "@/components/tracked-link";
 import { clientReviews, PUBLIC_SITE_SLUG, REVIEWS_SOURCE_URL } from "@/data/reviews";
 import {
@@ -45,23 +41,72 @@ const featuredReviews = clientReviews
   .sort((a, b) => a.sortOrder - b.sortOrder);
 
 const heroShopUrl = AFTERCARE_SHOP_URL || SHOP_URL;
-const studioGalleryFallback = "/images/studio/new-studio-exterior.jpg";
-const studioGalleryItems = [
-  { src: "/images/studio/studio-interior-1.jpg", alt: "Studio interior view 1 at 18 Opera House Square" },
-  { src: "/images/studio/studio-interior-2.jpg", alt: "Studio interior view 2 at 18 Opera House Square" },
-  { src: "/images/studio/studio-interior-3.jpg", alt: "Studio interior view 3 at 18 Opera House Square" },
-  { src: "/images/studio/studio-interior-4.jpg", alt: "Studio interior view 4 at 18 Opera House Square" },
+const studioPhotos = [
+  {
+    src: "/images/studio/IMG_2491.jpeg",
+    alt: "Exterior of Illustrated Alex Tattoo and Piercing at 18 Opera House Square in Claremont, New Hampshire",
+    className: "sm:col-span-2 lg:col-span-3",
+    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 100vw, 100vw",
+    priority: true,
+    aspectClass: "aspect-[16/9]",
+  },
+  {
+    src: "/images/studio/IMG_2483.jpeg",
+    alt: "Spacious gallery and waiting area inside Illustrated Alex Tattoo and Piercing",
+    className: "",
+    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw",
+    aspectClass: "aspect-[4/3]",
+  },
+  {
+    src: "/images/studio/IMG_2484.jpeg",
+    alt: "Reception counter and jewelry display inside Illustrated Alex Tattoo and Piercing",
+    className: "",
+    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw",
+    aspectClass: "aspect-[4/3]",
+  },
+  {
+    src: "/images/studio/IMG_2485.jpeg",
+    alt: "Front showroom with illuminated display cases and historic pressed-tin ceiling",
+    className: "sm:col-span-2 lg:col-span-2",
+    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 100vw, 66vw",
+    aspectClass: "aspect-[16/10]",
+  },
+  {
+    src: "/images/studio/IMG_2486.jpeg",
+    alt: "Open studio interior with hardwood floors and comfortable waiting area",
+    className: "",
+    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw",
+    aspectClass: "aspect-[4/3]",
+  },
+  {
+    src: "/images/studio/IMG_2487.jpeg",
+    alt: "Bright gallery and consultation area inside the studio",
+    className: "",
+    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw",
+    aspectClass: "aspect-[4/3]",
+  },
+  {
+    src: "/images/studio/IMG_2488.jpeg",
+    alt: "Spacious professional tattoo work area at Illustrated Alex",
+    className: "sm:col-span-2",
+    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 100vw, 66vw",
+    aspectClass: "aspect-[16/10]",
+  },
+  {
+    src: "/images/studio/IMG_2489.jpeg",
+    alt: "Tattoo stations inside the new Illustrated Alex studio",
+    className: "",
+    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw",
+    aspectClass: "aspect-[4/3]",
+  },
+  {
+    src: "/images/studio/IMG_2490.jpeg",
+    alt: "Clean tattoo workspace with open floor plan and studio television",
+    className: "",
+    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw",
+    aspectClass: "aspect-[4/3]",
+  },
 ];
-
-function hasPublicAsset(src: string) {
-  const normalized = src.replace(/^\//, "");
-  return existsSync(path.join(process.cwd(), "public", normalized));
-}
-
-const studioGalleryDisplayItems = studioGalleryItems.map((item) => ({
-  ...item,
-  src: hasPublicAsset(item.src) ? item.src : studioGalleryFallback,
-}));
 
 export default function Home() {
   return (
@@ -253,17 +298,9 @@ export default function Home() {
 
       <section className="border-t border-[#7d5b2e]/35 bg-[#131313] py-14 text-[#f0dfbf]">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="font-display text-3xl font-semibold tracking-[0.02em] text-[#f0dfbf] sm:text-4xl">Personal Studio Experience</h2>
-          <div className="mt-7 relative aspect-[16/10] overflow-hidden rounded-xl border border-[#7d5b2e]/35">
-            <StudioMedia
-              imageSrc="/images/studio/new-studio-exterior.jpg"
-              imageAlt="Exterior of Illustrated Alex studio at 18 Opera House Square"
-              sizes="(max-width: 1024px) 100vw, 70vw"
-              className="h-full w-full"
-            />
-          </div>
-          <div className="mt-6">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#be9a62]">STEP INSIDE</p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#be9a62]">PERSONAL STUDIO EXPERIENCE</p>
+          <h2 className="mt-3 font-display text-3xl font-semibold tracking-[0.02em] text-[#f0dfbf] sm:text-4xl">STEP INSIDE</h2>
+          <div className="mt-5">
             <p className="mt-3 max-w-4xl text-base leading-8 text-[#dbc8a7]">
               Welcome to my new studio at 18 Opera House Square in Claremont, New Hampshire.
             </p>
@@ -272,8 +309,42 @@ export default function Home() {
               tattoo and piercing appointments in a professional environment.
             </p>
           </div>
+          <div className="mt-7 relative aspect-video overflow-hidden rounded-xl border border-[#7d5b2e]/35">
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              poster="/images/studio/IMG_2491.jpeg"
+              aria-label="Walkthrough of the new Illustrated Alex Tattoo and Piercing studio at 18 Opera House Square in Claremont, New Hampshire"
+              className="h-full w-full object-cover"
+            >
+              <source src="/images/studio/illustratedalex.mov" type="video/quicktime" />
+            </video>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
+              <p className="text-sm font-semibold text-[#f0dfbf] sm:text-base">Illustrated Alex Tattoo &amp; Piercing</p>
+              <p className="mt-1 text-xs text-[#dbc8a7] sm:text-sm">18 Opera House Square · Claremont, New Hampshire</p>
+            </div>
+          </div>
           <div className="mt-8">
-            <StudioGalleryLightbox items={studioGalleryDisplayItems} />
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {studioPhotos.map((photo) => (
+                <article key={photo.src} className={photo.className}>
+                  <div className={`group relative overflow-hidden rounded-xl border border-[#7d5b2e]/35 ${photo.aspectClass}`}>
+                    <Image
+                      src={photo.src}
+                      alt={photo.alt}
+                      fill
+                      sizes={photo.sizes}
+                      priority={photo.priority}
+                      className="object-cover transition duration-500 group-hover:scale-[1.04]"
+                    />
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
