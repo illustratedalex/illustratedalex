@@ -6,13 +6,18 @@ import { useCallback, useEffect, useState } from "react";
 type StudioGalleryItem = {
   src: string;
   alt: string;
+  className?: string;
+  aspectClass?: string;
+  sizes?: string;
+  priority?: boolean;
 };
 
 type StudioGalleryLightboxProps = {
   items: StudioGalleryItem[];
+  gridClassName?: string;
 };
 
-export function StudioGalleryLightbox({ items }: StudioGalleryLightboxProps) {
+export function StudioGalleryLightbox({ items, gridClassName = "grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" }: StudioGalleryLightboxProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const close = useCallback(() => setActiveIndex(null), []);
@@ -46,25 +51,28 @@ export function StudioGalleryLightbox({ items }: StudioGalleryLightboxProps) {
 
   return (
     <>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className={gridClassName}>
         {items.map((item, index) => (
+        <article key={item.src} className={item.className}>
           <button
-            key={item.src}
             type="button"
             onClick={() => setActiveIndex(index)}
             aria-label={`Open studio image ${index + 1}`}
-            className="group relative aspect-[4/3] overflow-hidden rounded-xl border border-[#7d5b2e]/35 text-left"
+            className={`group relative w-full overflow-hidden rounded-xl border border-[#7d5b2e]/35 text-left ${item.aspectClass ?? "aspect-[4/3]"}`}
           >
             <Image
               src={item.src}
               alt={item.alt}
               fill
-              sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 25vw"
-              className="object-cover transition duration-500 group-hover:scale-[1.04]"
+              sizes={item.sizes ?? "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"}
+              priority={item.priority}
+              loading={item.priority ? undefined : "lazy"}
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             />
           </button>
-        ))}
-      </div>
+        </article>
+      ))}
+    </div>
 
       {activeItem && (
         <div

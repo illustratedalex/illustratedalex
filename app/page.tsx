@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { FloatingTextButton } from "@/components/floating-text-button";
+import { StudioGalleryLightbox } from "@/components/studio-gallery-lightbox";
 import { TrackedLink } from "@/components/tracked-link";
 import { clientReviews, PUBLIC_SITE_SLUG, REVIEWS_SOURCE_URL } from "@/data/reviews";
 import {
@@ -43,66 +44,67 @@ const featuredReviews = clientReviews
 const heroShopUrl = AFTERCARE_SHOP_URL || SHOP_URL;
 const studioPhotos = [
   {
-    src: "/images/studio/IMG_2491.jpeg",
+    src: "/images/studio/IMG_2491.webp",
     alt: "Exterior of Illustrated Alex Tattoo and Piercing at 18 Opera House Square in Claremont, New Hampshire",
     className: "sm:col-span-2 lg:col-span-3",
-    loading: "eager" as const,
+    priority: true,
+    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 100vw, 80vw",
     aspectClass: "aspect-[16/9]",
   },
   {
-    src: "/images/studio/IMG_2483.jpeg",
+    src: "/images/studio/IMG_2483.webp",
     alt: "Spacious gallery and waiting area inside Illustrated Alex Tattoo and Piercing",
     className: "",
-    loading: "lazy" as const,
+    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw",
     aspectClass: "aspect-[4/3]",
   },
   {
-    src: "/images/studio/IMG_2484.jpeg",
+    src: "/images/studio/IMG_2484.webp",
     alt: "Reception counter and jewelry display inside Illustrated Alex Tattoo and Piercing",
     className: "",
-    loading: "lazy" as const,
+    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw",
     aspectClass: "aspect-[4/3]",
   },
   {
-    src: "/images/studio/IMG_2485.jpeg",
+    src: "/images/studio/IMG_2485.webp",
     alt: "Front showroom with illuminated display cases and historic pressed-tin ceiling",
     className: "sm:col-span-2 lg:col-span-2",
-    loading: "lazy" as const,
+    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 100vw, 66vw",
     aspectClass: "aspect-[16/10]",
   },
   {
-    src: "/images/studio/IMG_2486.jpeg",
+    src: "/images/studio/IMG_2486.webp",
     alt: "Open studio interior with hardwood floors and comfortable waiting area",
     className: "",
-    loading: "lazy" as const,
+    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw",
     aspectClass: "aspect-[4/3]",
   },
   {
-    src: "/images/studio/IMG_2487.jpeg",
+    src: "/images/studio/IMG_2487.webp",
     alt: "Bright gallery and consultation area inside the studio",
     className: "",
-    loading: "lazy" as const,
+    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw",
     aspectClass: "aspect-[4/3]",
   },
   {
-    src: "/images/studio/IMG_2488.jpeg",
+    src: "/images/studio/IMG_2488.webp",
     alt: "Spacious professional tattoo work area at Illustrated Alex",
     className: "sm:col-span-2",
-    loading: "lazy" as const,
+    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 100vw, 66vw",
     aspectClass: "aspect-[16/10]",
   },
   {
-    src: "/images/studio/IMG_2489.jpeg",
+    src: "/images/studio/IMG_2489.webp",
     alt: "Tattoo stations inside the new Illustrated Alex studio",
     className: "",
-    loading: "lazy" as const,
+    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw",
     aspectClass: "aspect-[4/3]",
   },
   {
-    src: "/images/studio/IMG_2490.jpeg",
+    src: "/images/studio/IMG_2490.webp",
     alt: "Clean tattoo workspace with open floor plan and studio television",
     className: "",
-    loading: "lazy" as const,
+    sizes: "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw",
     aspectClass: "aspect-[4/3]",
   },
 ];
@@ -328,21 +330,7 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-8">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {studioPhotos.map((photo) => (
-                <article key={photo.src} className={photo.className}>
-                  <div className={`group relative overflow-hidden rounded-xl border border-[#7d5b2e]/35 ${photo.aspectClass}`}>
-                    <img
-                      src={photo.src}
-                      alt={photo.alt}
-                      loading={photo.loading}
-                      decoding="async"
-                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                    />
-                  </div>
-                </article>
-              ))}
-            </div>
+            <StudioGalleryLightbox items={studioPhotos} gridClassName="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" />
           </div>
         </div>
       </section>
