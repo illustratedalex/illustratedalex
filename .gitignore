@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Large source video files
 *.mov
+
+# Large studio source videos
+*-original.mp4
