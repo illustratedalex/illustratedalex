@@ -317,11 +317,12 @@ export default function Home() {
               loop
               playsInline
               preload="metadata"
-              poster="/images/studio/IMG_2491.jpeg"
+              poster="/images/studio/new-studio-exterior.jpg"
               aria-label="Walkthrough of the new Illustrated Alex Tattoo and Piercing studio at 18 Opera House Square in Claremont, New Hampshire"
               className="h-full w-full object-cover"
             >
-              <source src="/images/studio/illustratedalex.mov" type="video/quicktime" />
+              <source src="/images/studio/illustratedalex.mp4" type="video/mp4" />
+              Your browser does not support MP4 video playback.
             </video>
             <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
