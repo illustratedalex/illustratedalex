@@ -56,7 +56,7 @@ export const businessFullName = "Illustrated Alex Tattoo & Piercing";
 export const studioAddress = "30 Opera House Square, Claremont, NH";
 export const studioAddressFull = "30 Opera House Square\nClaremont, NH 03743";
 export const BOOKING_URL =
-  "https://book.squareup.com/appointments/7s9snq3nsbhzgk/location/L3SN2SYR67KKJ/services?buttonTextColor=ffffff&color=212121&locale=en&referrer=so";
+  "https://needlebook.com/alex/book?source=website_embed";
 /** @deprecated Use BOOKING_URL */
 export const bookingUrl = BOOKING_URL;
 export const SHOP_URL = "https://shop.illustratedalex.com";
