@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { aboutBio, BOOKING_URL } from "@/data/site-content";
-
-const CHI_BOOKING_URL = "https://app.squareup.com/appointments/buyer/widget/9uwuigbds7gp4s/L3SN2SYR67KKJ";
+import { aboutBio, ALEX_BOOKING_URL, CHI_BOOKING_URL } from "@/data/site-content";
 
 export const metadata: Metadata = {
   title: {
@@ -49,7 +47,7 @@ export default function ArtistsPage() {
                   View Alex&apos;s Work
                 </Link>
                 <Link
-                  href={BOOKING_URL}
+                  href={ALEX_BOOKING_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-full border border-[#bc8f4d] bg-[#bc8f4d] px-6 py-2.5 text-center text-xs font-semibold tracking-[0.1em] text-[#1e1408]"
