@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { aboutBio, BOOKING_URL } from "@/data/site-content";
 
+const CHI_BOOKING_URL = "https://app.squareup.com/appointments/buyer/widget/9uwuigbds7gp4s/L3SN2SYR67KKJ";
+
 export const metadata: Metadata = {
   title: {
     absolute: "Artists | Illustrated Alex Tattoo & Piercing",
@@ -84,7 +86,7 @@ export default function ArtistsPage() {
             <div className="space-y-4">
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#be9a62]">Apprentice Piercer</p>
               <h2 className="font-display text-4xl font-semibold text-[#f0dfbf] sm:text-5xl">Chi Gonzalez</h2>
-              <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#d8c5a3]">Apprentice Piercer</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#d8c5a3]">Apprentice</p>
               <p className="text-base leading-8 text-[#dbc8a7]">
                 Chi Gonzalez is an apprentice piercer at Illustrated Alex Tattoo &amp; Piercing, training under the
                 guidance of Alex Lawrence.
@@ -106,7 +108,7 @@ export default function ArtistsPage() {
 
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Link
-                  href={BOOKING_URL}
+                  href={CHI_BOOKING_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-full border border-[#bc8f4d] bg-[#bc8f4d] px-6 py-2.5 text-center text-xs font-semibold tracking-[0.1em] text-[#1e1408]"
