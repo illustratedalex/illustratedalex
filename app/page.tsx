@@ -241,8 +241,7 @@ export default function Home() {
       <section className="border-t border-[#7d5b2e]/35 bg-[#121212] py-14 text-[#f0dfbf]">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="font-display text-3xl font-semibold tracking-[0.02em] sm:text-4xl">Client Reviews</h2>
-          <p className="mt-2 text-sm text-[#d4c09c]">Real feedback from tattoo and piercing clients.</p>
-          <p className="mt-1 text-xs text-[#bfa47a]">Curated review highlights shown here from published client feedback.</p>
+          <p className="mt-2 text-sm text-[#d4c09c]">Read client feedback on Google.</p>
 
           <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {featuredReviews.map((review) => (
@@ -272,7 +271,7 @@ export default function Home() {
             rel="noopener noreferrer"
             className="mt-6 inline-flex items-center rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-xs font-semibold tracking-[0.1em] text-[#e7d4b4]"
           >
-            Read More Reviews on Google ↗
+            Read Reviews on Google ↗
           </Link>
         </div>
       </section>
