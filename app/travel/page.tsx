@@ -125,7 +125,7 @@ export default function TravelPage() {
             {[
               {
                 name: "Claremont, New Hampshire",
-                body: "Home studio:\n30 Opera House Square\nClaremont, NH",
+                body: "Home studio:\n18 Opera House Square\nClaremont, NH",
               },
               {
                 name: "Enfield, Connecticut",

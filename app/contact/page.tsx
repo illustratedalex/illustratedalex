@@ -7,7 +7,7 @@ import { BOOKING_URL, STUDIO_PHONE, TEXT_STUDIO_URL } from "@/data/site-content"
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Book a tattoo or piercing consultation with Illustrated Alex at 30 Opera House Square, Claremont, NH. Appointments are recommended, and walk-ins may be available depending on schedule.",
+    "Book a tattoo or piercing consultation with Illustrated Alex at 18 Opera House Square, Claremont, NH. Appointments are recommended, and walk-ins may be available depending on schedule.",
 };
 
 export default function ContactPage() {

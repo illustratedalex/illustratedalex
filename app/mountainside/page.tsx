@@ -32,7 +32,7 @@ export default function MountainsidePage() {
           { label: "Studio", value: "Mountainside Tattoo" },
           { label: "Location", value: "Bellows Falls, Vermont" },
           { label: "Years Active", value: "18 years" },
-          { label: "Current Studio", value: "Illustrated Alex — 30 Opera House Square, Claremont NH" },
+          { label: "Current Studio", value: "Illustrated Alex — 18 Opera House Square, Claremont NH" },
         ].map((item) => (
           <div key={item.label} className="flex gap-8 border-b border-[#e8e0d4] py-4 last:border-0">
             <span className="w-32 shrink-0 text-xs font-semibold uppercase tracking-[0.14em] text-[#968b80]">

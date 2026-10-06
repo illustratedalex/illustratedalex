@@ -53,8 +53,8 @@ export const businessName = "Illustrated Alex";
 export const businessTagline = "Tattoo • Piercing • Art";
 export const businessFullName = "Illustrated Alex Tattoo & Piercing";
 
-export const studioAddress = "30 Opera House Square, Claremont, NH";
-export const studioAddressFull = "30 Opera House Square\nClaremont, NH 03743";
+export const studioAddress = "18 Opera House Square, Claremont, NH";
+export const studioAddressFull = "18 Opera House Square\nClaremont, NH 03743";
 export const NEEDLEBOOK_BOOKING_URL =
   "https://needlebook.com/alex/book?source=website_embed";
 export const ALEX_BOOKING_URL =
@@ -105,7 +105,7 @@ export const locations = [
     name: "Claremont, New Hampshire",
     label: "Home Studio",
     description: "Appointments recommended. Walk-ins may be available when the schedule allows.",
-    address: "30 Opera House Square, Claremont, NH",
+    address: "18 Opera House Square, Claremont, NH",
     type: "home" as const,
   },
   {
@@ -136,7 +136,7 @@ export const portfolioCategories = [
 export type PortfolioCategory = (typeof portfolioCategories)[number];
 
 export const aboutSummary =
-  "Nearly four decades in tattooing and piercing. 18 years at Mountainside Tattoo. Now at 30 Opera House Square in Claremont, NH — appointments recommended, with walk-in availability when schedule allows.";
+  "Nearly four decades in tattooing and piercing. 18 years at Mountainside Tattoo. Now at 18 Opera House Square in Claremont, NH — appointments recommended, with walk-in availability when schedule allows.";
 
 export const aboutBio = [
   "Born in Holyoke, Massachusetts in 1971, Alex started tattooing in 1986 and built a career around custom work, consistency, and craftsmanship.",
@@ -150,7 +150,7 @@ export const timeline: TimelineItem[] = [
   { label: "Piercing Added", value: "1990s" },
   { label: "Settled in Vermont", value: "2001" },
   { label: "Mountainside Tattoo", value: "Owned for 18 years in Bellows Falls, VT" },
-  { label: "Home Studio", value: "30 Opera House Square, Claremont, NH" },
+  { label: "Home Studio", value: "18 Opera House Square, Claremont, NH" },
   { label: "Guest Spots", value: "Enfield, CT · Redondo Beach, CA" },
 ];
 
