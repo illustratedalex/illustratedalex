@@ -42,6 +42,17 @@ export function SiteFooter() {
             </li>
           </ul>
         </nav>
+        <p className="mt-4 text-sm text-[#d7c4a1]">
+          Also built by Alex: {" "}
+          <Link
+            href="https://needlebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block py-1 underline underline-offset-4 hover:text-[#f0dfbf]"
+          >
+            NeedleBook — tattoo booking and studio software ↗
+          </Link>
+        </p>
         <div className="mt-5 flex flex-wrap items-center justify-between gap-2 border-t border-[#7d5b2e]/35 pt-4">
           <p className="text-xs text-[#be9a62]">
             © {new Date().getFullYear()} {businessFullName}
