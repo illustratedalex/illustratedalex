@@ -13,7 +13,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://illustratedalex.com"),
+  metadataBase: new URL("https://www.illustratedalex.com"),
   title: {
     default: "Illustrated Alex — Tattoo & Piercing",
     template: "%s | Illustrated Alex",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     title: "Illustrated Alex — Tattoo & Piercing",
     description:
       "Custom tattoos, professional body piercing, and nearly four decades of experience. Private studio in Claremont, NH.",
-    url: "https://illustratedalex.com",
+    url: "https://www.illustratedalex.com",
     siteName: "Illustrated Alex",
     type: "website",
   },

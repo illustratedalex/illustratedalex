@@ -1,0 +1,70 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/about.html",
+      "destination": "/artists",
+      "permanent": true
+    },
+    {
+      "source": "/about",
+      "destination": "/artists",
+      "permanent": true
+    },
+    {
+      "source": "/gallery",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio.html",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/piercings.html",
+      "destination": "/piercings",
+      "permanent": true
+    },
+    {
+      "source": "/aftercare.html",
+      "destination": "/aftercare",
+      "permanent": true
+    },
+    {
+      "source": "/tattoo-aftercare.html",
+      "destination": "/aftercare",
+      "permanent": true
+    },
+    {
+      "source": "/travel.html",
+      "destination": "/travel",
+      "permanent": true
+    },
+    {
+      "source": "/contact.html",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/book.html",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/shop.html",
+      "destination": "/shop",
+      "permanent": true
+    },
+    {
+      "source": "/s/shop",
+      "destination": "/shop",
+      "permanent": true
+    }
+  ]
+}

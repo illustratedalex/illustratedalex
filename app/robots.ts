@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://illustratedalex.com/sitemap.xml",
+    sitemap: "https://www.illustratedalex.com/sitemap.xml",
   };
 }
