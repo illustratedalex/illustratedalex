@@ -1,3 +1,13 @@
+# Alexander Lawrence · Illustrated Alex
+
+Tattoo artist and body piercer building software for tattoo artists, studios, and collectors.
+
+## Current project
+
+- [NeedleBook](https://needlebook.com) — tattoo artist and studio discovery, with requests, bookings, deposits, calendars, clients, and consent workflows.
+
+## Website development
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
