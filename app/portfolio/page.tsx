@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import Link from "next/link";
 import { GalleryPageClient } from "@/components/gallery-page-client";
 import { galleryItems, instagramHandles } from "@/data/site-content";
 
-export const metadata: Metadata = {
-  title: "Portfolio",
-  description:
-    "Tattoo and piercing work by Illustrated Alex — fine line, black & gray, realism, wildlife, cover-ups, sleeves, and piercing. Private studio in Claremont, NH.",
-};
+export const metadata = createPageMetadata(
+  "/portfolio",
+  "Tattoo & Piercing Portfolio | Illustrated Alex",
+  "Tattoo and piercing work by Illustrated Alex — fine line, black & gray, realism, wildlife, cover-ups, sleeves, and piercing. Private studio in Claremont, NH.",
+);
 
 function hasPublicAsset(src: string) {
   const normalized = src.replace(/^\//, "");

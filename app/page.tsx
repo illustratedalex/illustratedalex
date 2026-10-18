@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { createPageMetadata, studioJsonLd } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { FloatingTextButton } from "@/components/floating-text-button";
@@ -15,11 +15,11 @@ import {
   galleryItems,
 } from "@/data/site-content";
 
-export const metadata: Metadata = {
-  title: "Illustrated Alex — Tattoo & Piercing",
-  description:
-    "Custom tattoos, professional body piercing, and nearly four decades of experience at 18 Opera House Square in Claremont, NH. Appointments are recommended, and walk-ins may be available when the schedule allows.",
-};
+export const metadata = createPageMetadata(
+  "/",
+  "Tattoo & Piercing in Claremont, NH | Illustrated Alex",
+  "Custom tattoos and professional body piercing at 18 Opera House Square in Claremont, NH. Explore the portfolio and text the studio to discuss your next appointment.",
+);
 
 const featuredPortfolio = galleryItems
   .filter(
@@ -113,6 +113,10 @@ const studioPhotos = [
 export default function Home() {
   return (
     <div className="bg-[#0a0a0a]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(studioJsonLd).replace(/</g, "\\u003c") }}
+      />
       <section className="relative min-h-[82vh] overflow-hidden">
         <Image
           src="/images/studio/alex-tattooing.jpg"

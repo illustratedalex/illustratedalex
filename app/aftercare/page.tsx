@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { PiercingAftercareSelector } from "@/components/piercing-aftercare-selector";
 import {
@@ -7,11 +7,11 @@ import {
   tattooAftercareSteps,
 } from "@/data/aftercare";
 
-export const metadata: Metadata = {
-  title: "Aftercare",
-  description:
-    "Tattoo and piercing aftercare guidance from Illustrated Alex. Separate sections for tattoos and piercings. Always follow the instructions from your appointment first.",
-};
+export const metadata = createPageMetadata(
+  "/aftercare",
+  "Tattoo & Piercing Aftercare | Illustrated Alex",
+  "Tattoo and piercing aftercare guidance from Illustrated Alex. Separate sections for tattoos and piercings. Always follow the instructions from your appointment first.",
+);
 
 export default function AftercarePage() {
   return (
