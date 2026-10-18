@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import Image from "next/image";
 import Link from "next/link";
 import { TEXT_STUDIO_URL } from "@/data/site-content";
 
-export const metadata: Metadata = {
-  title: "Travel & Guest Artist",
-  description:
-    "Guest artist appearances, studio visits, event bookings, and travel dates for tattoo clients outside Claremont, New Hampshire.",
-};
+export const metadata = createPageMetadata(
+  "/travel",
+  "Travel & Guest Artist | Illustrated Alex",
+  "Guest artist appearances, studio visits, event bookings, and travel dates for tattoo clients outside Claremont, New Hampshire.",
+);
 
 const guestStudios = [
   {

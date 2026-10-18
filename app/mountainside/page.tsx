@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { bookingUrl, mountainsideBio } from "@/data/site-content";
 
-export const metadata: Metadata = {
-  title: "Mountainside Legacy",
-  description:
-    "Mountainside Tattoo in Bellows Falls, VT — 18 years of tattooing and piercing before Illustrated Alex moved to Claremont, NH.",
-};
+export const metadata = createPageMetadata(
+  "/mountainside",
+  "Mountainside Tattoo Legacy | Illustrated Alex",
+  "Mountainside Tattoo in Bellows Falls, VT — 18 years of tattooing and piercing before Illustrated Alex moved to Claremont, NH.",
+);
 
 export default function MountainsidePage() {
   return (

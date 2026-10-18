@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 import { TrackedLink } from "@/components/tracked-link";
 import { BOOKING_URL, SHOP_URL, GIFT_CARD_URL } from "@/data/site-content";
 import type { AnalyticsEventName } from "@/lib/analytics";
 
-export const metadata: Metadata = {
-  title: "Shop",
-  description:
-    "Implant-grade body jewelry, aftercare products, gift cards, and studio merchandise from Illustrated Alex — available through Square.",
-};
+export const metadata = createPageMetadata(
+  "/shop",
+  "Jewelry, Aftercare & Gift Cards | Illustrated Alex",
+  "Implant-grade body jewelry, aftercare products, gift cards, and studio merchandise from Illustrated Alex — available through Square.",
+);
 
 type ShopCard = {
   label: string;

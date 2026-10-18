@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { bookingUrl } from "@/data/site-content";
 
-export const metadata: Metadata = {
-  title: "Piercings",
-  description:
-    "Professional body piercing by Illustrated Alex — practiced since the 1990s. Implant-grade jewelry, correct anatomy assessment, and real aftercare guidance in Claremont, NH.",
-};
+export const metadata = createPageMetadata(
+  "/piercings",
+  "Body Piercing in Claremont, NH | Illustrated Alex",
+  "Professional ear and body piercing in Claremont, NH. Explore placements, jewelry and aftercare, then text Illustrated Alex to discuss an appointment.",
+);
 
 const piercingTypes = [
   "Earlobes", "Helix & Cartilage", "Tragus & Daith", "Industrial",

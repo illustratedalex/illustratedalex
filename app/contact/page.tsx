@@ -1,14 +1,14 @@
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { FloatingTextButton } from "@/components/floating-text-button";
 import { StudioMedia } from "@/components/studio-media";
 import { BOOKING_URL, STUDIO_PHONE, TEXT_STUDIO_URL } from "@/data/site-content";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Book a tattoo or piercing consultation with Illustrated Alex at 18 Opera House Square, Claremont, NH. Appointments are recommended, and walk-ins may be available depending on schedule.",
-};
+export const metadata = createPageMetadata(
+  "/contact",
+  "Contact & Booking in Claremont, NH | Illustrated Alex",
+  "Book a tattoo or piercing consultation with Illustrated Alex at 18 Opera House Square, Claremont, NH. Appointments are recommended; text first for availability.",
+);
 
 export default function ContactPage() {
   return (

@@ -1,15 +1,13 @@
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { aboutBio, ALEX_BOOKING_URL, CHI_BOOKING_URL } from "@/data/site-content";
 
-export const metadata: Metadata = {
-  title: {
-    absolute: "Artists | Illustrated Alex Tattoo & Piercing",
-  },
-  description:
-    "Meet Alex Lawrence and apprentice piercer Chi Gonzalez at Illustrated Alex Tattoo & Piercing in Claremont, New Hampshire.",
-};
+export const metadata = createPageMetadata(
+  "/artists",
+  "Artists | Illustrated Alex Tattoo & Piercing",
+  "Meet Alex Lawrence and apprentice piercer Chi Gonzalez at Illustrated Alex Tattoo & Piercing in Claremont, New Hampshire.",
+);
 
 export default function ArtistsPage() {
   return (
