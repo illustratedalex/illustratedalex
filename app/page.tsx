@@ -362,6 +362,16 @@ export default function Home() {
               Book appointments, shop jewelry and aftercare, purchase gift cards, or text the studio if you need help
               choosing the right service.
             </p>
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-[#dbc8a7]">
+              Not sure what to send with your tattoo idea? Use the{" "}
+              <a
+                href="https://needlebooking.com/guides/tattoo-booking-request"
+                className="text-[#e1c18c] underline underline-offset-4"
+              >
+                NeedleBooking booking-request checklist
+              </a>{" "}
+              to organize placement, size and references before contacting the studio.
+            </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <TrackedLink
                 href={BOOKING_URL}
