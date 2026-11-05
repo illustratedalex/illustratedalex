@@ -17,14 +17,12 @@ const jewelryPrices: Record<string, number> = {
   "MO-359": 876,
   "T-MO-402": 1176,
   "T-MO-403": 1296,
-  "T-MO-385": 1200,
   "T-MO-395": 1596,
   "LA-099": 168,
   "EY-012": 171,
   "IB-036": 60,
   "BA-002": 141,
   "LA-054": 126,
-  "LA-074": 108,
   "LA-024": 81,
   "MO-010": 81,
 };
@@ -65,7 +63,8 @@ test("merch stays unpriced and has no print-on-demand ids", () => {
 });
 
 test("jewelry listings keep the vendor reorder SKU", () => {
-  const vendorSkus = ["T-BA-649", "MO-359", "T-MO-395", "T-MO-402", "T-MO-403", "BA-002", "IB-036", "LA-099", "EY-012", "OT-194", "LA-024", "MO-010", "T-MO-385", "LA-054", "LA-074"];
+  const vendorSkus = ["T-BA-649", "MO-359", "T-MO-395", "T-MO-402", "T-MO-403", "BA-002", "IB-036", "LA-099", "EY-012", "OT-194", "LA-024", "MO-010", "LA-054", "LA-074"];
+  assert.equal(products.some((entry) => entry.sku === "T-MO-385"), false);
   for (const sku of vendorSkus) {
     const product = products.find((entry) => entry.sku === sku);
     assert.ok(product, sku);
@@ -91,6 +90,17 @@ test("jewelry listings keep the vendor reorder SKU", () => {
   assert.equal(products.find((entry) => entry.sku === "T-BA-649")?.image, "/images/jewelry/belly-double-flat-cz-model-01.jpg");
   assert.equal(products.find((entry) => entry.sku === "MO-359")?.image, "/images/jewelry/tragus-leaf-cz-gold-model-01.jpg");
   assert.equal(products.find((entry) => entry.sku === "T-MO-395")?.image, "/images/jewelry/labret-petal-flower-gold-model-01.jpg");
+
+  const cheek = products.find((entry) => entry.sku === "LA-074");
+  assert.deepEqual(
+    cheek?.variants.map((variant) => [variant.id, variant.priceCents]),
+    [
+      ["25mm", 117],
+      ["22mm", 117],
+      ["19mm", 117],
+      ["16mm", 108],
+    ],
+  );
 });
 
 test("category children are alphabetical", () => {

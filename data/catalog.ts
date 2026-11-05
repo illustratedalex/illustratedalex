@@ -18,6 +18,8 @@ export type Fulfillment = "square-catalog" | "aftercare-later" | "pod-placeholde
 export type CatalogVariant = {
   id: string;
   label: string;
+  /** Overrides the product price when lengths do not share one shelf price. */
+  priceCents?: number;
   /** Square Catalog ITEM_VARIATION id. Null until register sync. */
   squareCatalogVariationId: string | null;
 };
@@ -65,9 +67,10 @@ export type CatalogProduct = {
   externalHref: string | null;
 };
 
-const variation = (id: string, label: string): CatalogVariant => ({
+const variation = (id: string, label: string, priceCents?: number): CatalogVariant => ({
   id,
   label,
+  ...(priceCents === undefined ? {} : { priceCents }),
   squareCatalogVariationId: null,
 });
 
@@ -269,17 +272,23 @@ export const products: CatalogProduct[] = [
   {
     slug: "steel-14g-ball-tragus-labret",
     sku: "LA-024",
-    title: "Labret – Steel – 14G – Internally Threaded Ball",
+    title: "Steel Internally Threaded Ball Tragus Labret 14G",
     department: "body-jewelry",
     category: "ear",
     priceCents: 81,
     unit: "each",
     stockCount: 60,
     stockLabel: "60 on hand. Lengths are not counted separately.",
-    image: null,
-    imageAlt: null,
-    photoStatus: "coming",
-    description: "Steel internally threaded ball-end tragus labret, 14G. Lengths 12 mm, 11 mm, and 10 mm share one price. Photo coming.",
+    image: "/images/jewelry/mo-010-la-024-steel-ball-tragus-labret.jpg",
+    imageAlt: "Steel internally threaded ball labrets on a white background",
+    gallery: [
+      {
+        src: "/images/jewelry/mo-010-la-024-steel-ball-tragus-labret-hand.jpg",
+        alt: "Steel ball labrets held in a hand",
+      },
+    ],
+    photoStatus: "ready",
+    description: "Steel internally threaded ball-end tragus labret, 14G. Lengths 12 mm, 11 mm, and 10 mm are $0.81 each.",
     materials: ["Steel", "Internally threaded", "Ball end", "14G", "Tragus / ear labret"],
     variants: [variation("12mm", "12 mm"), variation("11mm", "11 mm"), variation("10mm", "10 mm")],
     featured: false,
@@ -290,17 +299,23 @@ export const products: CatalogProduct[] = [
   {
     slug: "steel-16g-ball-tragus-labret",
     sku: "MO-010",
-    title: "Labret – Steel – 16G – Internally Threaded Ball",
+    title: "Steel Internally Threaded Ball Tragus Labret 16G",
     department: "body-jewelry",
     category: "ear",
     priceCents: 81,
     unit: "each",
     stockCount: 80,
     stockLabel: "80 on hand. Lengths are not counted separately.",
-    image: null,
-    imageAlt: null,
-    photoStatus: "coming",
-    description: "Steel internally threaded ball-end tragus labret, 16G. Lengths 14 mm, 12 mm, 11 mm, and 8 mm share one price. Photo coming.",
+    image: "/images/jewelry/mo-010-la-024-steel-ball-tragus-labret.jpg",
+    imageAlt: "Steel internally threaded ball labrets on a white background",
+    gallery: [
+      {
+        src: "/images/jewelry/mo-010-la-024-steel-ball-tragus-labret-hand.jpg",
+        alt: "Steel ball labrets held in a hand",
+      },
+    ],
+    photoStatus: "ready",
+    description: "Steel internally threaded ball-end tragus labret, 16G. Lengths 14 mm, 12 mm, 11 mm, and 8 mm are $0.81 each.",
     materials: ["Steel", "Internally threaded", "Ball end", "16G", "Tragus / ear labret"],
     variants: [
       variation("14mm", "14 mm"),
@@ -411,28 +426,6 @@ export const products: CatalogProduct[] = [
     externalHref: null,
   },
   {
-    slug: "g23-ti-3-cz-cluster-labret",
-    sku: "T-MO-385",
-    title: "Labret – G23 Titanium – 16G – Internally Threaded 3-CZ Cluster",
-    department: "body-jewelry",
-    category: "lip-labret",
-    priceCents: 1200,
-    unit: "each",
-    stockCount: 4,
-    stockLabel: "4 on hand",
-    image: null,
-    imageAlt: null,
-    photoStatus: "coming",
-    description:
-      "G23 titanium internally threaded labret with a prong-set three-CZ cluster. 16G, 8 mm post. The exact supplier photo is not available.",
-    materials: ["G23 titanium", "Internally threaded", "16G", "8 mm post", "Prong-set 3-CZ cluster"],
-    variants: [variation("8mm", "8 mm post")],
-    featured: false,
-    fulfillment: "square-catalog",
-    reconnect: null,
-    externalHref: null,
-  },
-  {
     slug: "g23-gold-pvd-ti-5-cz-petal-flower-labret",
     sku: "T-MO-395",
     title: "Gold Petal Flower CZ Labret",
@@ -479,17 +472,23 @@ export const products: CatalogProduct[] = [
   {
     slug: "steel-14g-xl-cheek-labret",
     sku: "LA-054",
-    title: "Labret – Steel – 14G – XL Cheek",
+    title: "14G XL Steel Cheek Labret",
     department: "body-jewelry",
     category: "lip-labret",
     priceCents: 126,
     unit: "each",
     stockCount: 60,
     stockLabel: "60 on hand. Lengths are not counted separately.",
-    image: null,
-    imageAlt: null,
-    photoStatus: "coming",
-    description: "14G steel extra-long cheek labret. Lengths 25 mm, 22 mm, and 16 mm share one price. Photo coming.",
+    image: "/images/jewelry/la-054-074-xl-steel-cheek-labret.jpg",
+    imageAlt: "XL steel cheek labrets in several lengths on a white background",
+    gallery: [
+      {
+        src: "/images/jewelry/la-054-074-xl-steel-cheek-labret-alt.jpg",
+        alt: "Another view of XL steel cheek labrets",
+      },
+    ],
+    photoStatus: "ready",
+    description: "14G extra-long steel cheek labret. Lengths 25 mm, 22 mm, and 16 mm are $1.26 each.",
     materials: ["Steel", "14G", "Extra-long cheek labret"],
     variants: [variation("25mm", "25 mm"), variation("22mm", "22 mm"), variation("16mm", "16 mm")],
     featured: false,
@@ -500,23 +499,29 @@ export const products: CatalogProduct[] = [
   {
     slug: "steel-16g-xl-cheek-labret",
     sku: "LA-074",
-    title: "Labret – Steel – 16G – XL Cheek",
+    title: "16G XL Steel Cheek Labret",
     department: "body-jewelry",
     category: "lip-labret",
-    priceCents: 108,
+    priceCents: null,
     unit: "each",
     stockCount: 80,
-    stockLabel: "80 on hand. Lengths are not counted separately.",
-    image: null,
-    imageAlt: null,
-    photoStatus: "coming",
-    description: "16G steel extra-long cheek labret. Lengths 25 mm, 22 mm, 19 mm, and 16 mm share one price. Photo coming.",
+    stockLabel: "80 on hand. Lengths are not counted separately. 25 mm, 22 mm, and 19 mm are $1.17. The 16 mm length is $1.08.",
+    image: "/images/jewelry/la-054-074-xl-steel-cheek-labret.jpg",
+    imageAlt: "XL steel cheek labrets in several lengths on a white background",
+    gallery: [
+      {
+        src: "/images/jewelry/la-054-074-xl-steel-cheek-labret-alt.jpg",
+        alt: "Another view of XL steel cheek labrets",
+      },
+    ],
+    photoStatus: "ready",
+    description: "16G extra-long steel cheek labret. 25 mm, 22 mm, and 19 mm are $1.17 each. The 16 mm length is $1.08.",
     materials: ["Steel", "16G", "Extra-long cheek labret"],
     variants: [
-      variation("25mm", "25 mm"),
-      variation("22mm", "22 mm"),
-      variation("19mm", "19 mm"),
-      variation("16mm", "16 mm"),
+      variation("25mm", "25 mm", 117),
+      variation("22mm", "22 mm", 117),
+      variation("19mm", "19 mm", 117),
+      variation("16mm", "16 mm", 108),
     ],
     featured: false,
     fulfillment: "square-catalog",
@@ -777,6 +782,23 @@ export function displaySku(product: CatalogProduct) {
   return vendorSkuPattern.test(product.sku) ? product.sku : null;
 }
 
+export function linePriceCents(product: CatalogProduct, variant?: CatalogVariant) {
+  return variant?.priceCents ?? product.priceCents;
+}
+
+export function priceSummary(product: CatalogProduct) {
+  const amounts = [
+    ...new Set(
+      product.variants
+        .map((variant) => linePriceCents(product, variant))
+        .filter((cents): cents is number => cents !== null),
+    ),
+  ].sort((a, b) => a - b);
+  if (amounts.length === 0) return formatPrice(null, product.unit);
+  if (amounts.length === 1) return formatPrice(amounts[0], product.unit);
+  return `${formatPrice(amounts[0], "each")}–${formatPrice(amounts[amounts.length - 1], "each")}`;
+}
+
 export function formatPrice(cents: number | null, unit: CatalogProduct["unit"]) {
   if (cents === null) return "Price TBD";
   const amount = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100);
@@ -784,5 +806,6 @@ export function formatPrice(cents: number | null, unit: CatalogProduct["unit"]) 
 }
 
 export function canAddToCart(product: CatalogProduct) {
-  return product.priceCents !== null && product.externalHref === null && product.fulfillment === "square-catalog";
+  const priced = product.variants.some((variant) => linePriceCents(product, variant) !== null);
+  return priced && product.externalHref === null && product.fulfillment === "square-catalog";
 }

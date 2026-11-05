@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { displaySku, formatPrice, productPath, type CatalogProduct } from "@/data/catalog";
+import { displaySku, priceSummary, productPath, type CatalogProduct } from "@/data/catalog";
 import { PhotoFrame } from "@/components/shop/photo-frame";
 
 export function ProductCard({ product }: { product: CatalogProduct }) {
-  const price = formatPrice(product.priceCents, product.unit);
+  const price = priceSummary(product);
   const sku = displaySku(product);
   const status = product.reconnect
     ? `Reconnect ${product.reconnect}`

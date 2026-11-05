@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { formatPrice, getProduct } from "@/data/catalog";
+import { formatPrice, getProduct, linePriceCents } from "@/data/catalog";
 import { decideCheckout } from "@/lib/square/checkout";
 import { useCart } from "@/components/shop/cart-provider";
 
@@ -109,7 +109,7 @@ export function CheckoutClient() {
                   {variant.label} · {line.quantity}
                 </span>
               </span>
-              <span>{product.priceCents === null ? "Price TBD" : formatPrice(product.priceCents * line.quantity, "each")}</span>
+              <span>{formatPrice((linePriceCents(product, variant) ?? 0) * line.quantity, "each")}</span>
             </li>
           ))}
         </ul>

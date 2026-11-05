@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { canAddToCart, type CatalogProduct } from "@/data/catalog";
+import { canAddToCart, formatPrice, linePriceCents, type CatalogProduct } from "@/data/catalog";
 import { useCart } from "@/components/shop/cart-provider";
 
 const buttonClass =
@@ -48,11 +48,15 @@ export function AddToCart({ product }: { product: CatalogProduct }) {
             onChange={(event) => setVariantId(event.target.value)}
             className="mt-2 block min-h-11 w-full rounded-xl border border-[#7d5b2e] bg-[#14110d] px-3 text-sm text-[#f0dfbf] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d8b06d]"
           >
-            {product.variants.map((variant) => (
-              <option key={variant.id} value={variant.id}>
-                {variant.label}
-              </option>
-            ))}
+            {product.variants.map((variant) => {
+              const cents = linePriceCents(product, variant);
+              const priced = product.variants.some((entry) => entry.priceCents !== undefined);
+              return (
+                <option key={variant.id} value={variant.id}>
+                  {priced && cents !== null ? `${variant.label} · ${formatPrice(cents, "each")}` : variant.label}
+                </option>
+              );
+            })}
           </select>
         </label>
       ) : (

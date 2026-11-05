@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { AddToCart } from "@/components/shop/add-to-cart";
 import { PhotoFrame } from "@/components/shop/photo-frame";
 import { ProductGallery } from "@/components/shop/product-gallery";
-import { categories, displaySku, formatPrice, getCategory, getProduct, productPath, products } from "@/data/catalog";
+import { categories, displaySku, getCategory, getProduct, priceSummary, productPath, products } from "@/data/catalog";
 
 export const dynamicParams = false;
 
@@ -54,7 +54,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         </p>
         <h1 className="font-display mt-3 text-4xl leading-tight font-semibold sm:text-5xl">{product.title}</h1>
         {sku ? <p className="mt-3 text-base font-semibold tracking-[0.14em] text-[#d8b06d]">SKU {sku}</p> : null}
-        <p className="mt-4 text-lg text-[#f2e1c2]">{formatPrice(product.priceCents, product.unit)}</p>
+        <p className="mt-4 text-lg text-[#f2e1c2]">{priceSummary(product)}</p>
         {product.stockLabel ? <p className="mt-2 text-sm text-[#dbc8a7]">{product.stockLabel}</p> : null}
         <p className="mt-4 max-w-2xl text-base leading-8 text-[#dbc8a7]">{product.description}</p>
         <h2 className="mt-6 text-sm font-semibold tracking-[0.14em] text-[#d8b06d] uppercase">Details</h2>

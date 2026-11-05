@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { formatPrice, getProduct, productPath } from "@/data/catalog";
+import { formatPrice, getProduct, linePriceCents, productPath } from "@/data/catalog";
 import { useCart } from "@/components/shop/cart-provider";
 
 const controlClass =
@@ -28,8 +28,9 @@ export function CartView() {
   const detailed = lines.flatMap((line) => {
     const product = getProduct(line.slug);
     const variant = product?.variants.find((entry) => entry.id === line.variantId);
-    if (!product || !variant || product.priceCents === null) return [];
-    return [{ line, product, variant, lineCents: product.priceCents * line.quantity }];
+    const cents = product && variant ? linePriceCents(product, variant) : null;
+    if (!product || !variant || cents === null) return [];
+    return [{ line, product, variant, lineCents: cents * line.quantity }];
   });
   const subtotal = detailed.reduce((sum, entry) => sum + entry.lineCents, 0);
 
@@ -44,7 +45,7 @@ export function CartView() {
                   {product.title}
                 </Link>
                 <p className="mt-1 text-sm text-[#dbc8a7]">{variant.label}</p>
-                <p className="mt-1 text-sm text-[#f2e1c2]">{formatPrice(product.priceCents, product.unit)}</p>
+                <p className="mt-1 text-sm text-[#f2e1c2]">{formatPrice(linePriceCents(product, variant), product.unit)}</p>
               </div>
               <div className="flex items-center gap-2">
                 <button type="button" className={controlClass} aria-label={`Decrease ${product.title}`} onClick={() => setQuantity(line.slug, line.variantId, line.quantity - 1)}>
