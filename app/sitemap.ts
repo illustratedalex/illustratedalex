@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { categories, categoryPath, departments, productPath, products } from "@/data/catalog";
 
 export const dynamic = "force-static";
 
@@ -13,6 +14,11 @@ const routes = [
   "/mountainside",
   "/contact",
   "/shop",
+  "/shop/cart",
+  "/shop/checkout",
+  ...departments.map((department) => `/shop/${department.slug}`),
+  ...categories.map((category) => categoryPath(category)),
+  ...products.map((product) => productPath(product)),
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

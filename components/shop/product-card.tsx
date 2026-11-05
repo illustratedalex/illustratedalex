@@ -1,0 +1,40 @@
+import Link from "next/link";
+import { formatPrice, productPath, type CatalogProduct } from "@/data/catalog";
+import { PhotoFrame } from "@/components/shop/photo-frame";
+
+export function ProductCard({ product }: { product: CatalogProduct }) {
+  const price = formatPrice(product.priceCents, product.unit);
+  const status = product.reconnect
+    ? `Reconnect ${product.reconnect}`
+    : product.photoStatus === "coming"
+      ? "Photo coming"
+      : product.photoStatus === "needed"
+        ? "Photo needed"
+        : null;
+
+  return (
+    <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-[#7d5b2e]/40 bg-[#0f0f0f]">
+      <Link href={productPath(product)} className="block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d8b06d]">
+        <PhotoFrame product={product} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+        <div className="space-y-2 px-4 py-4">
+          <h3 className="font-display text-xl leading-snug font-semibold text-[#f0dfbf]">{product.title}</h3>
+          <p className="text-sm text-[#f2e1c2]">{price}</p>
+          {status ? <p className="text-[11px] tracking-[0.12em] text-[#d8b06d] uppercase">{status}</p> : null}
+        </div>
+      </Link>
+    </article>
+  );
+}
+
+export function ProductGrid({ products }: { products: CatalogProduct[] }) {
+  if (products.length === 0) return null;
+  return (
+    <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {products.map((product) => (
+        <li key={product.slug}>
+          <ProductCard product={product} />
+        </li>
+      ))}
+    </ul>
+  );
+}

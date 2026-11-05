@@ -1,11 +1,7 @@
 import { createPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { PiercingAftercareSelector } from "@/components/piercing-aftercare-selector";
-import {
-  PIERCING_AFTERCARE_SHOP_URL,
-  piercingAftercareItems,
-  tattooAftercareSteps,
-} from "@/data/aftercare";
+import { piercingAftercareItems, tattooAftercareSteps } from "@/data/aftercare";
 
 export const metadata = createPageMetadata(
   "/aftercare",
@@ -56,6 +52,13 @@ export default function AftercarePage() {
             If you notice spreading redness, unusual swelling, heat, pus, fever, severe pain, or symptoms that concern
             you, contact a medical professional.
           </div>
+          <p className="mt-6 text-sm leading-7 text-[#dbc8a7]">
+            Tattoo aftercare products will be listed with the shop when those SKUs are ready.{" "}
+            <Link href="/shop/aftercare/tattoo-aftercare" className="text-[#e1c18c] underline underline-offset-4">
+              Tattoo aftercare in the shop
+            </Link>
+            .
+          </p>
         </section>
 
         <section className="mt-8 rounded-xl border border-[#7d5b2e]/40 bg-[#0f0f0f] p-6 sm:p-8">
@@ -72,10 +75,8 @@ export default function AftercarePage() {
               Sterile saline wound wash and aftercare products are available through the shop.
             </p>
             <Link
-              href={PIERCING_AFTERCARE_SHOP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex rounded-full border border-[#bc8f4d] bg-[#bc8f4d] px-6 py-2.5 text-xs font-semibold tracking-[0.1em] text-[#1e1408]"
+              href="/shop/aftercare/piercing-aftercare"
+              className="mt-4 inline-flex min-h-11 items-center rounded-full border border-[#bc8f4d] bg-[#bc8f4d] px-6 py-2.5 text-xs font-semibold tracking-[0.1em] text-[#1e1408]"
             >
               SHOP PIERCING AFTERCARE
             </Link>

@@ -2,18 +2,9 @@ import { createPageMetadata, studioJsonLd } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { FloatingTextButton } from "@/components/floating-text-button";
-import { StudioGalleryLightbox } from "@/components/studio-gallery-lightbox";
 import { TrackedLink } from "@/components/tracked-link";
 import { clientReviews, PUBLIC_SITE_SLUG, REVIEWS_SOURCE_URL } from "@/data/reviews";
-import {
-  AFTERCARE_SHOP_URL,
-  BOOKING_URL,
-  GIFT_CARD_URL,
-  SHOP_URL,
-  TEXT_STUDIO_URL,
-  businessTagline,
-  galleryItems,
-} from "@/data/site-content";
+import { BOOKING_URL, GIFT_CARD_URL, TEXT_STUDIO_URL, businessTagline, galleryItems } from "@/data/site-content";
 
 export const metadata = createPageMetadata(
   "/",
@@ -41,74 +32,7 @@ const featuredReviews = clientReviews
   .filter((review) => review.siteSlug === PUBLIC_SITE_SLUG && review.status === "published" && review.featured)
   .sort((a, b) => a.sortOrder - b.sortOrder);
 
-const heroShopUrl = AFTERCARE_SHOP_URL || SHOP_URL;
-const studioGalleryMediaClass = "aspect-[16/10] min-h-[190px] sm:min-h-[210px] lg:min-h-[230px]";
-const studioPhotos = [
-  {
-    src: "/images/studio/IMG_2491.webp",
-    alt: "Exterior of Illustrated Alex Tattoo and Piercing at 18 Opera House Square in Claremont, New Hampshire",
-    className: "sm:col-span-2",
-    priority: true,
-    sizes: "(max-width: 639px) 100vw, 100vw",
-    aspectClass: studioGalleryMediaClass,
-  },
-  {
-    src: "/images/studio/IMG_2483.webp",
-    alt: "Spacious gallery and waiting area inside Illustrated Alex Tattoo and Piercing",
-    className: "",
-    sizes: "(max-width: 639px) 100vw, 50vw",
-    aspectClass: studioGalleryMediaClass,
-  },
-  {
-    src: "/images/studio/IMG_2484.webp",
-    alt: "Reception counter and jewelry display inside Illustrated Alex Tattoo and Piercing",
-    className: "",
-    sizes: "(max-width: 639px) 100vw, 50vw",
-    aspectClass: studioGalleryMediaClass,
-  },
-  {
-    src: "/images/studio/IMG_2485.webp",
-    alt: "Front showroom with illuminated display cases and historic pressed-tin ceiling",
-    className: "sm:col-span-2",
-    sizes: "(max-width: 639px) 100vw, 100vw",
-    aspectClass: studioGalleryMediaClass,
-  },
-  {
-    src: "/images/studio/IMG_2486.webp",
-    alt: "Open studio interior with hardwood floors and comfortable waiting area",
-    className: "",
-    sizes: "(max-width: 639px) 100vw, 50vw",
-    aspectClass: studioGalleryMediaClass,
-  },
-  {
-    src: "/images/studio/IMG_2487.webp",
-    alt: "Bright gallery and consultation area inside the studio",
-    className: "",
-    sizes: "(max-width: 639px) 100vw, 50vw",
-    aspectClass: studioGalleryMediaClass,
-  },
-  {
-    src: "/images/studio/IMG_2488.webp",
-    alt: "Spacious professional tattoo work area at Illustrated Alex",
-    className: "sm:col-span-2",
-    sizes: "(max-width: 639px) 100vw, 100vw",
-    aspectClass: studioGalleryMediaClass,
-  },
-  {
-    src: "/images/studio/IMG_2489.webp",
-    alt: "Tattoo stations inside the new Illustrated Alex studio",
-    className: "",
-    sizes: "(max-width: 639px) 100vw, 50vw",
-    aspectClass: studioGalleryMediaClass,
-  },
-  {
-    src: "/images/studio/IMG_2490.webp",
-    alt: "Clean tattoo workspace with open floor plan and studio television",
-    className: "",
-    sizes: "(max-width: 639px) 100vw, 50vw",
-    aspectClass: studioGalleryMediaClass,
-  },
-];
+const heroShopUrl = "/shop";
 
 export default function Home() {
   return (
@@ -119,14 +43,14 @@ export default function Home() {
       />
       <section className="relative min-h-[82vh] overflow-hidden">
         <Image
-          src="/images/studio/alex-tattooing.jpg"
-          alt="Alex tattooing in studio"
+          src="/images/studio/IMG_2491.webp"
+          alt="Exterior of Illustrated Alex Tattoo and Piercing at 18 Opera House Square in Claremont, New Hampshire"
           fill
           priority
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/88 via-black/72 to-black/45" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/92 via-black/80 to-black/55" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-[#0a0a0a]/30" />
 
         <div className="relative mx-auto grid w-full max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:px-8 lg:py-20">
@@ -169,8 +93,6 @@ export default function Home() {
                 href={heroShopUrl}
                 eventName="shop_click"
                 eventParams={{ source: "homepage_hero" }}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="min-h-11 w-full rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-center text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4] sm:w-auto"
               >
                 SHOP JEWELRY &amp; AFTERCARE
@@ -301,42 +223,13 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-t border-[#7d5b2e]/35 bg-[#131313] py-14 text-[#f0dfbf]">
+      <section className="border-t border-[#7d5b2e]/35 bg-[#131313] py-10 text-[#f0dfbf]">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#be9a62]">PERSONAL STUDIO EXPERIENCE</p>
-          <h2 className="mt-3 font-display text-3xl font-semibold tracking-[0.02em] text-[#f0dfbf] sm:text-4xl">STEP INSIDE</h2>
-          <div className="mt-5">
-            <p className="mt-3 max-w-4xl text-base leading-8 text-[#dbc8a7]">
-              Welcome to my new studio at 18 Opera House Square in Claremont, New Hampshire.
-            </p>
-            <p className="mt-3 max-w-4xl text-base leading-8 text-[#dbc8a7]">
-              Designed to provide a brighter, cleaner and more comfortable experience, the studio offers one-on-one
-              tattoo and piercing appointments in a professional environment.
-            </p>
-          </div>
-          <div className="relative mt-7 w-full max-h-[300px] aspect-[16/10] overflow-hidden rounded-xl border border-[#7d5b2e]/35 sm:max-h-[380px] sm:aspect-[16/8] lg:max-h-[440px] lg:aspect-[21/8]">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              poster="/images/studio/new-studio-exterior.jpg"
-              aria-label="Walkthrough of the new Illustrated Alex Tattoo and Piercing studio at 18 Opera House Square in Claremont, New Hampshire"
-              className="h-full w-full object-cover"
-            >
-              <source src="/images/studio/illustratedalex.mp4" type="video/mp4" />
-              Your browser does not support MP4 video playback.
-            </video>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
-              <p className="text-sm font-semibold text-[#f0dfbf] sm:text-base">Illustrated Alex Tattoo &amp; Piercing</p>
-              <p className="mt-1 text-xs text-[#dbc8a7] sm:text-sm">18 Opera House Square · Claremont, New Hampshire</p>
-            </div>
-          </div>
-          <div className="mt-4">
-            <StudioGalleryLightbox items={studioPhotos} gridClassName="grid grid-cols-1 gap-3.5 sm:grid-cols-2" />
-          </div>
+          <h2 className="font-display text-3xl font-semibold tracking-[0.02em] text-[#f0dfbf] sm:text-4xl">The studio</h2>
+          <p className="mt-3 max-w-3xl text-base leading-8 text-[#dbc8a7]">
+            Welcome to my new studio at 18 Opera House Square in Claremont, New Hampshire. Appointments are one-on-one
+            for tattoo and piercing.
+          </p>
         </div>
       </section>
 
@@ -384,11 +277,9 @@ export default function Home() {
                 BOOK APPOINTMENT
               </TrackedLink>
               <TrackedLink
-                href={SHOP_URL}
+                href="/shop"
                 eventName="shop_click"
                 eventParams={{ source: "homepage_book_section" }}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="min-h-11 rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4]"
               >
                 SHOP JEWELRY &amp; AFTERCARE
