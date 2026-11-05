@@ -27,13 +27,21 @@ function sameLine(line: CartLine, slug: string, variantId: string) {
 }
 
 function sanitize(lines: CartLine[]) {
-  return lines.flatMap((line) => {
+  const kept: CartLine[] = [];
+  for (const line of lines) {
     const product = getProduct(line.slug);
-    if (!product || !canAddToCart(product)) return [];
-    if (!product.variants.some((variant) => variant.id === line.variantId)) return [];
-    if (!Number.isInteger(line.quantity) || line.quantity < 1) return [];
-    return [{ slug: line.slug, variantId: line.variantId, quantity: line.quantity }];
-  });
+    if (!product || !canAddToCart(product)) continue;
+    if (!product.variants.some((variant) => variant.id === line.variantId)) continue;
+    if (!Number.isInteger(line.quantity) || line.quantity < 1) continue;
+    let quantity = line.quantity;
+    if (product.stockCount !== null) {
+      const used = quantityFor(kept, line.slug);
+      quantity = Math.min(quantity, product.stockCount - used);
+      if (quantity < 1) continue;
+    }
+    kept.push({ slug: line.slug, variantId: line.variantId, quantity });
+  }
+  return kept;
 }
 
 function quantityFor(lines: CartLine[], slug: string) {

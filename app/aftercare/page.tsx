@@ -85,10 +85,12 @@ export default function AftercarePage() {
                     <Link href={productPath(product)} className="text-[#e1c18c] underline underline-offset-4">
                       {product.title}
                     </Link>
-                    <span className="text-[#dbc8a7]">
+                    <span className={product.stockCount === 0 ? "text-[#be9a62]" : "text-[#dbc8a7]"}>
                       {" "}
                       · {priceSummary(product)}
                       {sku ? ` · SKU ${sku}` : ""}
+                      {product.stockCount === 0 ? " · Out of stock" : ""}
+                      {product.stockCount === null ? " · Stock TBD" : ""}
                     </span>
                   </li>
                 );

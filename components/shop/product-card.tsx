@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { displaySku, priceSummary, productPath, type CatalogProduct } from "@/data/catalog";
+import { displaySku, priceSummary, productPath, stockNotice, type CatalogProduct } from "@/data/catalog";
 import { PhotoFrame } from "@/components/shop/photo-frame";
 
 export function ProductCard({ product }: { product: CatalogProduct }) {
   const price = priceSummary(product);
   const sku = displaySku(product);
+  const stock = stockNotice(product);
   const status = product.reconnect
     ? `Reconnect ${product.reconnect}`
     : product.photoStatus === "coming"
@@ -21,6 +22,11 @@ export function ProductCard({ product }: { product: CatalogProduct }) {
           <h3 className="font-display text-xl leading-snug font-semibold text-[#f0dfbf]">{product.title}</h3>
           {sku ? <p className="text-sm font-semibold tracking-[0.12em] text-[#d8b06d]">SKU {sku}</p> : null}
           <p className="text-sm text-[#f2e1c2]">{price}</p>
+          {stock ? (
+            <p className={stock.kind === "out" ? "text-sm font-semibold text-[#f0dfbf]" : stock.kind === "unknown" ? "text-xs text-[#be9a62]" : "text-sm text-[#dbc8a7]"}>
+              {stock.label}
+            </p>
+          ) : null}
           {status ? <p className="text-[11px] tracking-[0.12em] text-[#d8b06d] uppercase">{status}</p> : null}
         </div>
       </Link>

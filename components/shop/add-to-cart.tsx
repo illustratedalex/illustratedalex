@@ -20,6 +20,14 @@ export function AddToCart({ product }: { product: CatalogProduct }) {
     );
   }
 
+  if (product.stockCount === 0) {
+    return (
+      <button type="button" disabled className={`${buttonClass} cursor-not-allowed border-[#7d5b2e] text-[#be9a62]`}>
+        Out of stock
+      </button>
+    );
+  }
+
   if (!canAddToCart(product)) {
     return (
       <div className="space-y-2">

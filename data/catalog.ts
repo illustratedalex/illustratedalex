@@ -201,7 +201,7 @@ export const products: CatalogProduct[] = [
     priceCents: 570,
     unit: "pair",
     stockCount: 5,
-    stockLabel: "About 10 pieces photographed. Sold only as matched pairs. Gauges are not measured yet.",
+    stockLabel: "5 pairs on hand (10 pieces counted from photo). Sold only as matched pairs. Gauges are not measured yet.",
     image: "/images/jewelry/blue-glitter-spiral-distributor-01.jpg",
     imageAlt: "Mixed sizes of blue glitter acrylic spiral tapers on a white background",
     gallery: [
@@ -597,8 +597,8 @@ export const products: CatalogProduct[] = [
     category: "piercing-aftercare",
     priceCents: 1600,
     unit: "each",
-    stockCount: null,
-    stockLabel: null,
+    stockCount: 0,
+    stockLabel: "Out of stock",
     image: "/images/aftercare/h2ocean-piercing-spray-4oz-official.png",
     imageAlt: "H2Ocean piercing aftercare spray 4 oz bottle",
     gallery: [
@@ -624,8 +624,8 @@ export const products: CatalogProduct[] = [
     category: "piercing-aftercare",
     priceCents: 1200,
     unit: "each",
-    stockCount: null,
-    stockLabel: null,
+    stockCount: 0,
+    stockLabel: "Out of stock",
     image: "/images/aftercare/h2ocean-piercing-spray-1-5oz.png",
     imageAlt: "Travel-size H2Ocean piercing aftercare spray 1.5 oz",
     photoStatus: "ready",
@@ -646,7 +646,7 @@ export const products: CatalogProduct[] = [
     priceCents: 1000,
     unit: "each",
     stockCount: null,
-    stockLabel: null,
+    stockLabel: "Stock TBD",
     image: "/images/aftercare/h2ocean-healing-rinse-8oz-front.jpg",
     imageAlt: "H2Ocean Healing Rinse Arctic Ocean Mint 8 oz bottle, front",
     photoStatus: "ready",
@@ -667,7 +667,7 @@ export const products: CatalogProduct[] = [
     priceCents: 1000,
     unit: "each",
     stockCount: null,
-    stockLabel: null,
+    stockLabel: "Stock TBD",
     image: "/images/aftercare/recovery-mouth-rinse-official.jpg",
     imageAlt: "Recovery Aftercare sea salt mouth rinse 8 oz bottle",
     photoStatus: "ready",
@@ -901,7 +901,17 @@ export function formatPrice(cents: number | null, unit: CatalogProduct["unit"]) 
   return unit === "pair" ? `${amount} per pair` : amount;
 }
 
+export function stockNotice(product: CatalogProduct): { kind: "out" | "onhand" | "unknown"; label: string } | null {
+  if (product.stockCount === 0) return { kind: "out", label: product.stockLabel || "Out of stock" };
+  if (product.stockCount !== null && product.stockCount > 0) {
+    return { kind: "onhand", label: product.stockLabel || `${product.stockCount} on hand` };
+  }
+  if (product.stockLabel) return { kind: "unknown", label: product.stockLabel };
+  return null;
+}
+
 export function canAddToCart(product: CatalogProduct) {
+  if (product.stockCount === 0) return false;
   const priced = product.variants.some((variant) => linePriceCents(product, variant) !== null);
   return priced && product.externalHref === null && product.fulfillment === "square-catalog";
 }

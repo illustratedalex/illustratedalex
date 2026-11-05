@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
-import { categories, categoriesFor, displaySku, products } from "../data/catalog.ts";
+import { canAddToCart, categories, categoriesFor, displaySku, products } from "../data/catalog.ts";
 import {
   assertSandboxServer,
   buildCatalogOrderRequest,
@@ -84,6 +84,15 @@ test("jewelry listings keep the vendor reorder SKU", () => {
   assert.equal(products.find((entry) => entry.sku === "90773-010")?.priceCents, 1200);
   assert.equal(products.find((entry) => entry.sku === "90901-510")?.priceCents, 1000);
   assert.equal(products.find((entry) => entry.sku === "MED-048")?.priceCents, 1000);
+  assert.equal(products.find((entry) => entry.sku === "90752-001")?.stockCount, 0);
+  assert.equal(products.find((entry) => entry.sku === "90773-010")?.stockCount, 0);
+  assert.equal(canAddToCart(products.find((entry) => entry.sku === "90752-001")!), false);
+  assert.equal(products.find((entry) => entry.sku === "90901-510")?.stockCount, null);
+  assert.equal(products.find((entry) => entry.sku === "MED-048")?.stockCount, null);
+  assert.equal(spirals?.stockCount, 5);
+  assert.equal(spirals?.unit, "pair");
+  assert.equal(canAddToCart(spirals!), true);
+  assert.equal(canAddToCart(products.find((entry) => entry.sku === "T-BA-649")!), true);
 
   const apmPhotos: Record<string, string> = {
     "T-MO-402": "/images/jewelry/apm-t-mo-402-cz-dangle-cone.jpg",
