@@ -20,7 +20,7 @@ export function PhotoFrame({
 
   if (product.image) {
     return (
-      <div className="relative aspect-square bg-[#16130f]">
+      <div className="relative mx-auto mt-4 aspect-square w-3/4 bg-[#16130f]">
         <Image
           src={product.image}
           alt={product.imageAlt ?? product.title}
@@ -40,7 +40,7 @@ export function PhotoFrame({
 
   return (
     <div
-      className="flex aspect-square flex-col items-center justify-center gap-2 bg-[#14110d] px-4 text-center"
+      className="mx-auto mt-4 flex aspect-square w-3/4 flex-col items-center justify-center gap-2 bg-[#14110d] px-4 text-center"
       role="img"
       aria-label={badge ?? "No product photo"}
     >

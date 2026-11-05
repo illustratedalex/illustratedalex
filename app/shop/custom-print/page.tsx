@@ -59,7 +59,7 @@ export default function CustomPrintPage() {
         <ul className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
           {examples.map((example) => (
             <li key={example.src} className="overflow-hidden rounded-2xl border border-[#7d5b2e]/40 bg-[#14110d]">
-              <div className="relative aspect-square">
+              <div className="relative mx-auto aspect-square w-3/4">
                 <Image src={example.src} alt={example.alt} fill sizes="(max-width: 640px) 100vw, 33vw" className="object-cover" />
               </div>
               <p className="px-3 py-3 text-sm text-[#f0dfbf]">{example.caption}</p>

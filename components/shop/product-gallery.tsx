@@ -18,13 +18,13 @@ export function ProductGallery({
 
   return (
     <div>
-      <div className="relative aspect-square bg-[#16130f]">
+      <div className="relative mx-auto aspect-square w-3/4 bg-[#16130f]">
         <Image
           src={current.src}
           alt={current.alt}
           fill
           priority={active === 0}
-          sizes="(max-width: 1024px) 100vw, 45vw"
+          sizes="(max-width: 1024px) 75vw, 34vw"
           className={fit === "cover" ? "object-cover" : "object-contain p-3"}
         />
       </div>
@@ -39,9 +39,9 @@ export function ProductGallery({
                   aria-pressed={selected}
                   aria-label={image.alt}
                   onClick={() => setActive(index)}
-                  className={`relative h-16 w-16 overflow-hidden rounded-lg border ${selected ? "border-[#d8b06d]" : "border-[#7d5b2e]/50"} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d8b06d]`}
+                  className={`relative h-12 w-12 overflow-hidden rounded-lg border ${selected ? "border-[#d8b06d]" : "border-[#7d5b2e]/50"} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d8b06d]`}
                 >
-                  <Image src={image.src} alt="" fill sizes="64px" className="object-contain" />
+                  <Image src={image.src} alt="" fill sizes="48px" className="object-contain" />
                 </button>
               </li>
             );

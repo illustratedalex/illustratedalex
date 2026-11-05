@@ -16,7 +16,7 @@ export function ProductCard({ product }: { product: CatalogProduct }) {
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-[#7d5b2e]/40 bg-[#0f0f0f]">
       <Link href={productPath(product)} className="block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d8b06d]">
-        <PhotoFrame product={product} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+        <PhotoFrame product={product} sizes="(max-width: 640px) 75vw, (max-width: 1024px) 38vw, 25vw" />
         <div className="space-y-2 px-4 py-4">
           <h3 className="font-display text-xl leading-snug font-semibold text-[#f0dfbf]">{product.title}</h3>
           {sku ? <p className="text-sm font-semibold tracking-[0.12em] text-[#d8b06d]">SKU {sku}</p> : null}
