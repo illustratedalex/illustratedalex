@@ -207,18 +207,8 @@ export const products: CatalogProduct[] = [
     unit: "pair",
     stockCount: 5,
     stockLabel: "5 pairs on hand (10 pieces, photo count). Sold only as matched pairs. Gauges not measured yet.",
-    image: "/images/jewelry/blue-glitter-spiral-distributor-01.jpg",
-    imageAlt: "Mixed sizes of blue glitter acrylic spiral tapers on a white background",
-    gallery: [
-      {
-        src: "/images/jewelry/blue-glitter-spiral-distributor-02.jpg",
-        alt: "Single blue glitter acrylic spiral taper on a white background",
-      },
-      {
-        src: "/images/jewelry/ocean-blue-glitter-acrylic-spiral-tapers-alex.jpg",
-        alt: "Studio photo of ocean-blue glitter acrylic spiral tapers on a shelf",
-      },
-    ],
+    image: "/images/jewelry/mfg-blue-glitter-spiral-single.jpg",
+    imageAlt: "Single representative blue glitter acrylic spiral taper; sold as a matched pair",
     photoStatus: "ready",
     description:
       "Deep ocean-blue glitter acrylic spirals. Lightweight, sold only as a matched pair. Wear in healed lobes. Ask a piercer before using them to stretch.",
@@ -249,7 +239,6 @@ export const products: CatalogProduct[] = [
     gallery: [
       { src: "/images/jewelry/white-acrylic-blank-plugs-front-clean.jpg", alt: "Face of a milky white acrylic blank plug" },
       { src: "/images/jewelry/white-acrylic-blank-plugs-side-clean.jpg", alt: "Side of a milky white acrylic double-flare blank plug" },
-      { src: "/images/jewelry/white-blank-from-iris-top.jpg", alt: "Unprinted milky white blank plugs in several sizes" },
     ],
     photoStatus: "ready",
     description:
@@ -277,7 +266,6 @@ export const products: CatalogProduct[] = [
     gallery: [
       { src: "/images/jewelry/black-acrylic-blank-plugs-front-clean.jpg", alt: "Face of a gloss black acrylic blank plug" },
       { src: "/images/jewelry/black-acrylic-blank-plugs-side-clean.jpg", alt: "Side of a gloss black acrylic blank plug" },
-      { src: "/images/jewelry/black-blank-from-octopus-left.jpg", alt: "Unprinted gloss black blank plugs" },
     ],
     photoStatus: "ready",
     description:
@@ -305,7 +293,6 @@ export const products: CatalogProduct[] = [
     gallery: [
       { src: "/images/jewelry/dark-wood-blank-plugs-front-clean.jpg", alt: "Face of a dark wood blank plug" },
       { src: "/images/jewelry/dark-wood-blank-plugs-side-clean.jpg", alt: "Side of a dark wood double-flare blank plug" },
-      { src: "/images/jewelry/wood-blank-from-skull-foreground.jpg", alt: "Unprinted dark wood blank plug" },
     ],
     photoStatus: "ready",
     description:
@@ -373,14 +360,8 @@ export const products: CatalogProduct[] = [
     unit: "each",
     stockCount: null,
     stockLabel: "Stock TBD — awaiting shelf photo count",
-    image: "/images/jewelry/mo-010-la-024-steel-ball-tragus-labret.jpg",
-    imageAlt: "Steel internally threaded ball labrets on a white background",
-    gallery: [
-      {
-        src: "/images/jewelry/mo-010-la-024-steel-ball-tragus-labret-hand.jpg",
-        alt: "Steel ball labrets held in a hand",
-      },
-    ],
+    image: "/images/jewelry/mfg-steel-internal-ball-labret.jpg",
+    imageAlt: "Representative single steel internally threaded ball flat-back labret",
     photoStatus: "ready",
     description: "Steel internally threaded ball-end tragus labret, 14G. Lengths 12 mm, 11 mm, and 10 mm are $0.81 each.",
     materials: ["Steel", "Internally threaded", "Ball end", "14G", "Tragus / ear labret"],
@@ -400,14 +381,8 @@ export const products: CatalogProduct[] = [
     unit: "each",
     stockCount: 49,
     stockLabel: "About 49 on hand (photo count). Lengths not separated.",
-    image: "/images/jewelry/mo-010-la-024-steel-ball-tragus-labret.jpg",
-    imageAlt: "Steel internally threaded ball labrets on a white background",
-    gallery: [
-      {
-        src: "/images/jewelry/mo-010-la-024-steel-ball-tragus-labret-hand.jpg",
-        alt: "Steel ball labrets held in a hand",
-      },
-    ],
+    image: "/images/jewelry/mfg-steel-internal-ball-labret.jpg",
+    imageAlt: "Representative single steel internally threaded ball flat-back labret",
     photoStatus: "ready",
     description: "Steel internally threaded ball-end tragus labret, 16G. The photo-counted loose ball labrets are mostly 16G and are listed here. Lengths are not separated. $0.81 each.",
     materials: ["Steel", "Internally threaded", "Ball end", "16G", "Tragus / ear labret"],
@@ -432,8 +407,8 @@ export const products: CatalogProduct[] = [
     unit: "each",
     stockCount: null,
     stockLabel: "Stock TBD — awaiting shelf photo count",
-    image: "/images/jewelry/apm-ey-012-curved-barbell.jpg",
-    imageAlt: "16G steel internally threaded curved barbells on a white background",
+    image: "/images/jewelry/mfg-steel-internal-curved-barbell.jpg",
+    imageAlt: "Single steel internally threaded curved barbell with ball ends",
     photoStatus: "ready",
     description: "16G steel internally threaded curved barbell for eyebrow piercings. Lengths 16, 14, 11, 10, and 8 mm share one price.",
     materials: ["Steel", "Internally threaded", "16G", "Curved barbell"],
@@ -459,8 +434,8 @@ export const products: CatalogProduct[] = [
     unit: "each",
     stockCount: 116,
     stockLabel: "About 116 on hand (photo count across trays, ±15%). Gauge/length not separated.",
-    image: "/images/jewelry/apm-ib-036-steel-industrial.jpg",
-    imageAlt: "Plain steel industrial barbells in three lengths on a white background",
+    image: "/images/jewelry/mfg-steel-industrial-barbell.jpg",
+    imageAlt: "Single straight steel industrial barbell with ball ends",
     photoStatus: "ready",
     description: "Basic steel industrial barbell in 14G and 16G. Lengths 38 mm, 35 mm, and 31 mm share one price.",
     materials: ["Steel", "Straight industrial barbell", "14G and 16G"],
@@ -508,7 +483,7 @@ export const products: CatalogProduct[] = [
     unit: "each",
     stockCount: null,
     stockLabel: "Stock TBD — awaiting shelf photo count",
-    image: "/images/jewelry/apm-t-mo-403-gold-cz-dangle-cone.jpg",
+    image: "/images/jewelry/T-MO-403-g23-gold-pvd-ti-cz-dangle-cone-labret.jpg",
     imageAlt: "G23 gold PVD titanium internally threaded CZ dangle cone labret on a white background",
     photoStatus: "ready",
     description: "G23 titanium internally threaded labret with a gold PVD finish and a CZ dangle cone. 16G, 8 mm post.",
@@ -575,12 +550,6 @@ export const products: CatalogProduct[] = [
     stockLabel: "Stock TBD — awaiting shelf photo count",
     image: "/images/jewelry/la-054-074-xl-steel-cheek-labret.jpg",
     imageAlt: "XL steel cheek labrets in several lengths on a white background",
-    gallery: [
-      {
-        src: "/images/jewelry/la-054-074-xl-steel-cheek-labret-alt.jpg",
-        alt: "Another view of XL steel cheek labrets",
-      },
-    ],
     photoStatus: "ready",
     description: "14G extra-long steel cheek labret. Lengths 25 mm, 22 mm, and 16 mm are $1.26 each.",
     materials: ["Steel", "14G", "Extra-long cheek labret"],
@@ -602,12 +571,6 @@ export const products: CatalogProduct[] = [
     stockLabel: "Stock TBD — awaiting shelf photo count",
     image: "/images/jewelry/la-054-074-xl-steel-cheek-labret.jpg",
     imageAlt: "XL steel cheek labrets in several lengths on a white background",
-    gallery: [
-      {
-        src: "/images/jewelry/la-054-074-xl-steel-cheek-labret-alt.jpg",
-        alt: "Another view of XL steel cheek labrets",
-      },
-    ],
     photoStatus: "ready",
     description: "16G extra-long steel cheek labret. 25 mm, 22 mm, and 19 mm are $1.17 each. The 16 mm length is $1.08.",
     materials: ["Steel", "16G", "Extra-long cheek labret"],
@@ -659,8 +622,8 @@ export const products: CatalogProduct[] = [
     unit: "each",
     stockCount: 82,
     stockLabel: "82 on hand by color (photo count). Cart limited per color.",
-    image: "/images/jewelry/gem-belly-board-2026-11-05.jpg",
-    imageAlt: "Double gem belly rings sorted by color on a board",
+    image: "/images/jewelry/mfg-steel-clear-double-gem-belly.jpg",
+    imageAlt: "Single steel curved belly ring with two clear press-set gems",
     photoStatus: "ready",
     description:
       "Steel press-fit double gem CZ belly rings. Clear and aurora borealis are $1.41. Red, green, dark blue, black, light blue, and emerald are $1.59. The count is by color from the board photo.",

@@ -116,8 +116,12 @@ test("jewelry listings keep the vendor reorder SKU", () => {
     assert.equal(product.title.toLowerCase().includes("sealed"), true);
     assert.equal(canAddToCart(product), true);
     assert.equal(displaySku(product), sku);
-    assert.equal(product.image, "/images/jewelry/sealed-packs-fronts-2026-11-05.jpg");
   }
+  assert.equal(products.find((entry) => entry.sku === "VNO-25-ST")?.image, "/images/jewelry/mfg-steel-ball-l-bend-nose-stud.jpg");
+  assert.equal(products.find((entry) => entry.sku === "VJ-016-OP06")?.image, null);
+  assert.equal(products.find((entry) => entry.sku === "VJ-016-OP06")?.photoStatus, "needed");
+  assert.equal(products.find((entry) => entry.sku === "NS40-LFK")?.image, "/images/jewelry/mfg-ns40-lfk.jpg");
+  assert.notEqual(products.find((entry) => entry.sku === "NS40-LFK")?.image, products.find((entry) => entry.sku === "NS40-SME")?.image);
   assert.equal(products.find((entry) => entry.sku === "LA-024")?.stockCount, null);
   assert.equal(canAddToCart(products.find((entry) => entry.sku === "LA-024")!), false);
   assert.equal(products.find((entry) => entry.sku === "OUFER moon 2PCS")?.priceCents, 2001);
@@ -155,11 +159,11 @@ test("jewelry listings keep the vendor reorder SKU", () => {
 
   const apmPhotos: Record<string, string> = {
     "T-MO-402": "/images/jewelry/T-MO-402-g23-ti-cz-dangle-cone-labret.jpg",
-    "T-MO-403": "/images/jewelry/apm-t-mo-403-gold-cz-dangle-cone.jpg",
-    "BA-002": "/images/jewelry/gem-belly-board-2026-11-05.jpg",
-    "IB-036": "/images/jewelry/apm-ib-036-steel-industrial.jpg",
+    "T-MO-403": "/images/jewelry/T-MO-403-g23-gold-pvd-ti-cz-dangle-cone-labret.jpg",
+    "BA-002": "/images/jewelry/mfg-steel-clear-double-gem-belly.jpg",
+    "IB-036": "/images/jewelry/mfg-steel-industrial-barbell.jpg",
     "LA-099": "/images/jewelry/apm-la-099-xl-cz-cheek.jpg",
-    "EY-012": "/images/jewelry/apm-ey-012-curved-barbell.jpg",
+    "EY-012": "/images/jewelry/mfg-steel-internal-curved-barbell.jpg",
   };
   for (const [sku, image] of Object.entries(apmPhotos)) {
     const product = products.find((entry) => entry.sku === sku);
@@ -198,18 +202,22 @@ test("ready photos exist and missing photos are not invented", () => {
     if (product.photoStatus === "ready") {
       assert.ok(product.image);
       assert.equal(existsSync(path.join(process.cwd(), "public", product.image)), true);
+      for (const shot of product.gallery ?? []) {
+        assert.equal(existsSync(path.join(process.cwd(), "public", shot.src)), true, shot.src);
+      }
     } else {
       assert.equal(product.image, null);
+      assert.equal(product.gallery?.length ?? 0, 0);
     }
+    const paths = [product.image, ...(product.gallery ?? []).map((shot) => shot.src)].filter(Boolean).join(" ");
+    assert.equal(/tray-|sealed-packs|belly-novelty|barbell-display|gem-belly-board|pregnancy-belly|oufer-moon-nipple-2026|blank-from-|labret-hand/.test(paths), false, product.slug);
   }
 
   const spirals = products.find((product) => product.sku === "IA-BLUE-SPIRAL-PAIR");
-  assert.equal(spirals?.image, "/images/jewelry/blue-glitter-spiral-distributor-01.jpg");
-  assert.equal(spirals?.gallery?.[0]?.src, "/images/jewelry/blue-glitter-spiral-distributor-02.jpg");
-  assert.equal(spirals?.gallery?.[1]?.src, "/images/jewelry/ocean-blue-glitter-acrylic-spiral-tapers-alex.jpg");
-  assert.equal(existsSync(path.join(process.cwd(), "public", spirals?.gallery?.[0]?.src ?? "")), true);
-  assert.equal(existsSync(path.join(process.cwd(), "public", spirals?.gallery?.[1]?.src ?? "")), true);
+  assert.equal(spirals?.image, "/images/jewelry/mfg-blue-glitter-spiral-single.jpg");
+  assert.equal(spirals?.gallery?.length ?? 0, 0);
   assert.equal(spirals?.photoStatus, "ready");
+  assert.equal(spirals?.stockCount, 5);
 
   const approved = {
     "T-BA-649": "/images/jewelry/belly-double-flat-cz-model-01.jpg",
