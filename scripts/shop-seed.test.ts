@@ -76,14 +76,14 @@ test("jewelry listings keep the vendor reorder SKU", () => {
   assert.equal(displaySku(products.find((entry) => entry.sku === "90752-001")!), "90752-001");
   assert.equal(displaySku(products.find((entry) => entry.sku === "90773-010")!), "90773-010");
   assert.equal(displaySku(products.find((entry) => entry.sku === "90901-510")!), "90901-510");
-  assert.equal(displaySku(products.find((entry) => entry.sku === "IA-RECOVERY-MOUTH-8OZ")!), null);
+  assert.equal(displaySku(products.find((entry) => entry.slug === "recovery-mouth-rinse-8oz")!), "MED-048");
   const spray = products.find((entry) => entry.sku === "90752-001");
   assert.equal(spray?.priceCents, 1600);
   assert.equal(spray?.featured, true);
   assert.equal(spray?.category, "piercing-aftercare");
   assert.equal(products.find((entry) => entry.sku === "90773-010")?.priceCents, 1200);
   assert.equal(products.find((entry) => entry.sku === "90901-510")?.priceCents, 1000);
-  assert.equal(products.find((entry) => entry.sku === "IA-RECOVERY-MOUTH-8OZ")?.priceCents, 1000);
+  assert.equal(products.find((entry) => entry.sku === "MED-048")?.priceCents, 1000);
 
   const apmPhotos: Record<string, string> = {
     "T-MO-402": "/images/jewelry/apm-t-mo-402-cz-dangle-cone.jpg",

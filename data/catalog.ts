@@ -660,7 +660,7 @@ export const products: CatalogProduct[] = [
   },
   {
     slug: "recovery-mouth-rinse-8oz",
-    sku: "IA-RECOVERY-MOUTH-8OZ",
+    sku: "MED-048",
     title: "Recovery Aftercare Sea Salt Mouth Rinse 8oz",
     department: "aftercare",
     category: "piercing-aftercare",
