@@ -135,6 +135,11 @@ test("jewelry listings keep the vendor reorder SKU", () => {
   assert.equal(whiteBlanks?.unit, "pair");
   assert.equal(whiteBlanks?.stockCount, 4);
   assert.equal(whiteBlanks?.customPrintEligible, true);
+  assert.equal(whiteBlanks?.image, "/images/jewelry/white-acrylic-blank-plugs-clean.jpg");
+  assert.equal(blackBlanks?.image, "/images/jewelry/black-acrylic-blank-plugs-clean.jpg");
+  assert.equal(woodBlanks?.image, "/images/jewelry/dark-wood-blank-plugs-clean.jpg");
+  assert.equal(`${blackBlanks?.imageAlt} ${blackBlanks?.description}`.toLowerCase().includes("shared"), false);
+  assert.equal(JSON.stringify(products).toLowerCase().includes("achadirect"), false);
   assert.equal(canAddToCart(whiteBlanks!), true);
   assert.equal(blackBlanks?.priceCents, 390);
   assert.equal(blackBlanks?.stockCount, 4);
@@ -144,7 +149,7 @@ test("jewelry listings keep the vendor reorder SKU", () => {
   assert.equal(products.some((entry) => entry.sku.includes("IRIS") || entry.sku.includes("OCTOPUS") || entry.sku.includes("SKULL")), false);
 
   const apmPhotos: Record<string, string> = {
-    "T-MO-402": "/images/jewelry/apm-t-mo-402-cz-dangle-cone.jpg",
+    "T-MO-402": "/images/jewelry/T-MO-402-g23-ti-cz-dangle-cone-labret.jpg",
     "T-MO-403": "/images/jewelry/apm-t-mo-403-gold-cz-dangle-cone.jpg",
     "BA-002": "/images/jewelry/gem-belly-board-2026-11-05.jpg",
     "IB-036": "/images/jewelry/apm-ib-036-steel-industrial.jpg",
