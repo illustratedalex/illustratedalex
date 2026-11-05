@@ -19,7 +19,8 @@ export function CustomPrintForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [pieceType, setPieceType] = useState("tunnels");
+  const [material, setMaterial] = useState("wood");
+  const [materialDetail, setMaterialDetail] = useState("");
   const [size, setSize] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [notes, setNotes] = useState("");
@@ -79,6 +80,14 @@ export function CustomPrintForm() {
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setStatus(null);
+    if (material === "other-flat" && !materialDetail.trim()) {
+      setStatus({ tone: "error", message: "Describe the other flat-face jewelry." });
+      return;
+    }
+    if (!size.trim()) {
+      setStatus({ tone: "error", message: "Add the size or gauge." });
+      return;
+    }
     if (!file) {
       setFileError("Add the art or photo to print.");
       return;
@@ -120,7 +129,8 @@ export function CustomPrintForm() {
           name,
           email,
           phone,
-          pieceType,
+          material,
+          materialDetail,
           size,
           quantity,
           notes,
@@ -144,6 +154,50 @@ export function CustomPrintForm() {
 
   return (
     <form className="space-y-5" onSubmit={onSubmit} noValidate>
+      <fieldset className="space-y-3">
+        <legend className="text-sm font-semibold text-[#f0dfbf]">Blank material</legend>
+        {[
+          ["wood", "Wood"],
+          ["plastic-acrylic", "Plastic / acrylic"],
+          ["stone", "Stone"],
+          ["metal-flat", "Metal (flat-face plugs or tunnels)"],
+          ["other-flat", "Other flat-face jewelry"],
+        ].map(([value, label]) => (
+          <label key={value} className="flex min-h-11 items-center gap-3 text-sm text-[#f0dfbf]">
+            <input
+              type="radio"
+              name="material"
+              value={value}
+              checked={material === value}
+              onChange={() => setMaterial(value)}
+              className="h-4 w-4 accent-[#d8b06d]"
+            />
+            {label}
+          </label>
+        ))}
+      </fieldset>
+      {material === "other-flat" ? (
+        <label className="block text-sm text-[#f0dfbf]">
+          What is the blank?
+          <input required value={materialDetail} onChange={(event) => setMaterialDetail(event.target.value)} className={fieldClass} />
+        </label>
+      ) : null}
+      <label className="block text-sm text-[#f0dfbf]">
+        Size / gauge
+        <input required value={size} onChange={(event) => setSize(event.target.value)} placeholder="00g, 1/2 in, 12mm" className={fieldClass} />
+      </label>
+      <label className="block text-sm text-[#f0dfbf]">
+        Quantity (pairs)
+        <input
+          required
+          type="number"
+          min={1}
+          max={20}
+          value={quantity}
+          onChange={(event) => setQuantity(Number(event.target.value))}
+          className={fieldClass}
+        />
+      </label>
       <div>
         <label htmlFor="custom-print-art" className="text-sm font-semibold text-[#f0dfbf]">
           Art or photo
@@ -178,31 +232,6 @@ export function CustomPrintForm() {
       <label className="block text-sm text-[#f0dfbf]">
         Phone <span className="font-normal text-[#be9a62]">(optional)</span>
         <input value={phone} onChange={(event) => setPhone(event.target.value)} autoComplete="tel" className={fieldClass} />
-      </label>
-      <label className="block text-sm text-[#f0dfbf]">
-        Piece type
-        <select value={pieceType} onChange={(event) => setPieceType(event.target.value)} className={fieldClass}>
-          <option value="tunnels">Tunnels</option>
-          <option value="plugs">Plugs</option>
-          <option value="gauges">Gauges</option>
-          <option value="other">Other</option>
-        </select>
-      </label>
-      <label className="block text-sm text-[#f0dfbf]">
-        Size / gauge
-        <input required value={size} onChange={(event) => setSize(event.target.value)} placeholder="00g, 1/2 in, 12mm" className={fieldClass} />
-      </label>
-      <label className="block text-sm text-[#f0dfbf]">
-        Quantity (pairs)
-        <input
-          required
-          type="number"
-          min={1}
-          max={20}
-          value={quantity}
-          onChange={(event) => setQuantity(Number(event.target.value))}
-          className={fieldClass}
-        />
       </label>
       <label className="block text-sm text-[#f0dfbf]">
         Notes

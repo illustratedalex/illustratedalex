@@ -32,9 +32,9 @@ export default async function DepartmentPage({ params }: { params: Promise<{ dep
       {department.slug === "body-jewelry" ? (
         <p className="mt-4 text-sm leading-7 text-[#dbc8a7]">
           <Link href="/shop/custom-print" className="text-[#e1c18c] underline underline-offset-4">
-            Custom Print Tunnels &amp; Gauges
+            Custom UV print
           </Link>{" "}
-          start at $35 per pair.
+          is $25 per design up to 2″, added to the blank you choose.
         </p>
       ) : null}
       {department.slug === "merch" ? (

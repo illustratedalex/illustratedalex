@@ -44,9 +44,16 @@ export default function ShopPage() {
               Shop aftercare
             </Link>
             <Link href="/shop/custom-print" className={`${buttonClass} text-[#e7d4b4]`}>
-              Custom Print Tunnels &amp; Gauges
+              Custom UV print
             </Link>
           </div>
+          <p className="mt-4 max-w-2xl text-sm leading-7 text-[#dbc8a7]">
+            Custom UV print is available on flat-face jewelry. The print fee is $25 per design up to 2″, added to the blank you choose.{" "}
+            <Link href="/shop/custom-print" className="text-[#e1c18c] underline underline-offset-4">
+              Start a print request
+            </Link>
+            .
+          </p>
         </div>
         <aside className="rounded-3xl border border-[#7d5b2e]/50 bg-[#14110d] p-6">
           <p className="text-[11px] font-semibold tracking-[0.16em] text-[#d8b06d] uppercase">Studio</p>

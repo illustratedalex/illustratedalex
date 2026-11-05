@@ -71,6 +71,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <div className="mt-6">
           <AddToCart product={product} />
         </div>
+        {product.customPrintEligible ? (
+          <p className="mt-6 text-sm leading-7 text-[#dbc8a7]">
+            <Link href="/shop/custom-print" className="text-[#e1c18c] underline underline-offset-4">
+              Have this custom printed with a design of your choice
+            </Link>{" "}
+            (+$25 UV print, up to 2″).
+          </p>
+        ) : null}
         {product.department === "body-jewelry" ? (
           <p className="mt-6 text-sm leading-7 text-[#dbc8a7]">
             After you buy jewelry, read{" "}

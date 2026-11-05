@@ -35,7 +35,7 @@ export function ShopChrome() {
             className={`${linkClass} ${pathname === "/shop/custom-print" ? "bg-[#bc8f4d] text-[#1e1408]" : "text-[#f0dfbf]"}`}
             aria-current={pathname === "/shop/custom-print" ? "page" : undefined}
           >
-            Custom Print Tunnels &amp; Gauges
+            Custom UV print
           </Link>
           {departments.map((department) => {
             const href = `/shop/${department.slug}`;
@@ -59,7 +59,7 @@ export function ShopChrome() {
             </li>
             <li>
               <Link href="/shop/custom-print" className="inline-flex min-h-11 items-center text-sm text-[#f0dfbf]">
-                Custom Print Tunnels &amp; Gauges
+                Custom UV print
               </Link>
             </li>
             {departments.map((department) => (

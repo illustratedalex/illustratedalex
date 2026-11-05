@@ -1,6 +1,14 @@
 export const runtime = "nodejs";
 
-const PIECE_TYPES = new Set(["tunnels", "plugs", "gauges", "other"]);
+const MATERIALS = new Set(["wood", "plastic-acrylic", "stone", "metal-flat", "other-flat"]);
+
+const MATERIAL_LABELS: Record<string, string> = {
+  wood: "Wood",
+  "plastic-acrylic": "Plastic / acrylic",
+  stone: "Stone",
+  "metal-flat": "Metal flat-face plug or tunnel",
+  "other-flat": "Other flat-face jewelry",
+};
 
 type OrderBody = {
   phase?: string;
@@ -8,7 +16,8 @@ type OrderBody = {
   name?: string;
   email?: string;
   phone?: string;
-  pieceType?: string;
+  material?: string;
+  materialDetail?: string;
   size?: string;
   quantity?: number;
   notes?: string;
@@ -81,7 +90,8 @@ export async function POST(request: Request): Promise<Response> {
   const name = clean(body.name, 120);
   const email = clean(body.email, 200);
   const phone = clean(body.phone, 40);
-  const pieceType = clean(body.pieceType, 40);
+  const material = clean(body.material, 40);
+  const materialDetail = clean(body.materialDetail, 160);
   const size = clean(body.size, 80);
   const notes = clean(body.notes, 2000);
   const quantity = body.quantity;
@@ -90,8 +100,11 @@ export async function POST(request: Request): Promise<Response> {
   if (!name || !email.includes("@") || !email.includes(".")) {
     return Response.json({ ok: false, error: "Name and a valid email are required." }, { status: 400 });
   }
-  if (!PIECE_TYPES.has(pieceType)) {
-    return Response.json({ ok: false, error: "Choose tunnels, plugs, gauges, or other." }, { status: 400 });
+  if (!MATERIALS.has(material)) {
+    return Response.json({ ok: false, error: "Choose a blank material." }, { status: 400 });
+  }
+  if (material === "other-flat" && !materialDetail) {
+    return Response.json({ ok: false, error: "Describe the other flat-face jewelry." }, { status: 400 });
   }
   if (!size) return Response.json({ ok: false, error: "Size or gauge is required." }, { status: 400 });
   if (typeof quantity !== "number" || !Number.isInteger(quantity) || quantity < 1 || quantity > 20) {
@@ -109,7 +122,7 @@ export async function POST(request: Request): Promise<Response> {
       Name: name,
       Email: email,
       Phone: phone,
-      Piece: pieceType,
+      Blank: `${MATERIAL_LABELS[material] ?? material}${materialDetail ? ` — ${materialDetail}` : ""}`,
       Size: size,
       Pairs: String(quantity),
       Notes: notes,

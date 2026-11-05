@@ -65,6 +65,11 @@ export type CatalogProduct = {
   /** Shown on merch that needs a print-on-demand account reconnected. */
   reconnect: string | null;
   externalHref: string | null;
+  /**
+   * True only for a plug, tunnel, or other flat-face blank that can take a UV print.
+   * Thin posts, balls, and curved barbells stay unset.
+   */
+  customPrintEligible?: boolean;
 };
 
 const variation = (id: string, label: string, priceCents?: number): CatalogVariant => ({
