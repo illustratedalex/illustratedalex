@@ -29,6 +29,14 @@ export default async function DepartmentPage({ params }: { params: Promise<{ dep
       <p className="text-[11px] font-semibold tracking-[0.2em] text-[#d8b06d] uppercase">Shop</p>
       <h1 className="font-display mt-3 text-4xl font-semibold sm:text-6xl">{department.name}</h1>
       <p className="mt-4 max-w-3xl text-base leading-8 text-[#dbc8a7]">{department.summary}</p>
+      {department.slug === "body-jewelry" ? (
+        <p className="mt-4 text-sm leading-7 text-[#dbc8a7]">
+          <Link href="/shop/custom-print" className="text-[#e1c18c] underline underline-offset-4">
+            Custom Print Tunnels &amp; Gauges
+          </Link>{" "}
+          start at $35 per pair.
+        </p>
+      ) : null}
       {department.slug === "merch" ? (
         <div className="mt-6 max-w-3xl rounded-2xl border border-[#7d5b2e]/40 bg-[#14110d] p-5 text-sm leading-7 text-[#dbc8a7]">
           <p>

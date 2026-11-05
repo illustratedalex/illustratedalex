@@ -16,6 +16,7 @@ const routes = [
   "/shop",
   "/shop/cart",
   "/shop/checkout",
+  "/shop/custom-print",
   ...departments.map((department) => `/shop/${department.slug}`),
   ...categories.map((category) => categoryPath(category)),
   ...products.map((product) => productPath(product)),

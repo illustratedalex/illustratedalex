@@ -30,6 +30,13 @@ export function ShopChrome() {
           <Link href="/shop" className={`${linkClass} ${pathname === "/shop" ? "bg-[#bc8f4d] text-[#1e1408]" : "text-[#f0dfbf]"}`} aria-current={pathname === "/shop" ? "page" : undefined}>
             All
           </Link>
+          <Link
+            href="/shop/custom-print"
+            className={`${linkClass} ${pathname === "/shop/custom-print" ? "bg-[#bc8f4d] text-[#1e1408]" : "text-[#f0dfbf]"}`}
+            aria-current={pathname === "/shop/custom-print" ? "page" : undefined}
+          >
+            Custom Print Tunnels &amp; Gauges
+          </Link>
           {departments.map((department) => {
             const href = `/shop/${department.slug}`;
             const active = pathname === href || pathname.startsWith(`${href}/`);
@@ -48,6 +55,11 @@ export function ShopChrome() {
             <li>
               <Link href="/shop" className="inline-flex min-h-11 items-center text-sm text-[#f2e1c2]">
                 All
+              </Link>
+            </li>
+            <li>
+              <Link href="/shop/custom-print" className="inline-flex min-h-11 items-center text-sm text-[#f0dfbf]">
+                Custom Print Tunnels &amp; Gauges
               </Link>
             </li>
             {departments.map((department) => (

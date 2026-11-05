@@ -43,6 +43,9 @@ export default function ShopPage() {
             <Link href="/shop/aftercare" className={`${buttonClass} text-[#e7d4b4]`}>
               Shop aftercare
             </Link>
+            <Link href="/shop/custom-print" className={`${buttonClass} text-[#e7d4b4]`}>
+              Custom Print Tunnels &amp; Gauges
+            </Link>
           </div>
         </div>
         <aside className="rounded-3xl border border-[#7d5b2e]/50 bg-[#14110d] p-6">

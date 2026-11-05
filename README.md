@@ -49,6 +49,8 @@ Merch (tee, sweatshirt, hoodie, cap or beanie, sticker pack) is placeholder only
 
 Gift cards already exist on Square. The merch gift-card page links to that existing flow.
 
+`/shop/custom-print` is a draft request form for UV-printed tunnels and gauges, starting at $35 per pair. Real uploads need `BLOB_READ_WRITE_TOKEN` on Vercel. Optional email uses `RESEND_API_KEY`, `RESEND_FROM`, and `CUSTOM_PRINT_NOTIFY_EMAIL`. The GoDaddy static build does not run that API.
+
 ### Square
 
 Selling should eventually create Square Orders with `catalog_object_id` line items so inventory can decrement. This draft does not include variation ids, and the server refuses production charges and payment-only amounts.
