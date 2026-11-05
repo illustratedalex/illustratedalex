@@ -77,12 +77,27 @@ test("category children are alphabetical", () => {
 
 test("ready photos exist and missing photos are not invented", () => {
   for (const product of products) {
-    if (product.photoStatus === "ready") {
+    if (product.photoStatus === "ready" || product.photoStatus === "mockup") {
       assert.ok(product.image);
       assert.equal(existsSync(path.join(process.cwd(), "public", product.image)), true);
     } else {
       assert.equal(product.image, null);
     }
+  }
+
+  const spirals = products.find((product) => product.sku === "IA-BLUE-SPIRAL-PAIR");
+  assert.equal(spirals?.image, "/images/jewelry/ocean-blue-glitter-acrylic-spiral-tapers-alex.jpg");
+  assert.equal(spirals?.photoStatus, "ready");
+
+  const approved = {
+    "T-BA-649": "/images/jewelry/belly-double-flat-cz-model-01.jpg",
+    "MO-359": "/images/jewelry/tragus-leaf-cz-gold-model-01.jpg",
+    "T-MO-395": "/images/jewelry/labret-petal-flower-gold-model-01.jpg",
+  };
+  for (const [sku, image] of Object.entries(approved)) {
+    const product = products.find((entry) => entry.sku === sku);
+    assert.equal(product?.photoStatus, "mockup");
+    assert.equal(product?.image, image);
   }
 });
 

@@ -5,6 +5,7 @@ const badgeCopy: Record<CatalogProduct["photoStatus"], string | null> = {
   ready: null,
   coming: "Photo coming",
   needed: "Photo needed",
+  mockup: "AI model mock-up",
 };
 
 export function PhotoFrame({
@@ -27,7 +28,7 @@ export function PhotoFrame({
           fill
           priority={priority}
           sizes={sizes}
-          className="object-contain p-3"
+          className={product.photoStatus === "mockup" ? "object-cover" : "object-contain p-3"}
         />
         {badge ? (
           <span className="absolute top-3 left-3 rounded-full border border-[#d8b06d]/70 bg-[#0f0f0f]/90 px-2.5 py-1 text-[10px] font-semibold tracking-[0.14em] text-[#f0dfbf] uppercase">
