@@ -92,7 +92,22 @@ test("jewelry listings keep the vendor reorder SKU", () => {
   assert.equal(spirals?.stockCount, 5);
   assert.equal(spirals?.unit, "pair");
   assert.equal(canAddToCart(spirals!), true);
-  assert.equal(canAddToCart(products.find((entry) => entry.sku === "T-BA-649")!), true);
+  assert.equal(canAddToCart(products.find((entry) => entry.sku === "T-BA-649")!), false);
+  assert.equal(canAddToCart(products.find((entry) => entry.sku === "90901-510")!), false);
+  const whiteBlanks = products.find((entry) => entry.sku === "IA-WHITE-BLANK-PLUGS");
+  const blackBlanks = products.find((entry) => entry.sku === "IA-BLACK-BLANK-PLUGS");
+  const woodBlanks = products.find((entry) => entry.sku === "IA-WOOD-BLANK-PLUGS");
+  assert.equal(whiteBlanks?.priceCents, 390);
+  assert.equal(whiteBlanks?.unit, "pair");
+  assert.equal(whiteBlanks?.stockCount, 4);
+  assert.equal(whiteBlanks?.customPrintEligible, true);
+  assert.equal(canAddToCart(whiteBlanks!), true);
+  assert.equal(blackBlanks?.priceCents, 390);
+  assert.equal(blackBlanks?.stockCount, 4);
+  assert.equal(woodBlanks?.priceCents, 774);
+  assert.equal(woodBlanks?.stockCount, 2);
+  assert.equal(woodBlanks?.customPrintEligible, true);
+  assert.equal(products.some((entry) => entry.sku.includes("IRIS") || entry.sku.includes("OCTOPUS") || entry.sku.includes("SKULL")), false);
 
   const apmPhotos: Record<string, string> = {
     "T-MO-402": "/images/jewelry/apm-t-mo-402-cz-dangle-cone.jpg",

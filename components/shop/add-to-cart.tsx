@@ -29,10 +29,12 @@ export function AddToCart({ product }: { product: CatalogProduct }) {
   }
 
   if (!canAddToCart(product)) {
+    const priced = product.variants.some((variant) => linePriceCents(product, variant) !== null);
+    const label = product.stockCount === null && priced ? "Stock TBD" : priced ? "Coming soon" : "Price TBD";
     return (
       <div className="space-y-2">
         <button type="button" disabled className={`${buttonClass} cursor-not-allowed border-[#7d5b2e] text-[#be9a62]`}>
-          Coming soon
+          {label}
         </button>
         {product.reconnect ? <p className="text-sm leading-6 text-[#dbc8a7]">Reconnect {product.reconnect} before this can be ordered.</p> : null}
       </div>

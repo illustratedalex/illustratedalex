@@ -201,7 +201,7 @@ export const products: CatalogProduct[] = [
     priceCents: 570,
     unit: "pair",
     stockCount: 5,
-    stockLabel: "5 pairs on hand (10 pieces counted from photo). Sold only as matched pairs. Gauges are not measured yet.",
+    stockLabel: "5 pairs on hand (10 pieces, photo count). Sold only as matched pairs. Gauges not measured yet.",
     image: "/images/jewelry/blue-glitter-spiral-distributor-01.jpg",
     imageAlt: "Mixed sizes of blue glitter acrylic spiral tapers on a white background",
     gallery: [
@@ -230,6 +230,75 @@ export const products: CatalogProduct[] = [
     externalHref: null,
   },
   {
+    slug: "milky-white-blank-plugs",
+    sku: "IA-WHITE-BLANK-PLUGS",
+    title: "Blank Plugs – Acrylic – Milky White – Double Flare",
+    department: "body-jewelry",
+    category: "ear",
+    priceCents: 390,
+    unit: "pair",
+    stockCount: 4,
+    stockLabel: "4 pairs on hand (8 pieces, photo count). Assorted gauges — ask the shop.",
+    image: "/images/jewelry/achadirect-aspg.jpg",
+    imageAlt: "White acrylic double-flare blank plugs",
+    photoStatus: "ready",
+    description:
+      "Solid matte milky-white acrylic double-flare saddle plugs, sold as a matched pair. Assorted gauges — ask the shop before you order. These blanks can be worn for stretching or custom UV printed. The iris pair in the studio photos is an example only and is not this listing.",
+    materials: ["Solid matte milky-white acrylic", "Double-flare saddle", "Assorted gauges — ask the shop", "Custom UV print eligible"],
+    variants: [variation("assorted", "Assorted gauges — ask the shop")],
+    featured: true,
+    fulfillment: "square-catalog",
+    reconnect: null,
+    externalHref: null,
+    customPrintEligible: true,
+  },
+  {
+    slug: "black-blank-plugs",
+    sku: "IA-BLACK-BLANK-PLUGS",
+    title: "Blank Plugs – Acrylic – Black – Flat Face",
+    department: "body-jewelry",
+    category: "ear",
+    priceCents: 390,
+    unit: "pair",
+    stockCount: 4,
+    stockLabel: "4 pairs on hand (9 pieces; 1 leftover held). Assorted gauges — ask the shop.",
+    image: "/images/jewelry/achadirect-aspg.jpg",
+    imageAlt: "Acrylic double-flare blank plugs. Black blanks share this catalog photo until a black-only shot is available.",
+    photoStatus: "ready",
+    description:
+      "Solid gloss black acrylic plugs with a flat face, sold as a matched pair. Assorted gauges — ask the shop before you order. The catalog photo is the shared blank style until a black-only shot is available. The octopus pair in the studio photos is an example only and is not this listing.",
+    materials: ["Solid gloss black acrylic", "Flat face", "Assorted gauges — ask the shop", "Custom UV print eligible"],
+    variants: [variation("assorted", "Assorted gauges — ask the shop")],
+    featured: false,
+    fulfillment: "square-catalog",
+    reconnect: null,
+    externalHref: null,
+    customPrintEligible: true,
+  },
+  {
+    slug: "dark-wood-blank-plugs",
+    sku: "IA-WOOD-BLANK-PLUGS",
+    title: "Blank Plugs – Dark Wood – Double Flare",
+    department: "body-jewelry",
+    category: "ear",
+    priceCents: 774,
+    unit: "pair",
+    stockCount: 2,
+    stockLabel: "2 pairs on hand (5 pieces; 1 leftover held). Assorted gauges — ask the shop.",
+    image: "/images/jewelry/achadirect-pwkk.jpg",
+    imageAlt: "Dark wood double-flare blank plugs",
+    photoStatus: "ready",
+    description:
+      "Natural dark wood double-flare plugs, areng-style, species unconfirmed. Sold as a matched pair. Assorted gauges — ask the shop before you order. A custom print on this wood uses a white underbase. The skull pair in the studio photos is an example only and is not this listing.",
+    materials: ["Natural dark wood (areng-style; species unconfirmed)", "Double flare", "Assorted gauges — ask the shop", "Custom UV print eligible with a white underbase"],
+    variants: [variation("assorted", "Assorted gauges — ask the shop")],
+    featured: false,
+    fulfillment: "square-catalog",
+    reconnect: null,
+    externalHref: null,
+    customPrintEligible: true,
+  },
+  {
     slug: "steel-bezel-set-cz-studs",
     sku: "OT-194",
     title: "Studs – Steel – Bezel-Set CZ",
@@ -237,8 +306,8 @@ export const products: CatalogProduct[] = [
     category: "ear",
     priceCents: 810,
     unit: "pair",
-    stockCount: 20,
-    stockLabel: "20 pairs on hand",
+    stockCount: null,
+    stockLabel: "Stock TBD — awaiting shelf photo count",
     image: null,
     imageAlt: null,
     photoStatus: "coming",
@@ -259,8 +328,8 @@ export const products: CatalogProduct[] = [
     category: "ear",
     priceCents: 876,
     unit: "each",
-    stockCount: 4,
-    stockLabel: "4 on hand at 16G · 5/16 in (8 mm).",
+    stockCount: null,
+    stockLabel: "Stock TBD — awaiting shelf photo count",
     image: "/images/jewelry/tragus-leaf-cz-gold-model-01.jpg",
     imageAlt: "Gold five-CZ leaf labret worn in a tragus",
     photoStatus: "ready",
@@ -282,8 +351,8 @@ export const products: CatalogProduct[] = [
     category: "ear",
     priceCents: 81,
     unit: "each",
-    stockCount: 60,
-    stockLabel: "60 on hand. Lengths are not counted separately.",
+    stockCount: null,
+    stockLabel: "Stock TBD — awaiting shelf photo count",
     image: "/images/jewelry/mo-010-la-024-steel-ball-tragus-labret.jpg",
     imageAlt: "Steel internally threaded ball labrets on a white background",
     gallery: [
@@ -309,8 +378,8 @@ export const products: CatalogProduct[] = [
     category: "ear",
     priceCents: 81,
     unit: "each",
-    stockCount: 80,
-    stockLabel: "80 on hand. Lengths are not counted separately.",
+    stockCount: null,
+    stockLabel: "Stock TBD — awaiting shelf photo count",
     image: "/images/jewelry/mo-010-la-024-steel-ball-tragus-labret.jpg",
     imageAlt: "Steel internally threaded ball labrets on a white background",
     gallery: [
@@ -341,8 +410,8 @@ export const products: CatalogProduct[] = [
     category: "eyebrow",
     priceCents: 171,
     unit: "each",
-    stockCount: 100,
-    stockLabel: "100 on hand. Lengths are not counted separately.",
+    stockCount: null,
+    stockLabel: "Stock TBD — awaiting shelf photo count",
     image: "/images/jewelry/apm-ey-012-curved-barbell.jpg",
     imageAlt: "16G steel internally threaded curved barbells on a white background",
     photoStatus: "ready",
@@ -368,8 +437,8 @@ export const products: CatalogProduct[] = [
     category: "ear",
     priceCents: 60,
     unit: "each",
-    stockCount: 300,
-    stockLabel: "300 on hand. Gauge and length are not counted separately.",
+    stockCount: null,
+    stockLabel: "Stock TBD — awaiting shelf photo count",
     image: "/images/jewelry/apm-ib-036-steel-industrial.jpg",
     imageAlt: "Plain steel industrial barbells in three lengths on a white background",
     photoStatus: "ready",
@@ -396,8 +465,8 @@ export const products: CatalogProduct[] = [
     category: "lip-labret",
     priceCents: 1176,
     unit: "each",
-    stockCount: 4,
-    stockLabel: "4 on hand",
+    stockCount: null,
+    stockLabel: "Stock TBD — awaiting shelf photo count",
     image: "/images/jewelry/apm-t-mo-402-cz-dangle-cone.jpg",
     imageAlt: "G23 titanium internally threaded CZ dangle cone labret on a white background",
     photoStatus: "ready",
@@ -417,8 +486,8 @@ export const products: CatalogProduct[] = [
     category: "lip-labret",
     priceCents: 1296,
     unit: "each",
-    stockCount: 4,
-    stockLabel: "4 on hand",
+    stockCount: null,
+    stockLabel: "Stock TBD — awaiting shelf photo count",
     image: "/images/jewelry/apm-t-mo-403-gold-cz-dangle-cone.jpg",
     imageAlt: "G23 gold PVD titanium internally threaded CZ dangle cone labret on a white background",
     photoStatus: "ready",
@@ -438,8 +507,8 @@ export const products: CatalogProduct[] = [
     category: "lip-labret",
     priceCents: 1596,
     unit: "each",
-    stockCount: 4,
-    stockLabel: "4 on hand at 16G · 5/16 in (8 mm).",
+    stockCount: null,
+    stockLabel: "Stock TBD — awaiting shelf photo count",
     image: "/images/jewelry/labret-petal-flower-gold-model-01.jpg",
     imageAlt: "Gold five-CZ petal flower labret worn on an ear",
     photoStatus: "ready",
@@ -461,8 +530,8 @@ export const products: CatalogProduct[] = [
     category: "lip-labret",
     priceCents: 168,
     unit: "each",
-    stockCount: 60,
-    stockLabel: "60 on hand. Lengths are not counted separately.",
+    stockCount: null,
+    stockLabel: "Stock TBD — awaiting shelf photo count",
     image: "/images/jewelry/apm-la-099-xl-cz-cheek.jpg",
     imageAlt: "16G steel XL CZ cheek labrets in several lengths on a white background",
     photoStatus: "ready",
@@ -482,8 +551,8 @@ export const products: CatalogProduct[] = [
     category: "lip-labret",
     priceCents: 126,
     unit: "each",
-    stockCount: 60,
-    stockLabel: "60 on hand. Lengths are not counted separately.",
+    stockCount: null,
+    stockLabel: "Stock TBD — awaiting shelf photo count",
     image: "/images/jewelry/la-054-074-xl-steel-cheek-labret.jpg",
     imageAlt: "XL steel cheek labrets in several lengths on a white background",
     gallery: [
@@ -509,8 +578,8 @@ export const products: CatalogProduct[] = [
     category: "lip-labret",
     priceCents: null,
     unit: "each",
-    stockCount: 80,
-    stockLabel: "80 on hand. Lengths are not counted separately. 25 mm, 22 mm, and 19 mm are $1.17. The 16 mm length is $1.08.",
+    stockCount: null,
+    stockLabel: "Stock TBD — awaiting shelf photo count",
     image: "/images/jewelry/la-054-074-xl-steel-cheek-labret.jpg",
     imageAlt: "XL steel cheek labrets in several lengths on a white background",
     gallery: [
@@ -541,8 +610,8 @@ export const products: CatalogProduct[] = [
     category: "navel",
     priceCents: 972,
     unit: "each",
-    stockCount: 13,
-    stockLabel: "13 on hand: 5 at 1/2 in (12 mm), 4 at 7/16 in (11 mm), 4 at 3/8 in (10 mm).",
+    stockCount: null,
+    stockLabel: "Stock TBD — awaiting shelf photo count",
     image: "/images/jewelry/belly-double-flat-cz-model-01.jpg",
     imageAlt: "Double flat CZ belly ring",
     photoStatus: "ready",
@@ -568,8 +637,8 @@ export const products: CatalogProduct[] = [
     category: "navel",
     priceCents: 141,
     unit: "each",
-    stockCount: 200,
-    stockLabel: "200 on hand. Color and length are not counted separately.",
+    stockCount: null,
+    stockLabel: "Stock TBD — awaiting shelf photo count",
     image: "/images/jewelry/apm-ba-002-double-gem-belly.jpg",
     imageAlt: "Press-fit double gem CZ belly rings in several colors, including clear, on white",
     photoStatus: "ready",
@@ -863,6 +932,7 @@ export function featuredProducts() {
     "g23-gold-pvd-ti-cz-dangle-cone-labret",
     "g23-ti-cz-dangle-cone-labret",
     "h2ocean-piercing-spray-4oz",
+    "milky-white-blank-plugs",
   ];
   return order.map((slug) => getProduct(slug)).filter((product): product is CatalogProduct => product !== null);
 }
@@ -875,7 +945,10 @@ const vendorSkuPattern = /^(?:T-)?[A-Z]{2,3}-\d{3}$|^\d{5}-\d{3}$/;
 
 /** Vendor reorder code. Own-stock, merch drafts, and local aftercare refs stay hidden. */
 export function displaySku(product: CatalogProduct) {
-  return vendorSkuPattern.test(product.sku) ? product.sku : null;
+  if (product.slug === "ocean-blue-glitter-spiral-tapers") return null;
+  if (vendorSkuPattern.test(product.sku)) return product.sku;
+  if (product.customPrintEligible && product.sku.startsWith("IA-")) return product.sku;
+  return null;
 }
 
 export function linePriceCents(product: CatalogProduct, variant?: CatalogVariant) {
@@ -911,7 +984,7 @@ export function stockNotice(product: CatalogProduct): { kind: "out" | "onhand" |
 }
 
 export function canAddToCart(product: CatalogProduct) {
-  if (product.stockCount === 0) return false;
+  if (product.stockCount === null || product.stockCount <= 0) return false;
   const priced = product.variants.some((variant) => linePriceCents(product, variant) !== null);
   return priced && product.externalHref === null && product.fulfillment === "square-catalog";
 }
