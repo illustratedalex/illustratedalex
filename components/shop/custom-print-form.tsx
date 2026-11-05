@@ -4,6 +4,7 @@ import { upload } from "@vercel/blob/client";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 
 const MAX_BYTES = 10 * 1024 * 1024;
+const MIN_EDGE = 1200;
 const ACCEPTED = ["image/jpeg", "image/png", "image/webp"];
 
 const fieldClass =
@@ -23,6 +24,7 @@ export function CustomPrintForm() {
   const [quantity, setQuantity] = useState(1);
   const [notes, setNotes] = useState("");
   const [fileError, setFileError] = useState<string | null>(null);
+  const [fileWarning, setFileWarning] = useState<string | null>(null);
   const [status, setStatus] = useState<Status>(null);
   const [sending, setSending] = useState(false);
 
@@ -40,6 +42,7 @@ export function CustomPrintForm() {
 
   function chooseFile(next: File | null) {
     setStatus(null);
+    setFileWarning(null);
     if (!next) {
       setFile(null);
       setFileError(null);
@@ -60,7 +63,17 @@ export function CustomPrintForm() {
     }
     setFileError(null);
     setFile(next);
-    setPreview(URL.createObjectURL(next));
+    const url = URL.createObjectURL(next);
+    setPreview(url);
+    const image = new Image();
+    image.onload = () => {
+      if (image.naturalWidth < MIN_EDGE || image.naturalHeight < MIN_EDGE) {
+        setFileWarning(
+          `This image is ${image.naturalWidth} × ${image.naturalHeight} px. We ask for at least 1200 × 1200 px so the print stays sharp. You can still send it, and we may ask for a higher-res file before printing.`,
+        );
+      }
+    };
+    image.src = url;
   }
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -144,8 +157,9 @@ export function CustomPrintForm() {
           onChange={(event) => chooseFile(event.target.files?.[0] ?? null)}
           className="mt-2 block w-full text-sm text-[#dbc8a7] file:mr-3 file:min-h-11 file:rounded-full file:border file:border-[#bc8f4d] file:bg-transparent file:px-4 file:text-[11px] file:font-semibold file:tracking-[0.1em] file:text-[#e7d4b4] file:uppercase"
         />
-        <p className="mt-2 text-xs leading-5 text-[#be9a62]">JPG, PNG, or WebP. 10MB maximum.</p>
+        <p className="mt-2 text-xs leading-5 text-[#be9a62]">JPG, PNG, or WebP. 10MB maximum. At least 1200 × 1200 pixels.</p>
         {fileError ? <p className="mt-2 text-sm text-[#f0dfbf]">{fileError}</p> : null}
+        {fileWarning ? <p className="mt-2 text-sm leading-6 text-[#f2e1c2]">{fileWarning}</p> : null}
         {previewUrl ? (
           // The preview is a local file the visitor just chose.
           // eslint-disable-next-line @next/next/no-img-element

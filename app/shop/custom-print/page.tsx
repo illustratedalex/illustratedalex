@@ -38,7 +38,7 @@ export default function CustomPrintPage() {
       <p className="mt-4 text-[11px] font-semibold tracking-[0.2em] text-[#d8b06d] uppercase">Custom work</p>
       <h1 className="font-display mt-3 max-w-3xl text-4xl leading-tight font-semibold sm:text-6xl">Custom UV-printed tunnels &amp; gauges</h1>
       <p className="mt-4 max-w-2xl text-base leading-8 text-[#dbc8a7]">
-        Upload your art or photo. Alex prints it on durable tunnels and gauges with his EufyMake UV printer at Illustrated Alex Tattoo &amp; Piercing in Claremont, NH.
+        Upload your art or photo. Alex prints it on durable tunnels and gauges with his eufyMake UV printer at Illustrated Alex Tattoo &amp; Piercing in Claremont, NH.
       </p>
       <p className="mt-6 inline-flex rounded-full border border-[#d8b06d] bg-[#14110d] px-4 py-2 text-sm font-semibold text-[#f2e1c2]">
         Starting at $35 per pair
@@ -57,6 +57,28 @@ export default function CustomPrintPage() {
             </li>
           ))}
         </ul>
+      </section>
+
+      <section className="mt-12 max-w-3xl">
+        <h2 className="font-display text-3xl font-semibold">Artwork tips (UV print)</h2>
+        <div className="mt-4 space-y-4 text-sm leading-7 text-[#dbc8a7]">
+          <p>We UV-print your design on plugs in the shop. Round designs work best. They sit cleanly on the plug face without awkward cropping.</p>
+          <p>Send high-resolution files. Per eufyMake’s UV print guidance:</p>
+          <ul className="list-disc space-y-1 pl-5">
+            <li>Standard: at least 300 DPI at the final print size</li>
+            <li>Small / detailed plugs: 400–600 DPI preferred (small-format, like stickers/badges)</li>
+          </ul>
+          <p className="font-semibold text-[#f0dfbf]">Minimum image size we accept</p>
+          <ul className="list-disc space-y-1 pl-5">
+            <li>At least 1200 × 1200 pixels (square); higher is better</li>
+            <li>For a ~1 in (25 mm) plug face at 600 DPI you need about 600 px across; we ask for 1200 × 1200 or larger so the same file stays sharp on larger gauges</li>
+            <li>Prefer a circular / round composition centered in the frame</li>
+            <li>Vector (SVG, PDF, AI) ideal. It stays sharp at any size</li>
+            <li>Raster is fine: PNG (best) or high-quality JPEG. Screenshots and heavily compressed social downloads are a poor fit</li>
+            <li>Do not upscale a small or blurry image. That will not add real detail</li>
+          </ul>
+          <p>If your file is under 1200 × 1200 px or looks soft when zoomed, we may ask for a higher-res version before printing.</p>
+        </div>
       </section>
 
       <section className="mt-12 max-w-xl">
