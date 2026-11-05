@@ -138,6 +138,11 @@ test("jewelry listings keep the vendor reorder SKU", () => {
   assert.equal(whiteBlanks?.image, "/images/jewelry/white-acrylic-blank-plugs-clean.jpg");
   assert.equal(blackBlanks?.image, "/images/jewelry/black-acrylic-blank-plugs-clean.jpg");
   assert.equal(woodBlanks?.image, "/images/jewelry/dark-wood-blank-plugs-clean.jpg");
+  for (const product of [whiteBlanks, blackBlanks, woodBlanks]) {
+    for (const shot of product?.gallery ?? []) {
+      assert.equal(existsSync(path.join(process.cwd(), "public", shot.src)), true, shot.src);
+    }
+  }
   assert.equal(`${blackBlanks?.imageAlt} ${blackBlanks?.description}`.toLowerCase().includes("shared"), false);
   assert.equal(JSON.stringify(products).toLowerCase().includes("achadirect"), false);
   assert.equal(canAddToCart(whiteBlanks!), true);
