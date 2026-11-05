@@ -11,7 +11,7 @@ const SQUARE_GIFT_CARD_URL = "https://shop.illustratedalex.com/s/gift-cards";
 
 export type DepartmentSlug = "aftercare" | "body-jewelry" | "merch";
 
-export type PhotoStatus = "ready" | "coming" | "needed" | "mockup";
+export type PhotoStatus = "ready" | "coming" | "needed";
 
 export type Fulfillment = "square-catalog" | "aftercare-later" | "pod-placeholder" | "square-gift-card";
 
@@ -51,6 +51,8 @@ export type CatalogProduct = {
   image: string | null;
   imageAlt: string | null;
   photoStatus: PhotoStatus;
+  /** Lifestyle frames fill the tile. Studio packshots stay contained. */
+  imageFit?: "cover" | "contain";
   description: string;
   materials: string[];
   variants: CatalogVariant[];
@@ -240,10 +242,11 @@ export const products: CatalogProduct[] = [
     stockCount: 4,
     stockLabel: "4 on hand at 16G · 5/16 in (8 mm).",
     image: "/images/jewelry/tragus-leaf-cz-gold-model-01.jpg",
-    imageAlt: "AI model mock-up of a gold five-CZ leaf labret worn in a tragus. Not a photo of the studio piece.",
-    photoStatus: "mockup",
+    imageAlt: "Gold five-CZ leaf labret worn in a tragus",
+    photoStatus: "ready",
+    imageFit: "cover",
     description:
-      "Gold ion-plated steel threadless push-in labret topped with a five-stone CZ leaf. Made for tragus, and it can sit in a flat or helix when the length is right. 16G, 8 mm (5/16 in). The picture is an AI model mock-up for this draft, not a photo of the piece in the studio case.",
+      "Gold ion-plated steel threadless push-in labret topped with a five-stone CZ leaf. Made for tragus, and it can sit in a flat or helix when the length is right. 16G, 8 mm (5/16 in).",
     materials: ["Steel, gold ion plated", "Clear CZ", "Threadless push-in", "16G", "8 mm (5/16 in) post", "Five-CZ leaf"],
     variants: [variation("8mm", "16G · 5/16 in (8 mm)")],
     featured: true,
@@ -428,10 +431,11 @@ export const products: CatalogProduct[] = [
     stockCount: 4,
     stockLabel: "4 on hand at 16G · 5/16 in (8 mm).",
     image: "/images/jewelry/labret-petal-flower-gold-model-01.jpg",
-    imageAlt: "AI model mock-up of a gold five-CZ petal flower labret worn on an ear. Not a photo of the studio piece.",
-    photoStatus: "mockup",
+    imageAlt: "Gold five-CZ petal flower labret worn on an ear",
+    photoStatus: "ready",
+    imageFit: "cover",
     description:
-      "G23 titanium labret with gold PVD and an internally threaded five-CZ petal flower top. Secure threaded post, warm gold tone, clear stones. Listed with lip and labret jewelry; the same post is a dressy cartilage or lobe option when the length fits. 16G, 8 mm (5/16 in). The picture is an AI model mock-up for this draft, not a photo of the piece in the studio case.",
+      "G23 titanium labret with gold PVD and an internally threaded five-CZ petal flower top. Secure threaded post, warm gold tone, clear stones. Listed with lip and labret jewelry; the same post is a dressy cartilage or lobe option when the length fits. 16G, 8 mm (5/16 in).",
     materials: ["G23 titanium, gold PVD", "Clear CZ", "Internally threaded", "16G", "8 mm (5/16 in) post", "Five-CZ petal flower"],
     variants: [variation("8mm", "16G · 5/16 in (8 mm)")],
     featured: true,
@@ -518,10 +522,11 @@ export const products: CatalogProduct[] = [
     stockCount: 13,
     stockLabel: "13 on hand: 5 at 1/2 in (12 mm), 4 at 7/16 in (11 mm), 4 at 3/8 in (10 mm).",
     image: "/images/jewelry/belly-double-flat-cz-model-01.jpg",
-    imageAlt: "AI model mock-up of a double flat CZ belly ring. Not a photo of the studio piece.",
-    photoStatus: "mockup",
+    imageAlt: "Double flat CZ belly ring",
+    photoStatus: "ready",
+    imageFit: "cover",
     description:
-      "Threadless push-in navel ring in G23 titanium with a PVD finish and two flat-set clear CZ gems. Lightweight and low-profile. Ask a piercer about fit for a new versus healed navel. 14G. Lengths 12 mm, 11 mm, and 10 mm share one price. The picture is an AI model mock-up for this draft, not a photo of the piece in the studio case.",
+      "Threadless push-in navel ring in G23 titanium with a PVD finish and two flat-set clear CZ gems. Lightweight and low-profile. Ask a piercer about fit for a new versus healed navel. 14G. Lengths 12 mm, 11 mm, and 10 mm share one price.",
     materials: ["G23 titanium, PVD coated", "Clear CZ", "Threadless push-in", "14G", "Double flat CZ"],
     variants: [
       variation("12mm", "14G · 1/2 in (12 mm)"),

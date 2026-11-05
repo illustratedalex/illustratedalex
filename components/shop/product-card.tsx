@@ -10,9 +10,7 @@ export function ProductCard({ product }: { product: CatalogProduct }) {
       ? "Photo coming"
       : product.photoStatus === "needed"
         ? "Photo needed"
-        : product.photoStatus === "mockup"
-          ? "AI model mock-up"
-          : null;
+        : null;
 
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-[#7d5b2e]/40 bg-[#0f0f0f]">
