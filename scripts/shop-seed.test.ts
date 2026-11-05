@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
-import { categories, categoriesFor, products } from "../data/catalog.ts";
+import { categories, categoriesFor, displaySku, products } from "../data/catalog.ts";
 import {
   assertSandboxServer,
   buildCatalogOrderRequest,
@@ -62,6 +62,18 @@ test("merch stays unpriced and has no print-on-demand ids", () => {
     assert.equal(product?.photoStatus, "needed");
     assert.equal(product?.reconnect, "Printify or Printful");
   }
+});
+
+test("jewelry listings keep the vendor reorder SKU", () => {
+  const vendorSkus = ["T-BA-649", "MO-359", "T-MO-395", "T-MO-402", "T-MO-403", "BA-002", "IB-036", "LA-099", "EY-012", "OT-194", "LA-024", "MO-010", "T-MO-385", "LA-054", "LA-074"];
+  for (const sku of vendorSkus) {
+    const product = products.find((entry) => entry.sku === sku);
+    assert.ok(product, sku);
+    assert.equal(displaySku(product), sku);
+    assert.equal(product.department, "body-jewelry");
+  }
+  const spirals = products.find((product) => product.slug === "ocean-blue-glitter-spiral-tapers");
+  assert.equal(displaySku(spirals!), null);
 });
 
 test("category children are alphabetical", () => {

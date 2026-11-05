@@ -770,6 +770,13 @@ export function jewelryCategoriesWithProducts() {
   return categoriesFor("body-jewelry").filter((category) => productsIn("body-jewelry", category.slug).length > 0);
 }
 
+const vendorSkuPattern = /^(?:T-)?[A-Z]{2,3}-\d{3}$/;
+
+/** APM / Painful Pleasures reorder code. Own-stock and merch drafts do not get an invented code. */
+export function displaySku(product: CatalogProduct) {
+  return vendorSkuPattern.test(product.sku) ? product.sku : null;
+}
+
 export function formatPrice(cents: number | null, unit: CatalogProduct["unit"]) {
   if (cents === null) return "Price TBD";
   const amount = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100);

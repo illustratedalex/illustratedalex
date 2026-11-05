@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { formatPrice, productPath, type CatalogProduct } from "@/data/catalog";
+import { displaySku, formatPrice, productPath, type CatalogProduct } from "@/data/catalog";
 import { PhotoFrame } from "@/components/shop/photo-frame";
 
 export function ProductCard({ product }: { product: CatalogProduct }) {
   const price = formatPrice(product.priceCents, product.unit);
+  const sku = displaySku(product);
   const status = product.reconnect
     ? `Reconnect ${product.reconnect}`
     : product.photoStatus === "coming"
@@ -18,6 +19,7 @@ export function ProductCard({ product }: { product: CatalogProduct }) {
         <PhotoFrame product={product} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
         <div className="space-y-2 px-4 py-4">
           <h3 className="font-display text-xl leading-snug font-semibold text-[#f0dfbf]">{product.title}</h3>
+          {sku ? <p className="text-sm font-semibold tracking-[0.12em] text-[#d8b06d]">SKU {sku}</p> : null}
           <p className="text-sm text-[#f2e1c2]">{price}</p>
           {status ? <p className="text-[11px] tracking-[0.12em] text-[#d8b06d] uppercase">{status}</p> : null}
         </div>

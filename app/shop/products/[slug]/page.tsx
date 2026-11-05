@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { AddToCart } from "@/components/shop/add-to-cart";
 import { PhotoFrame } from "@/components/shop/photo-frame";
 import { ProductGallery } from "@/components/shop/product-gallery";
-import { categories, formatPrice, getCategory, getProduct, productPath, products } from "@/data/catalog";
+import { categories, displaySku, formatPrice, getCategory, getProduct, productPath, products } from "@/data/catalog";
 
 export const dynamicParams = false;
 
@@ -24,6 +24,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const product = getProduct(slug);
   if (!product) notFound();
   const category = categories.find((entry) => entry.department === product.department && entry.slug === product.category) ?? getCategory(product.department, product.category);
+  const sku = displaySku(product);
   const aftercareHref = product.department === "body-jewelry" ? "/shop/aftercare/piercing-aftercare" : "/shop/aftercare";
 
   return (
@@ -52,6 +53,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           ) : null}
         </p>
         <h1 className="font-display mt-3 text-4xl leading-tight font-semibold sm:text-5xl">{product.title}</h1>
+        {sku ? <p className="mt-3 text-base font-semibold tracking-[0.14em] text-[#d8b06d]">SKU {sku}</p> : null}
         <p className="mt-4 text-lg text-[#f2e1c2]">{formatPrice(product.priceCents, product.unit)}</p>
         {product.stockLabel ? <p className="mt-2 text-sm text-[#dbc8a7]">{product.stockLabel}</p> : null}
         <p className="mt-4 max-w-2xl text-base leading-8 text-[#dbc8a7]">{product.description}</p>
@@ -61,9 +63,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <li key={item}>{item}</li>
           ))}
         </ul>
-        <p className="mt-4 text-xs tracking-[0.08em] text-[#be9a62] uppercase">
-          {product.fulfillment === "square-catalog" ? `Inventory ref ${product.sku}` : `Draft ref ${product.sku}. Not a Printful or Printify id.`}
-        </p>
+        {sku ? null : product.fulfillment !== "square-catalog" ? (
+          <p className="mt-4 text-xs tracking-[0.08em] text-[#be9a62] uppercase">
+            Draft ref {product.sku}. Not a Printful or Printify id.
+          </p>
+        ) : null}
         <div className="mt-6">
           <AddToCart product={product} />
         </div>
