@@ -2,6 +2,7 @@ import { createPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { PiercingAftercareSelector } from "@/components/piercing-aftercare-selector";
 import { piercingAftercareItems, tattooAftercareSteps } from "@/data/aftercare";
+import { displaySku, priceSummary, productPath, productsIn } from "@/data/catalog";
 
 export const metadata = createPageMetadata(
   "/aftercare",
@@ -10,6 +11,8 @@ export const metadata = createPageMetadata(
 );
 
 export default function AftercarePage() {
+  const piercingShop = productsIn("aftercare", "piercing-aftercare");
+
   return (
     <div className="bg-[#111] text-[#f0dfbf]">
       <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
@@ -72,8 +75,25 @@ export default function AftercarePage() {
           <div className="mt-6 rounded-xl border border-[#7d5b2e]/40 bg-[#12100d] p-5 sm:p-6">
             <p className="font-display text-2xl font-semibold text-[#f0dfbf]">Need piercing aftercare?</p>
             <p className="mt-2 text-sm leading-7 text-[#dbc8a7]">
-              Sterile saline wound wash and aftercare products are available through the shop.
+              Sterile saline spray and alcohol-free rinses are in the shop draft. Prices follow average online retail.
             </p>
+            <ul className="mt-4 space-y-2 text-sm leading-7">
+              {piercingShop.map((product) => {
+                const sku = displaySku(product);
+                return (
+                  <li key={product.slug}>
+                    <Link href={productPath(product)} className="text-[#e1c18c] underline underline-offset-4">
+                      {product.title}
+                    </Link>
+                    <span className="text-[#dbc8a7]">
+                      {" "}
+                      · {priceSummary(product)}
+                      {sku ? ` · SKU ${sku}` : ""}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
             <Link
               href="/shop/aftercare/piercing-aftercare"
               className="mt-4 inline-flex min-h-11 items-center rounded-full border border-[#bc8f4d] bg-[#bc8f4d] px-6 py-2.5 text-xs font-semibold tracking-[0.1em] text-[#1e1408]"

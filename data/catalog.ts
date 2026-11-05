@@ -103,7 +103,7 @@ export const categories: CatalogCategory[] = [
     slug: "piercing-aftercare",
     name: "Piercing Aftercare",
     department: "aftercare",
-    summary: "Sterile saline and piercing recovery products can land here later. Nothing is invented for this draft.",
+    summary: "H2Ocean spray and alcohol-free rinses for healing piercings. Prices follow average online retail.",
   },
   {
     slug: "tattoo-aftercare",
@@ -590,6 +590,96 @@ export const products: CatalogProduct[] = [
     externalHref: null,
   },
   {
+    slug: "h2ocean-piercing-spray-4oz",
+    sku: "90752-001",
+    title: "H2Ocean Piercing Aftercare Spray 4oz",
+    department: "aftercare",
+    category: "piercing-aftercare",
+    priceCents: 1600,
+    unit: "each",
+    stockCount: null,
+    stockLabel: null,
+    image: "/images/aftercare/h2ocean-piercing-spray-4oz-official.png",
+    imageAlt: "H2Ocean piercing aftercare spray 4 oz bottle",
+    gallery: [
+      {
+        src: "/images/aftercare/h2ocean-piercing-spray-4oz-full.png",
+        alt: "Full view of the H2Ocean piercing aftercare spray 4 oz bottle",
+      },
+    ],
+    photoStatus: "ready",
+    description: "Sterile Red Sea salt and lysozyme piercing aftercare spray. Spray 3–6 times daily and let it air dry.",
+    materials: ["4 oz", "Sterile Red Sea salt", "Lysozyme", "Spray 3–6 times daily", "Air dry"],
+    variants: [variation("4oz", "4 oz")],
+    featured: true,
+    fulfillment: "square-catalog",
+    reconnect: null,
+    externalHref: null,
+  },
+  {
+    slug: "h2ocean-piercing-spray-1-5oz",
+    sku: "90773-010",
+    title: "H2Ocean Piercing Aftercare Spray (Travel) 1.5oz",
+    department: "aftercare",
+    category: "piercing-aftercare",
+    priceCents: 1200,
+    unit: "each",
+    stockCount: null,
+    stockLabel: null,
+    image: "/images/aftercare/h2ocean-piercing-spray-1-5oz.png",
+    imageAlt: "Travel-size H2Ocean piercing aftercare spray 1.5 oz",
+    photoStatus: "ready",
+    description: "Travel-size H2Ocean piercing aftercare spray.",
+    materials: ["1.5 oz", "Travel size", "Piercing aftercare spray"],
+    variants: [variation("1-5oz", "1.5 oz")],
+    featured: false,
+    fulfillment: "square-catalog",
+    reconnect: null,
+    externalHref: null,
+  },
+  {
+    slug: "h2ocean-healing-rinse-8oz",
+    sku: "90901-510",
+    title: "H2Ocean Healing Rinse — Arctic Ocean Mint 8oz",
+    department: "aftercare",
+    category: "piercing-aftercare",
+    priceCents: 1000,
+    unit: "each",
+    stockCount: null,
+    stockLabel: null,
+    image: "/images/aftercare/h2ocean-healing-rinse-8oz-front.jpg",
+    imageAlt: "H2Ocean Healing Rinse Arctic Ocean Mint 8 oz bottle, front",
+    photoStatus: "ready",
+    description: "Alcohol-free sea salt mouthwash with xylitol for oral piercings.",
+    materials: ["8 oz", "Arctic Ocean Mint", "Alcohol-free", "Sea salt", "Xylitol", "For oral piercings"],
+    variants: [variation("8oz", "8 oz")],
+    featured: false,
+    fulfillment: "square-catalog",
+    reconnect: null,
+    externalHref: null,
+  },
+  {
+    slug: "recovery-mouth-rinse-8oz",
+    sku: "IA-RECOVERY-MOUTH-8OZ",
+    title: "Recovery Aftercare Sea Salt Mouth Rinse 8oz",
+    department: "aftercare",
+    category: "piercing-aftercare",
+    priceCents: 1000,
+    unit: "each",
+    stockCount: null,
+    stockLabel: null,
+    image: "/images/aftercare/recovery-mouth-rinse-official.jpg",
+    imageAlt: "Recovery Aftercare sea salt mouth rinse 8 oz bottle",
+    photoStatus: "ready",
+    description: "Alcohol-free peppermint Maris Sal sea salt mouth rinse for oral piercings.",
+    materials: ["8 oz", "Peppermint", "Maris Sal sea salt", "Alcohol-free", "For oral piercings"],
+    variants: [variation("8oz", "8 oz")],
+    featured: false,
+    fulfillment: "square-catalog",
+    reconnect: null,
+    externalHref: null,
+  },
+  {
     slug: "illustrated-alex-cap-or-beanie",
     sku: "IA-MERCH-CAP",
     title: "Cap or Beanie – Illustrated Alex",
@@ -772,6 +862,7 @@ export function featuredProducts() {
     "g23-gold-pvd-ti-5-cz-petal-flower-labret",
     "g23-gold-pvd-ti-cz-dangle-cone-labret",
     "g23-ti-cz-dangle-cone-labret",
+    "h2ocean-piercing-spray-4oz",
   ];
   return order.map((slug) => getProduct(slug)).filter((product): product is CatalogProduct => product !== null);
 }
@@ -780,9 +871,9 @@ export function jewelryCategoriesWithProducts() {
   return categoriesFor("body-jewelry").filter((category) => productsIn("body-jewelry", category.slug).length > 0);
 }
 
-const vendorSkuPattern = /^(?:T-)?[A-Z]{2,3}-\d{3}$/;
+const vendorSkuPattern = /^(?:T-)?[A-Z]{2,3}-\d{3}$|^\d{5}-\d{3}$/;
 
-/** APM / Painful Pleasures reorder code. Own-stock and merch drafts do not get an invented code. */
+/** Vendor reorder code. Own-stock, merch drafts, and local aftercare refs stay hidden. */
 export function displaySku(product: CatalogProduct) {
   return vendorSkuPattern.test(product.sku) ? product.sku : null;
 }
