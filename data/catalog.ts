@@ -949,7 +949,7 @@ export function jewelryCategoriesWithProducts() {
   return categoriesFor("body-jewelry").filter((category) => productsIn("body-jewelry", category.slug).length > 0);
 }
 
-const vendorSkuPattern = /^(?:T-)?[A-Z]{2,3}-\d{3}$|^\d{5}-\d{3}$/;
+const vendorSkuPattern = /^(?:T-)?[A-Z]{2,3}-\d{3}$|^\d{5}-\d{3}$|^[A-Z]{2,3}-\d{2,3}-[A-Z0-9]+$/;
 const inventoryCodePattern = /^[A-Z0-9][A-Z0-9*?-]{1,}$/;
 
 /** Vendor reorder code or inventory code from the photo count. Snake-case tray keys, merch drafts, and the internal spiral ref stay hidden. */

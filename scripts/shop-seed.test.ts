@@ -98,6 +98,26 @@ test("jewelry listings keep the vendor reorder SKU", () => {
   assert.equal(products.find((entry) => entry.sku === "IB-036")?.stockCount, 116);
   assert.equal(products.find((entry) => entry.sku === "MO-010")?.stockCount, 49);
   assert.equal(canAddToCart(products.find((entry) => entry.sku === "MO-010")!), true);
+  assert.equal(products.find((entry) => entry.sku === "spike_horseshoe")?.stockCount, 170);
+  assert.equal(products.find((entry) => entry.sku === "ball_horseshoe")?.stockCount, 133);
+  const sealed = {
+    "VNO-25-ST": [105, 7, "nose"],
+    "VH-003-3": [90, 3, "lip-labret"],
+    "VH-003-4": [135, 18, "septum"],
+    "VJ-016-OP06": [225, 3, "eyebrow"],
+    "VJ-016-OP17": [150, 5, "septum"],
+  } as const;
+  for (const [sku, [cents, qty, category]] of Object.entries(sealed)) {
+    const product = products.find((entry) => entry.sku === sku);
+    assert.ok(product, sku);
+    assert.equal(product.priceCents, cents);
+    assert.equal(product.stockCount, qty);
+    assert.equal(product.category, category);
+    assert.equal(product.title.toLowerCase().includes("sealed"), true);
+    assert.equal(canAddToCart(product), true);
+    assert.equal(displaySku(product), sku);
+    assert.equal(product.image, "/images/jewelry/sealed-packs-fronts-2026-11-05.jpg");
+  }
   assert.equal(products.find((entry) => entry.sku === "LA-024")?.stockCount, null);
   assert.equal(canAddToCart(products.find((entry) => entry.sku === "LA-024")!), false);
   assert.equal(products.find((entry) => entry.sku === "OUFER moon 2PCS")?.priceCents, 2001);

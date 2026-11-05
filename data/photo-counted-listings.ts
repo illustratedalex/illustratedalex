@@ -8,6 +8,14 @@ const soap = "/images/aftercare/h2ocean-foam-soap-2026-11-05.jpg";
 const horseshoes = "/images/jewelry/steel-tray-industrials-horseshoes-a-2026-11-05.jpg";
 const labrets = "/images/jewelry/steel-tray-labrets-cbrs-a-2026-11-05.jpg";
 const shields = "/images/jewelry/steel-tray-horseshoes-nipple-shields-2026-11-05.jpg";
+const sealedFronts = "/images/jewelry/sealed-packs-fronts-2026-11-05.jpg";
+const sealedBacks = "/images/jewelry/sealed-packs-vh-vj-2026-11-05.jpg";
+const sealedGallery = [
+  {
+    src: sealedBacks,
+    alt: "Backs of the same sealed body jewelry packs, with vendor code stickers",
+  },
+];
 
 function option(id: string, label: string, priceCents?: number, stockCount?: number): CatalogVariant {
   return {
@@ -542,5 +550,81 @@ export const photoCountedListings: CatalogProduct[] = [
     imageAlt: "Crystal chain nipple jewelry in a tray",
     description: "Crystal chain nipple jewelry.",
     materials: ["Steel", "Crystal chain"],
+  }),
+  // Sealed retail packs. Piece counts stay on these SKUs and are not added to loose tray stock.
+  listing({
+    slug: "vno-25-st-l-bend-nose-studs",
+    sku: "VNO-25-ST",
+    title: "L-Bend Nose Studs – Steel – Sealed Pack",
+    category: "nose",
+    priceCents: 105,
+    stockCount: 7,
+    stockLabel: "7 on hand (sealed pack, photo count ±1).",
+    image: sealedFronts,
+    imageAlt: "Sealed packs of body jewelry, including a pack of steel L-bend nose studs",
+    gallery: sealedGallery,
+    description:
+      "316L steel L-bend nose studs from a sealed pack. The photo count is about 7 pieces, plus or minus one. Wholesale is a researched VNO-series price. No Mountainside receipt matched this code.",
+    materials: ["316L steel", "L-bend nose stud", "Sealed pack"],
+  }),
+  listing({
+    slug: "vh-003-3-steel-ball-labrets",
+    sku: "VH-003-3",
+    title: "Steel Ball Labrets – Sealed 3-Pack",
+    category: "lip-labret",
+    priceCents: 90,
+    stockCount: 3,
+    stockLabel: "3 on hand (sealed 3-pack). Not added to the loose MO-010 labrets.",
+    image: sealedFronts,
+    imageAlt: "Sealed pack of three steel ball labrets among other sealed jewelry packs",
+    gallery: sealedGallery,
+    description:
+      "Flat-back steel ball labrets in a sealed 3-pack. These three pieces are not part of the loose MO-010 count.",
+    materials: ["316L steel", "Flat-back ball labret", "Sealed 3-pack"],
+  }),
+  listing({
+    slug: "vh-003-4-iridescent-horseshoes",
+    sku: "VH-003-4",
+    title: "Iridescent IP Horseshoes – Sealed Packs",
+    category: "septum",
+    priceCents: 135,
+    stockCount: 18,
+    stockLabel: "18 on hand (about 3 sealed packs). Not added to the loose horseshoe trays.",
+    image: sealedFronts,
+    imageAlt: "Three sealed packs of iridescent horseshoes",
+    gallery: sealedGallery,
+    description:
+      "Iridescent IP horseshoes from three sealed packs, about 7, 6, and 5 pieces. This stock is separate from the loose ball and spike horseshoe trays.",
+    materials: ["316L steel", "IP / anodized", "Sealed packs"],
+  }),
+  listing({
+    slug: "vj-016-op06-blue-gem-curved",
+    sku: "VJ-016-OP06",
+    title: "Blue-Gem Curved Barbells – Sealed 3-Pack",
+    category: "eyebrow",
+    priceCents: 225,
+    stockCount: 3,
+    stockLabel: "3 on hand (sealed 3-pack: 2 blue-gem, 1 silver).",
+    image: sealedFronts,
+    imageAlt: "Sealed pack of curved barbells, two with blue gems and one silver",
+    gallery: sealedGallery,
+    description:
+      "Curved barbells from a sealed 3-pack: two blue-gem and one silver. Listed as a curved barbell. Wholesale is a researched price. No Mountainside receipt matched this code.",
+    materials: ["316L steel", "Synthetic opal / gem", "Sealed 3-pack", "Curved barbell"],
+  }),
+  listing({
+    slug: "vj-016-op17-iridescent-horseshoes",
+    sku: "VJ-016-OP17",
+    title: "Iridescent Opal Horseshoes – Sealed Pack",
+    category: "septum",
+    priceCents: 150,
+    stockCount: 5,
+    stockLabel: "5 on hand (sealed pack). Not added to the loose horseshoe trays.",
+    image: sealedFronts,
+    imageAlt: "Sealed pack of iridescent horseshoes with an opal option",
+    gallery: sealedGallery,
+    description:
+      "Iridescent horseshoes with an opal option, about 5 pieces in one sealed pack. This stock is separate from the loose horseshoe trays and from VH-003-4.",
+    materials: ["316L steel", "IP", "Opal option", "Sealed pack"],
   }),
 ];
