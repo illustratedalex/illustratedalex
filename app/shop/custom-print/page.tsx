@@ -1,4 +1,5 @@
 import { createPageMetadata } from "@/lib/seo";
+import Image from "next/image";
 import Link from "next/link";
 import { CustomPrintForm } from "@/components/shop/custom-print-form";
 
@@ -8,7 +9,23 @@ export const metadata = createPageMetadata(
   "Upload art for custom UV-printed tunnels and gauges at Illustrated Alex in Claremont, NH. Starting at $35 per pair.",
 );
 
-const examples = [1, 2, 3, 4, 5, 6];
+const examples = [
+  {
+    src: "/images/custom-print/example-iris-plugs.jpg",
+    alt: "White double-flare plugs with a printed iris",
+    caption: "Iris UV print",
+  },
+  {
+    src: "/images/custom-print/example-octopus-plugs.jpg",
+    alt: "Black plugs with an octopus face print",
+    caption: "Octopus UV print",
+  },
+  {
+    src: "/images/custom-print/example-wood-skull-plugs.jpg",
+    alt: "Wood plugs with a skull inside a labyrinth",
+    caption: "Wood skull design",
+  },
+];
 
 export default function CustomPrintPage() {
   return (
@@ -30,14 +47,13 @@ export default function CustomPrintPage() {
 
       <section className="mt-12">
         <h2 className="font-display text-3xl font-semibold">Examples of our work</h2>
-        <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
+        <ul className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
           {examples.map((example) => (
-            <li
-              key={example}
-              className="flex aspect-square flex-col items-center justify-center rounded-2xl border border-[#7d5b2e]/40 bg-[#14110d] px-3 text-center"
-            >
-              <span className="text-[11px] font-semibold tracking-[0.14em] text-[#d8b06d] uppercase">Photos coming</span>
-              <span className="mt-2 text-xs text-[#dbc8a7]">Example {example}</span>
+            <li key={example.src} className="overflow-hidden rounded-2xl border border-[#7d5b2e]/40 bg-[#14110d]">
+              <div className="relative aspect-square">
+                <Image src={example.src} alt={example.alt} fill sizes="(max-width: 640px) 100vw, 33vw" className="object-cover" />
+              </div>
+              <p className="px-3 py-3 text-sm text-[#f0dfbf]">{example.caption}</p>
             </li>
           ))}
         </ul>

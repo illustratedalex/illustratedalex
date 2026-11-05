@@ -74,6 +74,23 @@ test("jewelry listings keep the vendor reorder SKU", () => {
   }
   const spirals = products.find((product) => product.slug === "ocean-blue-glitter-spiral-tapers");
   assert.equal(displaySku(spirals!), null);
+
+  const apmPhotos: Record<string, string> = {
+    "T-MO-402": "/images/jewelry/apm-t-mo-402-cz-dangle-cone.jpg",
+    "T-MO-403": "/images/jewelry/apm-t-mo-403-gold-cz-dangle-cone.jpg",
+    "BA-002": "/images/jewelry/apm-ba-002-double-gem-belly.jpg",
+    "IB-036": "/images/jewelry/apm-ib-036-steel-industrial.jpg",
+    "LA-099": "/images/jewelry/apm-la-099-xl-cz-cheek.jpg",
+    "EY-012": "/images/jewelry/apm-ey-012-curved-barbell.jpg",
+  };
+  for (const [sku, image] of Object.entries(apmPhotos)) {
+    const product = products.find((entry) => entry.sku === sku);
+    assert.equal(product?.image, image);
+    assert.equal(existsSync(path.join(process.cwd(), "public", image)), true);
+  }
+  assert.equal(products.find((entry) => entry.sku === "T-BA-649")?.image, "/images/jewelry/belly-double-flat-cz-model-01.jpg");
+  assert.equal(products.find((entry) => entry.sku === "MO-359")?.image, "/images/jewelry/tragus-leaf-cz-gold-model-01.jpg");
+  assert.equal(products.find((entry) => entry.sku === "T-MO-395")?.image, "/images/jewelry/labret-petal-flower-gold-model-01.jpg");
 });
 
 test("category children are alphabetical", () => {
