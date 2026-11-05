@@ -7,6 +7,8 @@
  * This file avoids path aliases so the seed tests and sandbox server can import it from Node.
  */
 
+import { photoCountedListings } from "./photo-counted-listings.ts";
+
 const SQUARE_GIFT_CARD_URL = "https://shop.illustratedalex.com/s/gift-cards";
 
 export type DepartmentSlug = "aftercare" | "body-jewelry" | "merch";
@@ -20,6 +22,8 @@ export type CatalogVariant = {
   label: string;
   /** Overrides the product price when lengths do not share one shelf price. */
   priceCents?: number;
+  /** On-hand count for this option when colors or styles are counted separately. */
+  stockCount?: number;
   /** Square Catalog ITEM_VARIATION id. Null until register sync. */
   squareCatalogVariationId: string | null;
 };
@@ -72,10 +76,11 @@ export type CatalogProduct = {
   customPrintEligible?: boolean;
 };
 
-const variation = (id: string, label: string, priceCents?: number): CatalogVariant => ({
+const variation = (id: string, label: string, priceCents?: number, stockCount?: number): CatalogVariant => ({
   id,
   label,
   ...(priceCents === undefined ? {} : { priceCents }),
+  ...(stockCount === undefined ? {} : { stockCount }),
   squareCatalogVariationId: null,
 });
 
@@ -378,8 +383,8 @@ export const products: CatalogProduct[] = [
     category: "ear",
     priceCents: 81,
     unit: "each",
-    stockCount: null,
-    stockLabel: "Stock TBD — awaiting shelf photo count",
+    stockCount: 49,
+    stockLabel: "About 49 on hand (photo count). Lengths not separated.",
     image: "/images/jewelry/mo-010-la-024-steel-ball-tragus-labret.jpg",
     imageAlt: "Steel internally threaded ball labrets on a white background",
     gallery: [
@@ -389,7 +394,7 @@ export const products: CatalogProduct[] = [
       },
     ],
     photoStatus: "ready",
-    description: "Steel internally threaded ball-end tragus labret, 16G. Lengths 14 mm, 12 mm, 11 mm, and 8 mm are $0.81 each.",
+    description: "Steel internally threaded ball-end tragus labret, 16G. The photo-counted loose ball labrets are mostly 16G and are listed here. Lengths are not separated. $0.81 each.",
     materials: ["Steel", "Internally threaded", "Ball end", "16G", "Tragus / ear labret"],
     variants: [
       variation("14mm", "14 mm"),
@@ -437,8 +442,8 @@ export const products: CatalogProduct[] = [
     category: "ear",
     priceCents: 60,
     unit: "each",
-    stockCount: null,
-    stockLabel: "Stock TBD — awaiting shelf photo count",
+    stockCount: 116,
+    stockLabel: "About 116 on hand (photo count across trays, ±15%). Gauge/length not separated.",
     image: "/images/jewelry/apm-ib-036-steel-industrial.jpg",
     imageAlt: "Plain steel industrial barbells in three lengths on a white background",
     photoStatus: "ready",
@@ -637,21 +642,23 @@ export const products: CatalogProduct[] = [
     category: "navel",
     priceCents: 141,
     unit: "each",
-    stockCount: null,
-    stockLabel: "Stock TBD — awaiting shelf photo count",
-    image: "/images/jewelry/apm-ba-002-double-gem-belly.jpg",
-    imageAlt: "Press-fit double gem CZ belly rings in several colors, including clear, on white",
+    stockCount: 82,
+    stockLabel: "82 on hand by color (photo count). Cart limited per color.",
+    image: "/images/jewelry/gem-belly-board-2026-11-05.jpg",
+    imageAlt: "Double gem belly rings sorted by color on a board",
     photoStatus: "ready",
     description:
-      "Steel press-fit double gem CZ belly ring in clear or aurora borealis. Lengths 13 mm, 11 mm, and 8 mm share one price. The photo shows the style in several colors.",
-    materials: ["Steel", "Press-fit", "Double gem CZ", "Clear or aurora borealis"],
+      "Steel press-fit double gem CZ belly rings. Clear and aurora borealis are $1.41. Red, green, dark blue, black, light blue, and emerald are $1.59. The count is by color from the board photo.",
+    materials: ["316L steel", "Press-fit double gem CZ"],
     variants: [
-      variation("clear-13mm", "Clear · 13 mm"),
-      variation("clear-11mm", "Clear · 11 mm"),
-      variation("clear-8mm", "Clear · 8 mm"),
-      variation("ab-13mm", "Aurora borealis · 13 mm"),
-      variation("ab-11mm", "Aurora borealis · 11 mm"),
-      variation("ab-8mm", "Aurora borealis · 8 mm"),
+      variation("clear", "Clear", 141, 24),
+      variation("ab", "Aurora borealis", 141, 1),
+      variation("red", "Red", 159, 22),
+      variation("green", "Green", 159, 13),
+      variation("dark-blue", "Dark blue", 159, 9),
+      variation("black", "Black/jet", 159, 8),
+      variation("light-blue", "Light blue/aqua", 159, 4),
+      variation("emerald", "Emerald/dark green", 159, 1),
     ],
     featured: false,
     fulfillment: "square-catalog",
@@ -880,6 +887,7 @@ export const products: CatalogProduct[] = [
     reconnect: null,
     externalHref: null,
   },
+  ...photoCountedListings,
 ];
 
 export const studioCaseNotes = [
@@ -942,12 +950,17 @@ export function jewelryCategoriesWithProducts() {
 }
 
 const vendorSkuPattern = /^(?:T-)?[A-Z]{2,3}-\d{3}$|^\d{5}-\d{3}$/;
+const inventoryCodePattern = /^[A-Z0-9][A-Z0-9*?-]{1,}$/;
 
-/** Vendor reorder code. Own-stock, merch drafts, and local aftercare refs stay hidden. */
+/** Vendor reorder code or inventory code from the photo count. Snake-case tray keys, merch drafts, and the internal spiral ref stay hidden. */
 export function displaySku(product: CatalogProduct) {
   if (product.slug === "ocean-blue-glitter-spiral-tapers") return null;
+  if (product.sku.startsWith("IA-MERCH")) return null;
+  if (/^[a-z0-9]+(?:_[a-z0-9]+)+$/.test(product.sku)) return null;
   if (vendorSkuPattern.test(product.sku)) return product.sku;
   if (product.customPrintEligible && product.sku.startsWith("IA-")) return product.sku;
+  if (inventoryCodePattern.test(product.sku)) return product.sku;
+  if (product.sku === "OUFER moon 2PCS" || product.sku === "14G Steel Barbell (APM)") return product.sku;
   return null;
 }
 

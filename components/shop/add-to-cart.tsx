@@ -52,7 +52,7 @@ export function AddToCart({ product }: { product: CatalogProduct }) {
     >
       {product.variants.length > 1 ? (
         <label className="block text-sm text-[#f0dfbf]">
-          Size
+          {product.variants.some((variant) => variant.stockCount !== undefined) ? "Option" : "Size"}
           <select
             value={variantId}
             onChange={(event) => setVariantId(event.target.value)}
@@ -61,9 +61,10 @@ export function AddToCart({ product }: { product: CatalogProduct }) {
             {product.variants.map((variant) => {
               const cents = linePriceCents(product, variant);
               const priced = product.variants.some((entry) => entry.priceCents !== undefined);
+              const onHand = variant.stockCount === undefined ? "" : ` · ${variant.stockCount} on hand`;
               return (
                 <option key={variant.id} value={variant.id}>
-                  {priced && cents !== null ? `${variant.label} · ${formatPrice(cents, "each")}` : variant.label}
+                  {priced && cents !== null ? `${variant.label} · ${formatPrice(cents, "each")}${onHand}` : `${variant.label}${onHand}`}
                 </option>
               );
             })}

@@ -33,12 +33,8 @@ function sanitize(lines: CartLine[]) {
     if (!product || !canAddToCart(product)) continue;
     if (!product.variants.some((variant) => variant.id === line.variantId)) continue;
     if (!Number.isInteger(line.quantity) || line.quantity < 1) continue;
-    let quantity = line.quantity;
-    if (product.stockCount !== null) {
-      const used = quantityFor(kept, line.slug);
-      quantity = Math.min(quantity, product.stockCount - used);
-      if (quantity < 1) continue;
-    }
+    const quantity = Math.min(line.quantity, roomFor(product, line.variantId, kept));
+    if (quantity < 1) continue;
     kept.push({ slug: line.slug, variantId: line.variantId, quantity });
   }
   return kept;
@@ -46,6 +42,19 @@ function sanitize(lines: CartLine[]) {
 
 function quantityFor(lines: CartLine[], slug: string) {
   return lines.reduce((sum, line) => (line.slug === slug ? sum + line.quantity : sum), 0);
+}
+
+function roomFor(product: NonNullable<ReturnType<typeof getProduct>>, variantId: string, lines: CartLine[]) {
+  const variant = product.variants.find((entry) => entry.id === variantId);
+  const variantRoom =
+    variant?.stockCount == null
+      ? Number.POSITIVE_INFINITY
+      : variant.stockCount -
+        lines
+          .filter((line) => line.slug === product.slug && line.variantId === variantId)
+          .reduce((sum, line) => sum + line.quantity, 0);
+  const productRoom = product.stockCount == null ? Number.POSITIVE_INFINITY : product.stockCount - quantityFor(lines, product.slug);
+  return Math.min(variantRoom, productRoom);
 }
 
 export function CartProvider({ children }: { children: ReactNode }) {
@@ -82,8 +91,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         if (!product.variants.some((variant) => variant.id === variantId)) return "Choose a size.";
         let message: string | null = null;
         setLines((current) => {
-          const nextQuantity = quantityFor(current, slug) + 1;
-          if (product.stockCount !== null && nextQuantity > product.stockCount) {
+          if (roomFor(product, variantId, current) < 1) {
             message = "That is all the studio has on hand for this piece.";
             return current;
           }
@@ -97,12 +105,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
         const product = getProduct(slug);
         setLines((current) => {
           if (!product) return current.filter((line) => !sameLine(line, slug, variantId));
-          const others = quantityFor(
-            current.filter((line) => !sameLine(line, slug, variantId)),
-            slug,
-          );
-          const capped =
-            product.stockCount === null ? quantity : Math.min(quantity, Math.max(product.stockCount - others, 0));
+          const others = current.filter((line) => !sameLine(line, slug, variantId));
+          const capped = Math.min(quantity, roomFor(product, variantId, others));
           if (capped < 1) return current.filter((line) => !sameLine(line, slug, variantId));
           return current.map((line) => (sameLine(line, slug, variantId) ? { ...line, quantity: capped } : line));
         });

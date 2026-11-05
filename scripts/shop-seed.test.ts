@@ -93,6 +93,20 @@ test("jewelry listings keep the vendor reorder SKU", () => {
   assert.equal(spirals?.unit, "pair");
   assert.equal(canAddToCart(spirals!), true);
   assert.equal(canAddToCart(products.find((entry) => entry.sku === "T-BA-649")!), false);
+  assert.equal(products.find((entry) => entry.sku === "BA-002")?.stockCount, 82);
+  assert.equal(canAddToCart(products.find((entry) => entry.sku === "BA-002")!), true);
+  assert.equal(products.find((entry) => entry.sku === "IB-036")?.stockCount, 116);
+  assert.equal(products.find((entry) => entry.sku === "MO-010")?.stockCount, 49);
+  assert.equal(canAddToCart(products.find((entry) => entry.sku === "MO-010")!), true);
+  assert.equal(products.find((entry) => entry.sku === "LA-024")?.stockCount, null);
+  assert.equal(canAddToCart(products.find((entry) => entry.sku === "LA-024")!), false);
+  assert.equal(products.find((entry) => entry.sku === "OUFER moon 2PCS")?.priceCents, 2001);
+  assert.equal(displaySku(products.find((entry) => entry.sku === "OUFER moon 2PCS")!), "OUFER moon 2PCS");
+  assert.equal(products.find((entry) => entry.sku === "BLUEGREENFOAMSOAP")?.stockCount, 4);
+  assert.equal(displaySku(products.find((entry) => entry.sku === "NS40-LFK")!), "NS40-LFK");
+  assert.equal(displaySku(products.find((entry) => entry.sku === "spike_horseshoe")!), null);
+  assert.equal(products.filter((entry) => entry.sku === "spike_horseshoe" || entry.sku === "NS40-SWW?" || entry.sku === "ABBUV-type").length, 3);
+  assert.equal(products.some((entry) => entry.sku.toLowerCase().includes("jump")), false);
   assert.equal(canAddToCart(products.find((entry) => entry.sku === "90901-510")!), false);
   const whiteBlanks = products.find((entry) => entry.sku === "IA-WHITE-BLANK-PLUGS");
   const blackBlanks = products.find((entry) => entry.sku === "IA-BLACK-BLANK-PLUGS");
@@ -112,7 +126,7 @@ test("jewelry listings keep the vendor reorder SKU", () => {
   const apmPhotos: Record<string, string> = {
     "T-MO-402": "/images/jewelry/apm-t-mo-402-cz-dangle-cone.jpg",
     "T-MO-403": "/images/jewelry/apm-t-mo-403-gold-cz-dangle-cone.jpg",
-    "BA-002": "/images/jewelry/apm-ba-002-double-gem-belly.jpg",
+    "BA-002": "/images/jewelry/gem-belly-board-2026-11-05.jpg",
     "IB-036": "/images/jewelry/apm-ib-036-steel-industrial.jpg",
     "LA-099": "/images/jewelry/apm-la-099-xl-cz-cheek.jpg",
     "EY-012": "/images/jewelry/apm-ey-012-curved-barbell.jpg",
