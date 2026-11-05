@@ -1,12 +1,14 @@
-import { createPageMetadata } from "@/lib/seo";
+import { JewelryCatalog } from "@/components/jewelry-catalog";
 import { TrackedLink } from "@/components/tracked-link";
-import { BOOKING_URL, SHOP_URL, GIFT_CARD_URL } from "@/data/site-content";
+import { JEWELRY_CATALOG_PATH } from "@/data/jewelry";
+import { AFTERCARE_SHOP_URL, BOOKING_URL, GIFT_CARD_URL } from "@/data/site-content";
 import type { AnalyticsEventName } from "@/lib/analytics";
+import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata(
   "/shop",
   "Jewelry, Aftercare & Gift Cards | Illustrated Alex",
-  "Implant-grade body jewelry, aftercare products, gift cards, and studio merchandise from Illustrated Alex — available through Square.",
+  "In-studio body jewelry from Illustrated Alex in Claremont, NH, plus aftercare products, gift cards, and booking through Square. The jewelry list is a draft catalog — text the studio to ask about a piece.",
 );
 
 type ShopCard = {
@@ -18,6 +20,7 @@ type ShopCard = {
   eventName: AnalyticsEventName;
   eventSource: string;
   imageUrl?: string;
+  external: boolean;
 };
 
 const shopCards: ShopCard[] = [
@@ -31,17 +34,30 @@ const shopCards: ShopCard[] = [
     eventName: "book_now_click",
     eventSource: "shop_page_booking_card",
     imageUrl: "/images/brand/illustratedalex-logo-main.png",
+    external: true,
   },
   {
-    label: "Shop",
-    title: "Body Jewelry & Aftercare",
+    label: "Jewelry",
+    title: "Body Jewelry",
     description:
-      "Shop available jewelry, aftercare products, and studio items through the Square store.",
-    buttonLabel: "Shop Now",
-    href: SHOP_URL,
+      "In-studio body jewelry, starting with ocean blue glitter acrylic spiral tapers. Draft catalog — text the studio about sizing. No online checkout yet.",
+    buttonLabel: "View Jewelry",
+    href: JEWELRY_CATALOG_PATH,
     eventName: "shop_click",
-    eventSource: "shop_page_shop_card",
+    eventSource: "shop_page_jewelry_card",
+    imageUrl: "/images/jewelry/blue-spiral-tapers.jpg",
+    external: false,
+  },
+  {
+    label: "Aftercare",
+    title: "Aftercare Products",
+    description: "Sterile saline and piercing aftercare products still check out through the Square shop.",
+    buttonLabel: "Shop Aftercare",
+    href: AFTERCARE_SHOP_URL,
+    eventName: "shop_click",
+    eventSource: "shop_page_aftercare_card",
     imageUrl: "/images/gallery/facial-piercings.jpg",
+    external: true,
   },
   {
     label: "Gift Cards",
@@ -52,6 +68,7 @@ const shopCards: ShopCard[] = [
     eventName: "gift_card_click",
     eventSource: "shop_page_gift_card_card",
     imageUrl: "/images/brand/illustratedalex-logo-main.png",
+    external: true,
   },
 ];
 
@@ -63,11 +80,12 @@ export default function ShopPage() {
           <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#be9a62]">Shop</p>
           <h1 className="font-display text-5xl font-semibold text-[#f0dfbf] sm:text-6xl">Shop &amp; Booking</h1>
           <p className="max-w-3xl text-base leading-8 text-[#dbc8a7]">
-            Book appointments, shop jewelry and aftercare, or purchase Illustrated Alex gift cards through Square.
+            In-studio body jewelry is listed on this page. Aftercare products, gift cards, and appointments still check
+            out through Square.
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2">
           {shopCards.map((card) => (
             <article
               key={card.title}
@@ -93,20 +111,37 @@ export default function ShopPage() {
                   href={card.href}
                   eventName={card.eventName}
                   eventParams={{ source: card.eventSource }}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  {...(card.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   className="inline-flex items-center justify-center rounded-full border border-[#bc8f4d] bg-transparent px-6 py-2.5 text-xs font-semibold tracking-[0.1em] text-[#e7d4b4] hover:bg-[#bc8f4d]/10"
                 >
-                  {card.buttonLabel} ↗
+                  {card.buttonLabel}
+                  {card.external ? " ↗" : ""}
                 </TrackedLink>
               </div>
             </article>
           ))}
         </div>
 
+        <section id="jewelry" className="space-y-4">
+          <h2 className="font-display text-4xl font-semibold text-[#f0dfbf]">In-studio body jewelry</h2>
+          <p className="max-w-3xl text-sm leading-7 text-[#dbc8a7]">
+            The same draft list lives on the{" "}
+            <TrackedLink
+              href={JEWELRY_CATALOG_PATH}
+              eventName="shop_click"
+              eventParams={{ source: "shop_page_jewelry_heading" }}
+              className="underline underline-offset-4 hover:text-[#f0dfbf]"
+            >
+              body jewelry page
+            </TrackedLink>
+            . Ask the studio before counting on a size or a photo-coming price.
+          </p>
+          <JewelryCatalog />
+        </section>
+
         <p className="text-sm leading-7 text-[#be9a62]">
-          Checkout opens through Square. For appointments, use the Book Appointment button. For gift certificates, use
-          the Gift Cards button.
+          Jewelry on this page does not check out online. For appointments, use Book Appointment. For aftercare
+          products and gift cards, checkout opens through Square.
         </p>
 
         <section className="rounded-xl border border-[#7d5b2e]/35 bg-[#0f0f0f] p-6 sm:p-8">

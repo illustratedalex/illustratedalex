@@ -5,11 +5,10 @@ import { FloatingTextButton } from "@/components/floating-text-button";
 import { StudioGalleryLightbox } from "@/components/studio-gallery-lightbox";
 import { TrackedLink } from "@/components/tracked-link";
 import { clientReviews, PUBLIC_SITE_SLUG, REVIEWS_SOURCE_URL } from "@/data/reviews";
+import { JEWELRY_CATALOG_PATH } from "@/data/jewelry";
 import {
-  AFTERCARE_SHOP_URL,
   BOOKING_URL,
   GIFT_CARD_URL,
-  SHOP_URL,
   TEXT_STUDIO_URL,
   businessTagline,
   galleryItems,
@@ -41,7 +40,6 @@ const featuredReviews = clientReviews
   .filter((review) => review.siteSlug === PUBLIC_SITE_SLUG && review.status === "published" && review.featured)
   .sort((a, b) => a.sortOrder - b.sortOrder);
 
-const heroShopUrl = AFTERCARE_SHOP_URL || SHOP_URL;
 const studioGalleryMediaClass = "aspect-[16/10] min-h-[190px] sm:min-h-[210px] lg:min-h-[230px]";
 const studioPhotos = [
   {
@@ -166,11 +164,9 @@ export default function Home() {
                 BOOK APPOINTMENT
               </TrackedLink>
               <TrackedLink
-                href={heroShopUrl}
+                href={JEWELRY_CATALOG_PATH}
                 eventName="shop_click"
                 eventParams={{ source: "homepage_hero" }}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="min-h-11 w-full rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-center text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4] sm:w-auto"
               >
                 SHOP JEWELRY &amp; AFTERCARE
@@ -384,11 +380,9 @@ export default function Home() {
                 BOOK APPOINTMENT
               </TrackedLink>
               <TrackedLink
-                href={SHOP_URL}
+                href={JEWELRY_CATALOG_PATH}
                 eventName="shop_click"
                 eventParams={{ source: "homepage_book_section" }}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="min-h-11 rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-[11px] font-semibold tracking-[0.1em] text-[#e7d4b4]"
               >
                 SHOP JEWELRY &amp; AFTERCARE

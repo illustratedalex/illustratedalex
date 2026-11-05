@@ -13,6 +13,7 @@ const routes = [
   "/mountainside",
   "/contact",
   "/shop",
+  "/shop/jewelry",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

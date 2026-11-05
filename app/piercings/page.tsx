@@ -1,5 +1,6 @@
 import { createPageMetadata } from "@/lib/seo";
 import Link from "next/link";
+import { JEWELRY_CATALOG_PATH } from "@/data/jewelry";
 import { bookingUrl } from "@/data/site-content";
 
 export const metadata = createPageMetadata(
@@ -90,6 +91,12 @@ export default function PiercingsPage() {
               className="rounded-full border border-[#bc8f4d] bg-transparent px-8 py-3 text-center text-xs font-semibold tracking-[0.1em] text-[#e7d4b4]"
             >
               PIERCING AFTERCARE
+            </Link>
+            <Link
+              href={JEWELRY_CATALOG_PATH}
+              className="rounded-full border border-[#bc8f4d] bg-transparent px-8 py-3 text-center text-xs font-semibold tracking-[0.1em] text-[#e7d4b4]"
+            >
+              STUDIO JEWELRY
             </Link>
           </div>
         </section>
