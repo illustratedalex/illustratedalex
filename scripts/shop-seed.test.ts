@@ -86,7 +86,11 @@ test("ready photos exist and missing photos are not invented", () => {
   }
 
   const spirals = products.find((product) => product.sku === "IA-BLUE-SPIRAL-PAIR");
-  assert.equal(spirals?.image, "/images/jewelry/ocean-blue-glitter-acrylic-spiral-tapers-alex.jpg");
+  assert.equal(spirals?.image, "/images/jewelry/blue-glitter-spiral-distributor-01.jpg");
+  assert.equal(spirals?.gallery?.[0]?.src, "/images/jewelry/blue-glitter-spiral-distributor-02.jpg");
+  assert.equal(spirals?.gallery?.[1]?.src, "/images/jewelry/ocean-blue-glitter-acrylic-spiral-tapers-alex.jpg");
+  assert.equal(existsSync(path.join(process.cwd(), "public", spirals?.gallery?.[0]?.src ?? "")), true);
+  assert.equal(existsSync(path.join(process.cwd(), "public", spirals?.gallery?.[1]?.src ?? "")), true);
   assert.equal(spirals?.photoStatus, "ready");
 
   const approved = {

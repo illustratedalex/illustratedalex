@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AddToCart } from "@/components/shop/add-to-cart";
 import { PhotoFrame } from "@/components/shop/photo-frame";
+import { ProductGallery } from "@/components/shop/product-gallery";
 import { categories, formatPrice, getCategory, getProduct, productPath, products } from "@/data/catalog";
 
 export const dynamicParams = false;
@@ -27,7 +28,17 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   return (
     <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:px-8">
-      <PhotoFrame product={product} sizes="(max-width: 1024px) 100vw, 45vw" priority />
+      {product.image ? (
+        <ProductGallery
+          fit={product.imageFit}
+          images={[
+            { src: product.image, alt: product.imageAlt ?? product.title },
+            ...(product.gallery ?? []),
+          ]}
+        />
+      ) : (
+        <PhotoFrame product={product} sizes="(max-width: 1024px) 100vw, 45vw" priority />
+      )}
       <div>
         <p className="text-sm text-[#dbc8a7]">
           <Link href="/shop" className="underline underline-offset-4">Shop</Link>

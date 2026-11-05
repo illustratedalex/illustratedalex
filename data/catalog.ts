@@ -50,6 +50,8 @@ export type CatalogProduct = {
   stockLabel: string | null;
   image: string | null;
   imageAlt: string | null;
+  /** Extra photos after the primary image. First entry is the secondary shot. */
+  gallery?: { src: string; alt: string }[];
   photoStatus: PhotoStatus;
   /** Lifestyle frames fill the tile. Studio packshots stay contained. */
   imageFit?: "cover" | "contain";
@@ -192,11 +194,21 @@ export const products: CatalogProduct[] = [
     unit: "pair",
     stockCount: 5,
     stockLabel: "About 10 pieces photographed. Sold only as matched pairs. Gauges are not measured yet.",
-    image: "/images/jewelry/ocean-blue-glitter-acrylic-spiral-tapers-alex.jpg",
-    imageAlt: "Matched pair of ocean-blue glitter acrylic spiral tapers on a light shelf",
+    image: "/images/jewelry/blue-glitter-spiral-distributor-01.jpg",
+    imageAlt: "Mixed sizes of blue glitter acrylic spiral tapers on a white background",
+    gallery: [
+      {
+        src: "/images/jewelry/blue-glitter-spiral-distributor-02.jpg",
+        alt: "Single blue glitter acrylic spiral taper on a white background",
+      },
+      {
+        src: "/images/jewelry/ocean-blue-glitter-acrylic-spiral-tapers-alex.jpg",
+        alt: "Studio photo of ocean-blue glitter acrylic spiral tapers on a shelf",
+      },
+    ],
     photoStatus: "ready",
     description:
-      "Own studio photo of deep ocean-blue glitter acrylic spirals. Lightweight, sold only as a matched pair. Wear in healed lobes. Ask a piercer before using them to stretch.",
+      "Deep ocean-blue glitter acrylic spirals. Lightweight, sold only as a matched pair. Wear in healed lobes. Ask a piercer before using them to stretch.",
     materials: [
       "Acrylic with glitter",
       "Sold as a matched pair",
