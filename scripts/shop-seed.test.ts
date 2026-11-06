@@ -34,7 +34,7 @@ test("jewelry shelf prices match the inventory draft", () => {
     assert.ok(product, sku);
     assert.equal(product.priceCents, cents);
     assert.equal(product.fulfillment, "square-catalog");
-    assert.equal(product.variants.every((variant) => variant.squareCatalogVariationId === null), true);
+    assert.equal(product.variants.every((variant) => /^[A-Z0-9]{24}$/.test(variant.squareCatalogVariationId ?? "")), true);
   }
 });
 
@@ -259,6 +259,36 @@ test("shelf prices stay at or above $4.99 and descriptions stay customer-facing"
   assert.equal(products.find((entry) => entry.sku === "BA-002")?.variants.find((variant) => variant.id === "clear")?.stockCount, 24);
 });
 
+test("priced listings use the live Square variation ids", () => {
+  const map = JSON.parse(readFileSync(path.join(process.cwd(), "data/square-variation-ids.json"), "utf8")) as Record<
+    string,
+    Record<string, { squareCatalogVariationId: string }>
+  >;
+  const priced = products.filter((product) => product.priceCents !== null || product.variants.some((variant) => variant.priceCents !== undefined));
+  assert.equal(priced.length, 68);
+  assert.equal(Object.keys(map).length, 68);
+  let variations = 0;
+  for (const product of priced) {
+    assert.ok(map[product.slug], product.slug);
+    for (const variant of product.variants) {
+      const expected = map[product.slug][variant.id];
+      assert.ok(expected, `${product.slug} ${variant.id}`);
+      assert.equal(variant.squareCatalogVariationId, expected.squareCatalogVariationId);
+      assert.match(variant.squareCatalogVariationId ?? "", /^[A-Z0-9]{24}$/);
+      const cents = variant.priceCents ?? product.priceCents;
+      assert.ok(cents !== null && cents >= 499, `${product.slug} ${variant.id}`);
+      variations += 1;
+    }
+  }
+  assert.equal(variations, 111);
+  const merch = products.filter((product) => product.sku.startsWith("IA-MERCH-"));
+  assert.equal(merch.length, 6);
+  for (const product of merch) {
+    assert.equal(product.priceCents, null);
+    assert.equal(product.variants.every((variant) => variant.squareCatalogVariationId === null), true);
+  }
+});
+
 test("checkout allows sandbox and production catalog orders, and refuses ad-hoc lines", () => {
   const linked = [{ squareCatalogVariationId: "VARIATION" }];
   assert.equal(
@@ -284,9 +314,15 @@ test("checkout allows sandbox and production catalog orders, and refuses ad-hoc 
   assert.equal(squareConnectOrigin("production"), "https://connect.squareup.com");
   assert.equal(squareConnectOrigin("sandbox"), "https://connect.squareupsandbox.com");
 
-  const blocked = resolveCatalogLines([{ sku: "T-BA-649", variantId: "12mm", quantity: 1 }], products);
+  const blocked = resolveCatalogLines(
+    [{ sku: "T-BA-649", variantId: "12mm", quantity: 1 }],
+    [{ sku: "T-BA-649", variants: [{ id: "12mm", squareCatalogVariationId: null }] }],
+  );
   assert.equal(blocked.ok, false);
   if (!blocked.ok) assert.equal(blocked.status, 409);
+  const resolvedLine = resolveCatalogLines([{ sku: "T-BA-649", variantId: "12mm", quantity: 1 }], products);
+  assert.equal(resolvedLine.ok, true);
+  if (resolvedLine.ok) assert.equal(resolvedLine.lines[0]?.catalog_object_id, "HQWMSMAMSBL6OE4XQ2WDNLP7");
 
   const order = buildCatalogOrderRequest({
     locationId: "LOC",

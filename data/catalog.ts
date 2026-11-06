@@ -7,6 +7,7 @@
  */
 
 import { photoCountedListings } from "./photo-counted-listings.ts";
+import squareVariationIds from "./square-variation-ids.json" with { type: "json" };
 
 const SQUARE_GIFT_CARD_URL = "https://shop.illustratedalex.com/s/gift-cards";
 
@@ -195,7 +196,7 @@ export const categories: CatalogCategory[] = [
   },
 ];
 
-export const products: CatalogProduct[] = [
+const seededProducts: CatalogProduct[] = [
   {
     slug: "ocean-blue-glitter-spiral-tapers",
     sku: "IA-BLUE-SPIRAL-PAIR",
@@ -866,6 +867,22 @@ export const products: CatalogProduct[] = [
   },
   ...photoCountedListings,
 ];
+
+const squareIds = squareVariationIds as Record<string, Record<string, { squareCatalogVariationId: string }>>;
+
+function linkSquareVariation(product: CatalogProduct): CatalogProduct {
+  const byVariant = squareIds[product.slug];
+  if (!byVariant) return product;
+  return {
+    ...product,
+    variants: product.variants.map((variant) => ({
+      ...variant,
+      squareCatalogVariationId: byVariant[variant.id]?.squareCatalogVariationId ?? null,
+    })),
+  };
+}
+
+export const products: CatalogProduct[] = seededProducts.map(linkSquareVariation);
 
 export const studioCaseNotes = [
   "Nose chain",
