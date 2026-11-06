@@ -315,9 +315,9 @@ const seededProducts: CatalogProduct[] = [
     unit: "pair",
     stockCount: null,
     stockLabel: "Check studio availability",
-    image: null,
-    imageAlt: null,
-    photoStatus: "coming",
+    image: "/images/jewelry/steel-bezel-set-cz-studs.jpg",
+    imageAlt: "Pair of surgical steel studs with bezel-set clear CZ",
+    photoStatus: "ready",
     description:
       "Surgical steel studs with a bezel-set clear CZ, sold as a matched pair. The supplier lists the pair as sterilized. They are a simple lobe option. Ask the studio about gauge before you order.",
     materials: ["Steel", "Bezel-set CZ", "Sold as a pair", "Supplier listed this pair as sterilized"],
