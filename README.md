@@ -41,7 +41,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## On-site shop
 
-`/shop` is a draft storefront for body jewelry, aftercare, and studio merch. It is noindex. Do not treat it as live, and do not merge it to production until Alex approves.
+`/shop` is the studio shop for body jewelry, aftercare, and merch. Pickup is at 18 Opera House Square, Claremont, NH.
 
 Jewelry shelf prices come from the inventory draft (sell = 3× wholesale). Spirals are matched pairs only. Photos live in `public/images/jewelry/`. Items with no supplier photo say “Photo coming”. No product photo was generated.
 
@@ -53,9 +53,9 @@ Gift cards already exist on Square. The merch gift-card page links to that exist
 
 ### Square
 
-Selling should eventually create Square Orders with `catalog_object_id` line items so inventory can decrement. This draft does not include variation ids, and the server refuses production charges and payment-only amounts.
+Checkout creates Square Orders with `catalog_object_id` line items, then pays the total Square calculated. Payment-only amounts are refused. Sandbox and production are both allowed when `SQUARE_ENVIRONMENT` is set to that value. Variation ids are still null until the Square Item Library import lands.
 
-The public site is a static export (`output: "export"`) deployed by FTP from `./out`. Next.js static export cannot host a POST checkout route. The sandbox handler lives in `server/square-checkout-handler.ts` and can be run locally:
+The GoDaddy FTP deploy is a static export and stashes `app/api`. Vercel (`VERCEL=1`) keeps `app/api/shop/checkout`. A local sandbox server can still run the same handler:
 
 ```bash
 # copy square.env.example into an untracked env file first
@@ -67,13 +67,13 @@ Required env:
 - `SQUARE_ACCESS_TOKEN` (server only, never commit, never `NEXT_PUBLIC_`)
 - `SQUARE_LOCATION_ID`
 - `SQUARE_APPLICATION_ID`
-- `SQUARE_ENVIRONMENT=sandbox` (`production` is refused)
+- `SQUARE_ENVIRONMENT=sandbox` or `production`
 - `NEXT_PUBLIC_SQUARE_APPLICATION_ID`
 - `NEXT_PUBLIC_SQUARE_LOCATION_ID`
-- `NEXT_PUBLIC_SQUARE_ENVIRONMENT=sandbox`
-- `NEXT_PUBLIC_SQUARE_CHECKOUT_URL` (local sandbox server, for example `http://127.0.0.1:8787/checkout`)
+- `NEXT_PUBLIC_SQUARE_ENVIRONMENT=sandbox` or `production`
+- `NEXT_PUBLIC_SQUARE_CHECKOUT_URL` is optional. Vercel uses `/api/shop/checkout` when it is unset.
 
-Until those are set, the checkout screen says checkout is pending Square credentials. Before go-live Alex still needs to approve the catalog, link each variation in Square, confirm shelf prices on those variations, and choose a server host for the access token. The GoDaddy static deploy cannot hold that token.
+Until the server credentials and Catalog variation ids are set, checkout tells the customer to call the studio. The GoDaddy static deploy cannot hold the access token.
 
 ## Deploy on Vercel
 

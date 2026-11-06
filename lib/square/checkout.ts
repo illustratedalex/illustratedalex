@@ -15,23 +15,20 @@ export type CheckoutDecision = {
   reason: string;
 };
 
-const PENDING_CREDENTIALS = "Checkout pending Square credentials.";
-const PENDING_CATALOG =
-  "Checkout pending Square Catalog links. Payment-only charges are disabled, so a card is not run unless every line has a catalog variation id.";
+export const STUDIO_HOLD_MESSAGE =
+  "Available for in-studio pickup at 18 Opera House Square, Claremont, NH — call (603) 843-7005 to hold an item while online checkout finishes linking.";
+
+const LIVE_ENVIRONMENTS = new Set(["production", "sandbox"]);
 
 export function decideCheckout(input: CheckoutEnvironment): CheckoutDecision {
-  if (input.environment === "production") {
-    return { ready: false, reason: "Production charges are disabled." };
-  }
-
-  const sandboxReady =
-    input.environment === "sandbox" &&
+  const configured =
+    LIVE_ENVIRONMENTS.has(input.environment ?? "") &&
     Boolean(input.applicationId) &&
     Boolean(input.locationId) &&
     Boolean(input.checkoutUrl);
 
-  if (!sandboxReady) {
-    return { ready: false, reason: PENDING_CREDENTIALS };
+  if (!configured) {
+    return { ready: false, reason: STUDIO_HOLD_MESSAGE };
   }
 
   if (input.lines.length === 0) {
@@ -39,12 +36,12 @@ export function decideCheckout(input: CheckoutEnvironment): CheckoutDecision {
   }
 
   if (input.lines.some((line) => !line.squareCatalogVariationId)) {
-    return { ready: false, reason: PENDING_CATALOG };
+    return { ready: false, reason: STUDIO_HOLD_MESSAGE };
   }
 
   return {
     ready: true,
-    reason: "Sandbox checkout is ready. Square prices the order from Catalog variations, not from a typed-in amount.",
+    reason: "Pay here for studio pickup at 18 Opera House Square, Claremont, NH.",
   };
 }
 
@@ -93,7 +90,7 @@ export function resolveCatalogLines(items: CheckoutItemInput[], catalog: Catalog
       return {
         ok: false,
         status: 409,
-        error: "This piece is not linked to a Square Catalog variation yet. Checkout will not run a payment-only charge.",
+        error: STUDIO_HOLD_MESSAGE,
       };
     }
     lines.push({
@@ -105,35 +102,92 @@ export function resolveCatalogLines(items: CheckoutItemInput[], catalog: Catalog
   return { ok: true, lines };
 }
 
+export type PickupContact = {
+  displayName?: string;
+  email?: string;
+  phone?: string;
+};
+
+function cleanContact(value: string | undefined, max: number) {
+  const trimmed = value?.trim() ?? "";
+  return trimmed ? trimmed.slice(0, max) : "";
+}
+
+function pickupPhone(value: string | undefined) {
+  const digits = (value ?? "").replace(/\D/g, "");
+  if (digits.length === 10) return `+1${digits}`;
+  if (digits.length === 11 && digits.startsWith("1")) return `+${digits}`;
+  return "";
+}
+
 export function buildCatalogOrderRequest(input: {
   locationId: string;
   idempotencyKey: string;
   lines: CatalogOrderLine[];
+  pickup?: PickupContact;
 }) {
+  const name = cleanContact(input.pickup?.displayName, 255);
+  const email = cleanContact(input.pickup?.email, 255);
+  const phone = pickupPhone(input.pickup?.phone);
+  const validEmail = email.includes("@") && !email.includes(" ") ? email : "";
+  const order: {
+    location_id: string;
+    reference_id: string;
+    line_items: CatalogOrderLine[];
+    buyer_email_address?: string;
+    fulfillments?: {
+      type: "PICKUP";
+      state: "PROPOSED";
+      pickup_details: {
+        recipient: { display_name: string; email_address?: string; phone_number?: string };
+        schedule_type: "ASAP";
+        prep_time_duration: "PT30M";
+        note: string;
+      };
+    }[];
+  } = {
+    location_id: input.locationId,
+    reference_id: "illustratedalex-shop",
+    line_items: input.lines,
+  };
+  if (validEmail) order.buyer_email_address = validEmail;
+  if (name) {
+    const recipient: { display_name: string; email_address?: string; phone_number?: string } = { display_name: name };
+    if (validEmail) recipient.email_address = validEmail;
+    if (phone) recipient.phone_number = phone;
+    order.fulfillments = [
+      {
+        type: "PICKUP",
+        state: "PROPOSED",
+        pickup_details: {
+          recipient,
+          schedule_type: "ASAP",
+          prep_time_duration: "PT30M",
+          note: "Pickup at 18 Opera House Square, Claremont, NH.",
+        },
+      },
+    ];
+  }
   return {
     idempotency_key: input.idempotencyKey,
-    order: {
-      location_id: input.locationId,
-      reference_id: "illustratedalex-shop",
-      line_items: input.lines,
-    },
+    order,
   };
 }
 
-export function assertSandboxServer(env: {
+export function squareConnectOrigin(environment: string | undefined) {
+  return environment === "production" ? "https://connect.squareup.com" : "https://connect.squareupsandbox.com";
+}
+
+export function assertCheckoutServer(env: {
   environment: string | undefined;
   accessToken: string | undefined;
   locationId: string | undefined;
 }): { ok: true } | { ok: false; status: number; error: string } {
-  if (env.environment !== "sandbox") {
-    return {
-      ok: false,
-      status: 403,
-      error: "Production charges are disabled. Set SQUARE_ENVIRONMENT=sandbox to test.",
-    };
+  if (env.environment !== "sandbox" && env.environment !== "production") {
+    return { ok: false, status: 503, error: STUDIO_HOLD_MESSAGE };
   }
   if (!env.accessToken || !env.locationId) {
-    return { ok: false, status: 503, error: "Checkout pending Square credentials." };
+    return { ok: false, status: 503, error: STUDIO_HOLD_MESSAGE };
   }
   return { ok: true };
 }

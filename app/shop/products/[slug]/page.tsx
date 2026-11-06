@@ -97,7 +97,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             .
           </p>
         ) : null}
-        <p className="mt-4 text-sm leading-7 text-[#be9a62]">Preview only. This page does not charge a card.</p>
+        <p className="mt-4 text-sm leading-7 text-[#dbc8a7]">Pickup at 18 Opera House Square, Claremont, NH, or call (603) 843-7005 to hold a piece.</p>
       </div>
     </div>
   );

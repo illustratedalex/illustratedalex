@@ -16,8 +16,7 @@ export function ShopChrome() {
   return (
     <div className="border-b border-[#7d5b2e]/40 bg-[#0f0f0f]">
       <p role="status" className="border-b border-[#7d5b2e]/30 bg-[#14110d] px-4 py-3 text-center text-sm leading-6 text-[#f0dfbf]">
-        Preview catalog. Pickup at 18 Opera House Square, Claremont NH. Shipping opens when checkout is approved.
-        Production charges are off.
+        Pickup at 18 Opera House Square, Claremont, NH · Studio body jewelry & piercing aftercare.
       </p>
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 px-4 py-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-3">

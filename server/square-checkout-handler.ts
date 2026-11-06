@@ -1,14 +1,15 @@
 import { products } from "../data/catalog.ts";
 import {
-  assertSandboxServer,
+  assertCheckoutServer,
   buildCatalogOrderRequest,
   isIdempotencyKey,
   resolveCatalogLines,
+  squareConnectOrigin,
   type CheckoutItemInput,
+  type PickupContact,
 } from "../lib/square/checkout.ts";
 
 const SQUARE_VERSION = "2025-01-23";
-const SANDBOX_ORIGIN = "https://connect.squareupsandbox.com";
 
 type SquareMoney = { amount?: number; currency?: string };
 type SquareOrder = { id?: string; total_money?: SquareMoney };
@@ -23,7 +24,7 @@ function serverEnv() {
 }
 
 async function squarePost(path: string, accessToken: string, body: unknown) {
-  const response = await fetch(`${SANDBOX_ORIGIN}${path}`, {
+  const response = await fetch(`${squareConnectOrigin(process.env.SQUARE_ENVIRONMENT)}${path}`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -43,15 +44,14 @@ function squareErrorMessage(payload: SquareErrorBody | null, fallback: string) {
 
 /**
  * Creates a Square Order from Catalog variation ids, then pays that order.
- * Refuses production. Refuses lines that have no catalog_object_id.
+ * Sandbox and production both use Catalog variation ids. Payment-only amounts are refused.
  * The payment amount is the order total Square calculated, never a client price.
  *
- * This handler is not mounted under app/api. The public site is a static export
- * to GoDaddy, and Next.js static export cannot serve POST routes that read Request.
- * Run it with scripts/square-sandbox-server.ts for sandbox tests.
+ * Mounted at app/api/shop/checkout on Vercel. The GoDaddy static export stashes app/api.
+ * scripts/square-sandbox-server.ts can still serve the same handler locally.
  */
 export async function handleSquareCheckout(request: Request): Promise<Response> {
-  const gate = assertSandboxServer(serverEnv());
+  const gate = assertCheckoutServer(serverEnv());
   if (!gate.ok) {
     return Response.json({ error: gate.error }, { status: gate.status });
   }
@@ -60,6 +60,7 @@ export async function handleSquareCheckout(request: Request): Promise<Response> 
     idempotencyKey?: unknown;
     sourceId?: unknown;
     items?: CheckoutItemInput[];
+    pickup?: PickupContact;
   } | null;
 
   if (!body || !isIdempotencyKey(body.idempotencyKey)) {
@@ -80,6 +81,7 @@ export async function handleSquareCheckout(request: Request): Promise<Response> 
     locationId,
     idempotencyKey: body.idempotencyKey,
     lines: resolved.lines,
+    pickup: body.pickup,
   });
 
   const created = await squarePost("/v2/orders", accessToken, orderRequest);

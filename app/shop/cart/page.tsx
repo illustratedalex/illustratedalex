@@ -4,7 +4,7 @@ import { CartView } from "@/components/shop/cart-view";
 export const metadata = createPageMetadata(
   "/shop/cart",
   "Cart | Illustrated Alex",
-  "Review body jewelry in your Illustrated Alex cart. Checkout stays off until Square Catalog variations are linked.",
+  "Review body jewelry in your Illustrated Alex cart before studio pickup in Claremont, NH.",
 );
 
 export default function CartPage() {

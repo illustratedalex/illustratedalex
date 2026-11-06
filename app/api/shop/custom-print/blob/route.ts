@@ -7,7 +7,7 @@ const MAX_BYTES = 10 * 1024 * 1024;
 export async function POST(request: Request): Promise<Response> {
   if (!process.env.BLOB_READ_WRITE_TOKEN) {
     return Response.json(
-      { ok: false, draft: true, error: "Draft: wire BLOB_READ_WRITE_TOKEN to store uploads." },
+      { ok: false, draft: true, error: "Art upload is not connected yet. Call (603) 843-7005 and the studio can take the design in person." },
       { status: 503 },
     );
   }

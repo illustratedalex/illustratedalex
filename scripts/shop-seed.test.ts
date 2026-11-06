@@ -1,13 +1,14 @@
 import assert from "node:assert/strict";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
 import { canAddToCart, categories, categoriesFor, displaySku, products, stockNotice } from "../data/catalog.ts";
 import {
-  assertSandboxServer,
+  assertCheckoutServer,
   buildCatalogOrderRequest,
   decideCheckout,
   resolveCatalogLines,
+  squareConnectOrigin,
 } from "../lib/square/checkout.ts";
 
 const jewelryPrices: Record<string, number> = {
@@ -258,13 +259,30 @@ test("shelf prices stay at or above $4.99 and descriptions stay customer-facing"
   assert.equal(products.find((entry) => entry.sku === "BA-002")?.variants.find((variant) => variant.id === "clear")?.stockCount, 24);
 });
 
-test("checkout refuses production, missing credentials, and ad-hoc lines", () => {
-  assert.equal(decideCheckout({ environment: "production", applicationId: "app", locationId: "loc", checkoutUrl: "http://127.0.0.1/checkout", lines: [] }).ready, false);
+test("checkout allows sandbox and production catalog orders, and refuses ad-hoc lines", () => {
+  const linked = [{ squareCatalogVariationId: "VARIATION" }];
+  assert.equal(
+    decideCheckout({ environment: "production", applicationId: "app", locationId: "loc", checkoutUrl: "/api/shop/checkout", lines: linked }).ready,
+    true,
+  );
+  assert.equal(
+    decideCheckout({ environment: "sandbox", applicationId: "app", locationId: "loc", checkoutUrl: "/api/shop/checkout", lines: linked }).ready,
+    true,
+  );
+  assert.equal(
+    decideCheckout({ environment: "production", applicationId: "app", locationId: "loc", checkoutUrl: "/api/shop/checkout", lines: [] }).ready,
+    false,
+  );
   assert.match(
     decideCheckout({ environment: undefined, applicationId: undefined, locationId: undefined, checkoutUrl: undefined, lines: [] }).reason,
-    /Checkout pending Square credentials/,
+    /call \(603\) 843-7005/,
   );
-  assert.equal(assertSandboxServer({ environment: "production", accessToken: "token", locationId: "loc" }).ok, false);
+  assert.equal(decideCheckout({ environment: "production", applicationId: "app", locationId: "loc", checkoutUrl: "/api/shop/checkout", lines: [{ squareCatalogVariationId: null }] }).ready, false);
+  assert.equal(assertCheckoutServer({ environment: "production", accessToken: "token", locationId: "loc" }).ok, true);
+  assert.equal(assertCheckoutServer({ environment: "sandbox", accessToken: "token", locationId: "loc" }).ok, true);
+  assert.equal(assertCheckoutServer({ environment: "staging", accessToken: "token", locationId: "loc" }).ok, false);
+  assert.equal(squareConnectOrigin("production"), "https://connect.squareup.com");
+  assert.equal(squareConnectOrigin("sandbox"), "https://connect.squareupsandbox.com");
 
   const blocked = resolveCatalogLines([{ sku: "T-BA-649", variantId: "12mm", quantity: 1 }], products);
   assert.equal(blocked.ok, false);
@@ -279,4 +297,37 @@ test("checkout refuses production, missing credentials, and ad-hoc lines", () =>
   assert.match(serialized, /catalog_object_id/);
   assert.equal(serialized.includes("base_price_money"), false);
   assert.equal(serialized.includes("amount_money"), false);
+  assert.equal(serialized.includes("fulfillments"), false);
+
+  const pickup = buildCatalogOrderRequest({
+    locationId: "LOC",
+    idempotencyKey: "idem-key-1",
+    lines: [{ catalog_object_id: "VARIATION", quantity: "1" }],
+    pickup: { displayName: "Alex Studio", email: "alex@illustratedalex.com", phone: "(603) 843-7005" },
+  });
+  const pickupJson = JSON.stringify(pickup);
+  assert.match(pickupJson, /"type":"PICKUP"/);
+  assert.match(pickupJson, /"schedule_type":"ASAP"/);
+  assert.match(pickupJson, /"display_name":"Alex Studio"/);
+  assert.match(pickupJson, /"phone_number":"\+16038437005"/);
+  assert.equal(pickupJson.includes("base_price_money"), false);
+  assert.equal(pickupJson.includes("amount_money"), false);
+
+  const shopCopy = [
+    "components/shop/shop-chrome.tsx",
+    "components/shop/checkout-client.tsx",
+    "components/shop/cart-view.tsx",
+    "app/shop/page.tsx",
+    "app/shop/cart/page.tsx",
+    "app/shop/checkout/page.tsx",
+    "app/shop/custom-print/page.tsx",
+    "lib/square/checkout.ts",
+    "server/square-checkout-handler.ts",
+  ];
+  for (const file of shopCopy) {
+    const text = readFileSync(path.join(process.cwd(), file), "utf8");
+    assert.equal(text.includes("Preview catalog"), false, file);
+    assert.equal(text.includes("Production charges are disabled"), false, file);
+    assert.equal(text.includes("Pay in sandbox"), false, file);
+  }
 });

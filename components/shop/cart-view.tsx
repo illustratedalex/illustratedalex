@@ -66,7 +66,7 @@ export function CartView() {
         ))}
       </ul>
       <p className="text-base text-[#f0dfbf]">
-        Subtotal {formatPrice(subtotal, "each")}. Square will reprice from Catalog variations once those ids exist. This subtotal is the studio shelf price.
+        Subtotal {formatPrice(subtotal, "each")}. Checkout charges the Square Catalog price. Pickup is at 18 Opera House Square, Claremont, NH.
       </p>
       <Link
         href="/shop/checkout"

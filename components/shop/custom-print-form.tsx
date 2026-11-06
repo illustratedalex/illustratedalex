@@ -102,7 +102,7 @@ export function CustomPrintForm() {
       if (ready.status === 404) {
         setStatus({
           tone: "draft",
-          message: "Draft: this static host cannot store uploads. On Vercel, wire BLOB_READ_WRITE_TOKEN.",
+          message: "Art upload is not available on this host. Call (603) 843-7005 and the studio can take the design in person.",
         });
         return;
       }
@@ -110,7 +110,7 @@ export function CustomPrintForm() {
       if (!ready.ok) {
         setStatus({
           tone: readyPayload?.draft ? "draft" : "error",
-          message: readyPayload?.error || "Draft: wire BLOB_READ_WRITE_TOKEN to store uploads.",
+          message: readyPayload?.error || "Art upload is not connected yet. Call (603) 843-7005 and the studio can take the design in person.",
         });
         return;
       }
@@ -240,7 +240,6 @@ export function CustomPrintForm() {
 
       {status ? (
         <p role="status" className="rounded-2xl border border-[#7d5b2e]/50 bg-[#14110d] px-4 py-3 text-sm leading-6 text-[#f0dfbf]">
-          {status.tone === "draft" ? "Draft. " : null}
           {status.message}
         </p>
       ) : null}

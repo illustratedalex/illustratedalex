@@ -16,7 +16,7 @@ import { BOOKING_URL, GIFT_CARD_URL } from "@/data/site-content";
 export const metadata = createPageMetadata(
   "/shop",
   "Body Jewelry, Aftercare & Merch | Illustrated Alex",
-  "Preview the Illustrated Alex shop: body jewelry, piercing and tattoo aftercare, and studio merch. Pickup at 18 Opera House Square, Claremont, NH.",
+  "Body jewelry, piercing aftercare, and studio merch from Illustrated Alex. Pickup at 18 Opera House Square, Claremont, NH.",
 );
 
 const buttonClass =
@@ -130,7 +130,7 @@ export default function ShopPage() {
         {[
           ["Pickup", "Collect at 18 Opera House Square, Claremont, NH."],
           ["Shipping", "Shipping is not available yet. Pickup is at the studio."],
-          ["Checkout", "Online checkout opens once the studio register is linked. Nothing is charged on this preview."],
+          ["Checkout", "Pay at checkout for studio pickup, or call (603) 843-7005 to hold an item."],
         ].map(([title, body]) => (
           <article key={title} className="rounded-2xl border border-[#7d5b2e]/40 p-5">
             <h2 className="font-display text-2xl text-[#f0dfbf]">{title}</h2>

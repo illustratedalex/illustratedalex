@@ -38,7 +38,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ depar
           <ProductGrid products={items} />
         ) : (
           <div className="rounded-2xl border border-[#7d5b2e]/40 bg-[#14110d] p-6">
-            <h2 className="font-display text-3xl">None in this preview</h2>
+            <h2 className="font-display text-3xl">Nothing listed here yet</h2>
             <p className="mt-3 max-w-2xl text-sm leading-7 text-[#dbc8a7]">
               {department.slug === "aftercare"
                 ? "Piercing spray, foam soap, and rinses are listed with piercing aftercare. Tattoo wash and film can be added later. The written healing guide stays on the aftercare page."
