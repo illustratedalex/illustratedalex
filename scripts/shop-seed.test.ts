@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
-import { canAddToCart, categories, categoriesFor, displaySku, products } from "../data/catalog.ts";
+import { canAddToCart, categories, categoriesFor, displaySku, products, stockNotice } from "../data/catalog.ts";
 import {
   assertSandboxServer,
   buildCatalogOrderRequest,
@@ -18,13 +18,13 @@ const jewelryPrices: Record<string, number> = {
   "T-MO-402": 1176,
   "T-MO-403": 1296,
   "T-MO-395": 1596,
-  "LA-099": 168,
-  "EY-012": 171,
-  "IB-036": 60,
-  "BA-002": 141,
-  "LA-054": 126,
-  "LA-024": 81,
-  "MO-010": 81,
+  "LA-099": 499,
+  "EY-012": 499,
+  "IB-036": 499,
+  "BA-002": 499,
+  "LA-054": 499,
+  "LA-024": 499,
+  "MO-010": 499,
 };
 
 test("jewelry shelf prices match the inventory draft", () => {
@@ -101,11 +101,11 @@ test("jewelry listings keep the vendor reorder SKU", () => {
   assert.equal(products.find((entry) => entry.sku === "spike_horseshoe")?.stockCount, 170);
   assert.equal(products.find((entry) => entry.sku === "ball_horseshoe")?.stockCount, 133);
   const sealed = {
-    "VNO-25-ST": [105, 7, "nose"],
-    "VH-003-3": [90, 3, "lip-labret"],
-    "VH-003-4": [135, 18, "septum"],
-    "VJ-016-OP06": [225, 3, "eyebrow"],
-    "VJ-016-OP17": [150, 5, "septum"],
+    "VNO-25-ST": [499, 7, "nose"],
+    "VH-003-3": [499, 3, "lip-labret"],
+    "VH-003-4": [499, 18, "septum"],
+    "VJ-016-OP06": [499, 3, "eyebrow"],
+    "VJ-016-OP17": [499, 5, "septum"],
   } as const;
   for (const [sku, [cents, qty, category]] of Object.entries(sealed)) {
     const product = products.find((entry) => entry.sku === sku);
@@ -113,7 +113,6 @@ test("jewelry listings keep the vendor reorder SKU", () => {
     assert.equal(product.priceCents, cents);
     assert.equal(product.stockCount, qty);
     assert.equal(product.category, category);
-    assert.equal(product.title.toLowerCase().includes("sealed"), true);
     assert.equal(canAddToCart(product), true);
     assert.equal(displaySku(product), sku);
   }
@@ -135,7 +134,7 @@ test("jewelry listings keep the vendor reorder SKU", () => {
   const whiteBlanks = products.find((entry) => entry.sku === "IA-WHITE-BLANK-PLUGS");
   const blackBlanks = products.find((entry) => entry.sku === "IA-BLACK-BLANK-PLUGS");
   const woodBlanks = products.find((entry) => entry.sku === "IA-WOOD-BLANK-PLUGS");
-  assert.equal(whiteBlanks?.priceCents, 390);
+  assert.equal(whiteBlanks?.priceCents, 499);
   assert.equal(whiteBlanks?.unit, "pair");
   assert.equal(whiteBlanks?.stockCount, 4);
   assert.equal(whiteBlanks?.customPrintEligible, true);
@@ -150,7 +149,7 @@ test("jewelry listings keep the vendor reorder SKU", () => {
   assert.equal(`${blackBlanks?.imageAlt} ${blackBlanks?.description}`.toLowerCase().includes("shared"), false);
   assert.equal(JSON.stringify(products).toLowerCase().includes("achadirect"), false);
   assert.equal(canAddToCart(whiteBlanks!), true);
-  assert.equal(blackBlanks?.priceCents, 390);
+  assert.equal(blackBlanks?.priceCents, 499);
   assert.equal(blackBlanks?.stockCount, 4);
   assert.equal(woodBlanks?.priceCents, 774);
   assert.equal(woodBlanks?.stockCount, 2);
@@ -178,10 +177,10 @@ test("jewelry listings keep the vendor reorder SKU", () => {
   assert.deepEqual(
     cheek?.variants.map((variant) => [variant.id, variant.priceCents]),
     [
-      ["25mm", 117],
-      ["22mm", 117],
-      ["19mm", 117],
-      ["16mm", 108],
+      ["25mm", 499],
+      ["22mm", 499],
+      ["19mm", 499],
+      ["16mm", 499],
     ],
   );
 });
@@ -234,6 +233,29 @@ test("ready photos exist and missing photos are not invented", () => {
     assert.equal(copy.includes("ai "), false);
     assert.equal(copy.includes("generated"), false);
   }
+});
+
+test("shelf prices stay at or above $4.99 and descriptions stay customer-facing", () => {
+  const banned = /photo count|on hand|studio case photo|leftover held|inventory draft|price tbd|photo needed|draft count|wholesale/i;
+  for (const product of products) {
+    if (product.priceCents !== null) assert.ok(product.priceCents >= 499, product.sku);
+    for (const variant of product.variants) {
+      if (variant.priceCents !== undefined) assert.ok(variant.priceCents >= 499, `${product.sku} ${variant.id}`);
+    }
+    assert.equal(banned.test(product.description), false, product.slug);
+    assert.equal(banned.test(product.materials.join(" ")), false, product.slug);
+    assert.equal(banned.test(product.title), false, product.slug);
+    const notice = stockNotice(product);
+    if (product.externalHref) {
+      assert.equal(notice, null);
+    } else {
+      assert.ok(notice);
+      assert.equal(/photo count|on hand|leftover|tbd/i.test(notice.label), false, product.slug);
+    }
+  }
+  assert.equal(products.find((entry) => entry.sku === "LA-074")?.priceCents, null);
+  assert.equal(products.find((entry) => entry.sku === "MO-010")?.stockCount, 49);
+  assert.equal(products.find((entry) => entry.sku === "BA-002")?.variants.find((variant) => variant.id === "clear")?.stockCount, 24);
 });
 
 test("checkout refuses production, missing credentials, and ad-hoc lines", () => {

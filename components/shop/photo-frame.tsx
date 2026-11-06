@@ -4,7 +4,7 @@ import type { CatalogProduct } from "@/data/catalog";
 const badgeCopy: Record<CatalogProduct["photoStatus"], string | null> = {
   ready: null,
   coming: "Photo coming",
-  needed: "Photo needed",
+  needed: null,
 };
 
 export function PhotoFrame({
@@ -44,8 +44,8 @@ export function PhotoFrame({
       role="img"
       aria-label={badge ?? "No product photo"}
     >
-      <span className="text-[11px] font-semibold tracking-[0.16em] text-[#d8b06d] uppercase">{badge}</span>
-      <span className="max-w-[14rem] text-xs leading-5 text-[#dbc8a7]">No product photo yet. None is generated for this draft.</span>
+      {badge ? <span className="text-[11px] font-semibold tracking-[0.16em] text-[#d8b06d] uppercase">{badge}</span> : null}
+      <span className="max-w-[14rem] text-xs leading-5 text-[#dbc8a7]">A studio photo is on the way.</span>
     </div>
   );
 }

@@ -93,7 +93,7 @@ export default function CustomPrintPage() {
       <section className="mt-12 max-w-xl">
         <h2 className="font-display text-3xl font-semibold">Request a print</h2>
         <p className="mt-3 text-sm leading-7 text-[#dbc8a7]">
-          Choose the blank first, then add your art. This draft stores the file only after Vercel Blob is connected. Nothing is charged here.
+          Choose the blank first, then add your art. The file is saved when uploads are connected. Nothing is charged here.
         </p>
         <div className="mt-6">
           <CustomPrintForm />

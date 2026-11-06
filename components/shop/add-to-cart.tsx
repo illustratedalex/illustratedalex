@@ -30,7 +30,7 @@ export function AddToCart({ product }: { product: CatalogProduct }) {
 
   if (!canAddToCart(product)) {
     const priced = product.variants.some((variant) => linePriceCents(product, variant) !== null);
-    const label = product.stockCount === null && priced ? "Stock TBD" : priced ? "Coming soon" : "Price TBD";
+    const label = priced ? "Check studio availability" : "Coming soon";
     return (
       <div className="space-y-2">
         <button type="button" disabled className={`${buttonClass} cursor-not-allowed border-[#7d5b2e] text-[#be9a62]`}>
@@ -61,7 +61,7 @@ export function AddToCart({ product }: { product: CatalogProduct }) {
             {product.variants.map((variant) => {
               const cents = linePriceCents(product, variant);
               const priced = product.variants.some((entry) => entry.priceCents !== undefined);
-              const onHand = variant.stockCount === undefined ? "" : ` · ${variant.stockCount} on hand`;
+              const onHand = "";
               return (
                 <option key={variant.id} value={variant.id}>
                   {priced && cents !== null ? `${variant.label} · ${formatPrice(cents, "each")}${onHand}` : `${variant.label}${onHand}`}

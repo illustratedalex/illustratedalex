@@ -34,7 +34,7 @@ export default function ShopPage() {
           <p className="text-[11px] font-semibold tracking-[0.22em] text-[#d8b06d] uppercase">Body jewelry and aftercare</p>
           <h1 className="font-display mt-3 text-4xl leading-tight font-semibold text-[#f0dfbf] sm:text-6xl">Jewelry for the piercing. Care for the healing.</h1>
           <p className="mt-4 max-w-2xl text-base leading-8 text-[#dbc8a7]">
-            A studio draft for Claremont. Pickup at 18 Opera House Square. Shipping stays off until checkout is approved.
+            Pickup at 18 Opera House Square in Claremont. Shipping opens when checkout is ready.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Link href="/shop/body-jewelry" className={`${buttonClass} bg-[#bc8f4d] text-[#1e1408]`}>
@@ -64,7 +64,7 @@ export default function ShopPage() {
 
       <section>
         <h2 className="font-display text-3xl font-semibold">Shop by piercing</h2>
-        <p className="mt-2 max-w-2xl text-sm leading-7 text-[#dbc8a7]">Tiles appear for placements that have pieces in this draft.</p>
+        <p className="mt-2 max-w-2xl text-sm leading-7 text-[#dbc8a7]">Choose a placement to see what the studio is offering.</p>
         <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {filled.map((category) => {
             const count = productsIn("body-jewelry", category.slug).length;
@@ -72,7 +72,7 @@ export default function ShopPage() {
               <li key={category.slug}>
                 <Link href={categoryPath(category)} className="flex min-h-24 flex-col justify-between rounded-2xl border border-[#7d5b2e]/50 bg-[#14110d] p-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d8b06d]">
                   <span className="font-display text-2xl text-[#f0dfbf]">{category.name}</span>
-                  <span className="text-xs tracking-[0.12em] text-[#d8b06d] uppercase">{count} in this draft</span>
+                  <span className="text-xs tracking-[0.12em] text-[#d8b06d] uppercase">{count} {count === 1 ? "style" : "styles"}</span>
                 </Link>
               </li>
             );
@@ -119,7 +119,7 @@ export default function ShopPage() {
           </Link>
         </div>
         <p className="mt-2 max-w-3xl text-sm leading-7 text-[#dbc8a7]">
-          Coming soon. Photos and prices are still open. Apparel needs Printify or Printful reconnected. These are Illustrated Alex studio placeholders, not another brand&apos;s catalog.
+          Illustrated Alex apparel and stickers are coming soon. Gift cards are available through Square.
         </p>
         <div className="mt-6">
           <ProductGrid products={merch} />
@@ -129,8 +129,8 @@ export default function ShopPage() {
       <section className="grid gap-4 md:grid-cols-3">
         {[
           ["Pickup", "Collect at 18 Opera House Square, Claremont, NH."],
-          ["Shipping", "Not switched on. It waits for approved checkout."],
-          ["Register", "Jewelry is meant to sell through Square Catalog so inventory can decrement. Variation ids are not linked yet."],
+          ["Shipping", "Shipping is not available yet. Pickup is at the studio."],
+          ["Checkout", "Online checkout opens once the studio register is linked. Nothing is charged on this preview."],
         ].map(([title, body]) => (
           <article key={title} className="rounded-2xl border border-[#7d5b2e]/40 p-5">
             <h2 className="font-display text-2xl text-[#f0dfbf]">{title}</h2>
@@ -142,7 +142,7 @@ export default function ShopPage() {
       <section className="rounded-2xl border border-[#7d5b2e]/40 bg-[#14110d] p-6">
         <h2 className="font-display text-3xl text-[#f0dfbf]">Also in the studio case</h2>
         <p className="mt-3 max-w-3xl text-sm leading-7 text-[#dbc8a7]">
-          These styles are already on the Square register. They are not repeated in this draft, so the site does not publish a second price.
+          Ask the studio about these styles. They are not listed as separate products here.
         </p>
         <ul className="mt-4 list-disc space-y-1 pl-5 text-sm text-[#f2e1c2]">
           {studioCaseNotes.map((note) => (

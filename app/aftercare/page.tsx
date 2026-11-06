@@ -75,7 +75,7 @@ export default function AftercarePage() {
           <div className="mt-6 rounded-xl border border-[#7d5b2e]/40 bg-[#12100d] p-5 sm:p-6">
             <p className="font-display text-2xl font-semibold text-[#f0dfbf]">Need piercing aftercare?</p>
             <p className="mt-2 text-sm leading-7 text-[#dbc8a7]">
-              Sterile saline spray and alcohol-free rinses are in the shop draft. Prices follow average online retail.
+              Sterile saline spray, foam soap, and alcohol-free rinses for healing piercings.
             </p>
             <ul className="mt-4 space-y-2 text-sm leading-7">
               {piercingShop.map((product) => {
@@ -90,7 +90,8 @@ export default function AftercarePage() {
                       · {priceSummary(product)}
                       {sku ? ` · SKU ${sku}` : ""}
                       {product.stockCount === 0 ? " · Out of stock" : ""}
-                      {product.stockCount === null ? " · Stock TBD" : ""}
+                      {product.stockCount !== null && product.stockCount > 0 ? " · In stock" : ""}
+                      {product.stockCount === null ? " · Check studio availability" : ""}
                     </span>
                   </li>
                 );

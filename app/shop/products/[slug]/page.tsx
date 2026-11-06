@@ -61,7 +61,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             {stock.label}
           </p>
         ) : null}
-        {product.stockLabel ? <p className="mt-2 text-sm text-[#dbc8a7]">{product.stockLabel}</p> : null}
         <p className="mt-4 max-w-2xl text-base leading-8 text-[#dbc8a7]">{product.description}</p>
         <h2 className="mt-6 text-sm font-semibold tracking-[0.14em] text-[#d8b06d] uppercase">Details</h2>
         <ul className="mt-3 list-disc space-y-1 pl-5 text-sm leading-7 text-[#f0dfbf]">

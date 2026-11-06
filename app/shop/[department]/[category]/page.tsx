@@ -41,8 +41,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ depar
             <h2 className="font-display text-3xl">None in this preview</h2>
             <p className="mt-3 max-w-2xl text-sm leading-7 text-[#dbc8a7]">
               {department.slug === "aftercare"
-                ? "Saline, H2Ocean, and recovery products can be added here when the real SKUs are ready. No stand-in photos are shown."
-                : "No pieces are assigned to this placement in the current inventory draft. The page stays up so the menu does not look broken."}
+                ? "Piercing spray, foam soap, and rinses are listed with piercing aftercare. Tattoo wash and film can be added later. The written healing guide stays on the aftercare page."
+                : "Nothing is listed for this placement right now. Ask the studio if you are looking for a specific piece."}
             </p>
             <Link href={department.slug === "aftercare" ? "/aftercare" : categoryPath(category).replace(/\/[^/]+$/, "")} className="mt-4 inline-flex min-h-11 items-center text-sm text-[#e1c18c] underline underline-offset-4">
               {department.slug === "aftercare" ? "Read the healing guide" : `Back to ${department.name}`}
