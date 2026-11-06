@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { categoriesFor, departments } from "@/data/catalog";
+import { categoriesWithProducts, departments } from "@/data/catalog";
 import { useCart } from "@/components/shop/cart-provider";
 
 const linkClass =
@@ -67,7 +67,7 @@ export function ShopChrome() {
                   {department.name}
                 </Link>
                 <ul className="pl-3">
-                  {categoriesFor(department.slug).map((category) => (
+                  {categoriesWithProducts(department.slug).map((category) => (
                     <li key={category.slug}>
                       <Link href={`/shop/${department.slug}/${category.slug}`} className="inline-flex min-h-11 items-center text-sm text-[#dbc8a7]">
                         {category.name}

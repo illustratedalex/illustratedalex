@@ -2,7 +2,7 @@ import { createPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProductGrid } from "@/components/shop/product-card";
-import { categoriesFor, categoryPath, departments, getDepartment, productsIn } from "@/data/catalog";
+import { categoriesWithProducts, categoryPath, departments, getDepartment, productsIn } from "@/data/catalog";
 
 export const dynamicParams = false;
 
@@ -21,7 +21,7 @@ export default async function DepartmentPage({ params }: { params: Promise<{ dep
   const { department: slug } = await params;
   const department = getDepartment(slug);
   if (!department) notFound();
-  const categories = categoriesFor(department.slug);
+  const categories = categoriesWithProducts(department.slug);
   const items = productsIn(department.slug);
 
   return (
@@ -39,9 +39,7 @@ export default async function DepartmentPage({ params }: { params: Promise<{ dep
       ) : null}
       {department.slug === "merch" ? (
         <div className="mt-6 max-w-3xl rounded-2xl border border-[#7d5b2e]/40 bg-[#14110d] p-5 text-sm leading-7 text-[#dbc8a7]">
-          <p>
-            No tees, hoodies, or stickers were found on the current Square Online shop. Printful and Printify are not connected to this site. Mountainside mail from 2015 shows an older Printify account. Reconnect Printify first, or Printful if you would rather use that for blanks and hats. Log in, export the real products and mockups, then add keys on the host. No product ids are invented here.
-          </p>
+          <p>New Illustrated Alex hoodies, tees, hats, and stickers are in the works and coming soon.</p>
         </div>
       ) : null}
       {department.slug === "aftercare" ? (
@@ -65,7 +63,7 @@ export default async function DepartmentPage({ params }: { params: Promise<{ dep
           <div className="rounded-2xl border border-[#7d5b2e]/40 bg-[#14110d] p-6">
             <h2 className="font-display text-3xl">Nothing listed yet</h2>
             <p className="mt-3 max-w-2xl text-sm leading-7 text-[#dbc8a7]">
-              This department is ready for products. No photos or prices were invented to fill it.
+              Nothing is listed in this department yet.
             </p>
           </div>
         )}

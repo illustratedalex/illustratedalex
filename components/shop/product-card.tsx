@@ -6,7 +6,7 @@ export function ProductCard({ product }: { product: CatalogProduct }) {
   const price = priceSummary(product);
   const sku = displaySku(product);
   const stock = stockNotice(product);
-  const status = product.reconnect || product.photoStatus === "coming" ? "Coming soon" : null;
+  const status = product.photoStatus === "coming" ? "Coming soon" : null;
 
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-[#7d5b2e]/40 bg-[#0f0f0f]">

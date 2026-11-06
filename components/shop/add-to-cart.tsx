@@ -15,7 +15,7 @@ export function AddToCart({ product }: { product: CatalogProduct }) {
   if (product.externalHref) {
     return (
       <a href={product.externalHref} target="_blank" rel="noopener noreferrer" className={`${buttonClass} bg-[#bc8f4d] text-[#1e1408]`}>
-        Buy gift card on Square
+        Buy a Gift Card
       </a>
     );
   }
@@ -36,7 +36,6 @@ export function AddToCart({ product }: { product: CatalogProduct }) {
         <button type="button" disabled className={`${buttonClass} cursor-not-allowed border-[#7d5b2e] text-[#be9a62]`}>
           {label}
         </button>
-        {product.reconnect ? <p className="text-sm leading-6 text-[#dbc8a7]">Reconnect {product.reconnect} before this can be ordered.</p> : null}
       </div>
     );
   }
