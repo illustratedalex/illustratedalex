@@ -15,7 +15,7 @@ export function ProductCard({ product }: { product: CatalogProduct }) {
         <div className="space-y-2 px-4 py-4">
           <h3 className="font-display text-xl leading-snug font-semibold text-[#f0dfbf]">{product.title}</h3>
           {sku ? <p className="text-sm font-semibold tracking-[0.12em] text-[#d8b06d]">SKU {sku}</p> : null}
-          <p className="text-sm text-[#f2e1c2]">{price}</p>
+          <p className="text-sm text-[#f2e1c2]">{product.externalHref ? "Any amount" : price}</p>
           {stock ? (
             <p className={stock.kind === "out" ? "text-sm font-semibold text-[#f0dfbf]" : stock.kind === "unknown" ? "text-xs text-[#be9a62]" : "text-sm text-[#dbc8a7]"}>
               {stock.label}

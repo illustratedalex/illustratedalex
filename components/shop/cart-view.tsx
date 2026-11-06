@@ -33,6 +33,8 @@ export function CartView() {
     return [{ line, product, variant, lineCents: cents * line.quantity }];
   });
   const subtotal = detailed.reduce((sum, entry) => sum + entry.lineCents, 0);
+  const hasShipped = detailed.some((entry) => entry.product.fulfillment === "printful-shipped");
+  const hasStudioPickup = detailed.some((entry) => entry.product.fulfillment === "square-catalog" || entry.product.fulfillment === "aftercare-later");
 
   return (
     <div className="space-y-6">
@@ -66,7 +68,12 @@ export function CartView() {
         ))}
       </ul>
       <p className="text-base text-[#f0dfbf]">
-        Subtotal {formatPrice(subtotal, "each")}. Checkout charges the Square Catalog price. Pickup is at 18 Opera House Square, Claremont, NH.
+        Subtotal {formatPrice(subtotal, "each")}.{" "}
+        {hasShipped && hasStudioPickup
+          ? "The mug ships free in the US. Jewelry and aftercare are held for pickup at 18 Opera House Square, Claremont, NH."
+          : hasShipped
+            ? "Made to order with free US shipping."
+            : "Pickup is at 18 Opera House Square, Claremont, NH."}
       </p>
       <Link
         href="/shop/checkout"

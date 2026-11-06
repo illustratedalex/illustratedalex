@@ -92,7 +92,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             .
           </p>
         ) : null}
-        <p className="mt-4 text-sm leading-7 text-[#dbc8a7]">Pickup at 18 Opera House Square, Claremont, NH, or call (603) 843-7005 to hold a piece.</p>
+        {product.fulfillment === "printful-shipped" ? (
+          <p className="mt-4 text-sm leading-7 text-[#dbc8a7]">Made to order · Free US shipping</p>
+        ) : product.fulfillment === "square-catalog" ? (
+          <p className="mt-4 text-sm leading-7 text-[#dbc8a7]">Pickup at 18 Opera House Square, Claremont, NH, or call (603) 843-7005 to hold a piece.</p>
+        ) : null}
       </div>
     </div>
   );

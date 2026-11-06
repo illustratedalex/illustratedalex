@@ -1,12 +1,15 @@
 import { products } from "../data/catalog.ts";
+import { submitPrintfulOrder } from "../lib/printful.ts";
 import {
   assertCheckoutServer,
   buildCatalogOrderRequest,
   isIdempotencyKey,
   resolveCatalogLines,
   squareConnectOrigin,
+  validateUsShipping,
   type CheckoutItemInput,
   type PickupContact,
+  type ShippingAddress,
 } from "../lib/square/checkout.ts";
 
 const SQUARE_VERSION = "2025-01-23";
@@ -61,6 +64,7 @@ export async function handleSquareCheckout(request: Request): Promise<Response> 
     sourceId?: unknown;
     items?: CheckoutItemInput[];
     pickup?: PickupContact;
+    shipping?: ShippingAddress;
   } | null;
 
   if (!body || !isIdempotencyKey(body.idempotencyKey)) {
@@ -75,13 +79,19 @@ export async function handleSquareCheckout(request: Request): Promise<Response> 
     return Response.json({ error: resolved.error }, { status: resolved.status });
   }
 
+  const shipping = resolved.shipped.length > 0 ? validateUsShipping(body.shipping) : null;
+  if (shipping && !shipping.ok) {
+    return Response.json({ error: shipping.error }, { status: shipping.status });
+  }
+
   const accessToken = process.env.SQUARE_ACCESS_TOKEN as string;
   const locationId = process.env.SQUARE_LOCATION_ID as string;
   const orderRequest = buildCatalogOrderRequest({
     locationId,
     idempotencyKey: body.idempotencyKey,
     lines: resolved.lines,
-    pickup: body.pickup,
+    pickup: resolved.hasStudioPickup ? body.pickup : undefined,
+    shipment: shipping?.ok ? shipping.shipping : undefined,
   });
 
   const created = await squarePost("/v2/orders", accessToken, orderRequest);
@@ -113,10 +123,16 @@ export async function handleSquareCheckout(request: Request): Promise<Response> 
     );
   }
 
+  const printful =
+    shipping?.ok && resolved.shipped.length > 0
+      ? await submitPrintfulOrder({ externalId: order.id, shipping: shipping.shipping, items: resolved.shipped })
+      : { skipped: true as const };
+
   return Response.json({
     orderId: order.id,
     paymentId: paid.payload?.payment?.id ?? null,
     status: paid.payload?.payment?.status ?? "COMPLETED",
     receiptUrl: paid.payload?.payment?.receipt_url ?? null,
+    printful,
   });
 }
