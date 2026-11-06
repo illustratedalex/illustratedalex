@@ -800,5 +800,25 @@
       "price": "4.99",
       "qty": "5"
     }
+  },
+  "illustrated-alex-white-glossy-mug": {
+    "11oz": {
+      "squareCatalogVariationId": "XYGPSP2S5WMMHEABDV4SSOJR",
+      "sku": "IA-MERCH-MUG-11OZ",
+      "price": "18.00",
+      "qty": ""
+    },
+    "15oz": {
+      "squareCatalogVariationId": "NI7OWEKMCEE6B3F6PS3FQAFU",
+      "sku": "IA-MERCH-MUG-15OZ",
+      "price": "20.00",
+      "qty": ""
+    },
+    "20oz": {
+      "squareCatalogVariationId": "UZ4G64TXVBUX6A4BQBLF47E6",
+      "sku": "IA-MERCH-MUG-20OZ",
+      "price": "22.00",
+      "qty": ""
+    }
   }
 }

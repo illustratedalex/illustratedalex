@@ -16,7 +16,7 @@ import { BOOKING_URL, GIFT_CARD_URL } from "@/data/site-content";
 export const metadata = createPageMetadata(
   "/shop",
   "Body Jewelry, Aftercare & Merch | Illustrated Alex",
-  "Body jewelry, piercing aftercare, and studio merch from Illustrated Alex. Pickup at 18 Opera House Square, Claremont, NH.",
+  "Body jewelry and piercing aftercare for studio pickup, plus made-to-order mugs with free US shipping. Illustrated Alex, 18 Opera House Square, Claremont, NH.",
 );
 
 const buttonClass =
@@ -34,7 +34,7 @@ export default function ShopPage() {
           <p className="text-[11px] font-semibold tracking-[0.22em] text-[#d8b06d] uppercase">Body jewelry and aftercare</p>
           <h1 className="font-display mt-3 text-4xl leading-tight font-semibold text-[#f0dfbf] sm:text-6xl">Jewelry for the piercing. Care for the healing.</h1>
           <p className="mt-4 max-w-2xl text-base leading-8 text-[#dbc8a7]">
-            Pickup at 18 Opera House Square in Claremont. Shipping opens when checkout is ready.
+            Jewelry and aftercare are for pickup at 18 Opera House Square in Claremont. Mugs are made to order and ship free in the US.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Link href="/shop/body-jewelry" className={`${buttonClass} bg-[#bc8f4d] text-[#1e1408]`}>
@@ -119,7 +119,7 @@ export default function ShopPage() {
           </Link>
         </div>
         <p className="mt-2 max-w-3xl text-sm leading-7 text-[#dbc8a7]">
-          New Illustrated Alex hoodies, tees, hats, and stickers are in the works and coming soon. Gift cards are available now.
+          Mugs and gift cards are available now. Hoodies, tees, hats, and stickers are in the works and coming soon.
         </p>
         <div className="mt-6">
           <ProductGrid products={merch} />

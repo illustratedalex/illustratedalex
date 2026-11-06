@@ -15,7 +15,7 @@ export type DepartmentSlug = "aftercare" | "body-jewelry" | "merch";
 
 export type PhotoStatus = "ready" | "coming" | "needed";
 
-export type Fulfillment = "square-catalog" | "aftercare-later" | "pod-placeholder" | "square-gift-card";
+export type Fulfillment = "square-catalog" | "aftercare-later" | "pod-placeholder" | "square-gift-card" | "printful-shipped";
 
 export type CatalogVariant = {
   id: string;
@@ -26,6 +26,8 @@ export type CatalogVariant = {
   stockCount?: number;
   /** Square Catalog ITEM_VARIATION id. Null until register sync. */
   squareCatalogVariationId: string | null;
+  /** Printful sync variant id for made-to-order merch. Not shown in the shop. */
+  printfulSyncVariantId?: number;
 };
 
 export type CatalogDepartment = {
@@ -78,12 +80,19 @@ export type CatalogProduct = {
   customPrintEligible?: boolean;
 };
 
-const variation = (id: string, label: string, priceCents?: number, stockCount?: number): CatalogVariant => ({
+const variation = (
+  id: string,
+  label: string,
+  priceCents?: number,
+  stockCount?: number,
+  printfulSyncVariantId?: number,
+): CatalogVariant => ({
   id,
   label,
   ...(priceCents === undefined ? {} : { priceCents }),
   ...(stockCount === undefined ? {} : { stockCount }),
   squareCatalogVariationId: null,
+  ...(printfulSyncVariantId === undefined ? {} : { printfulSyncVariantId }),
 });
 
 export const departments: CatalogDepartment[] = [
@@ -100,7 +109,7 @@ export const departments: CatalogDepartment[] = [
   {
     slug: "merch",
     name: "Merch",
-    summary: "Gift cards for tattoos, piercings, and studio jewelry. Hoodies, tees, hats, and stickers are on the way.",
+    summary: "Mugs and gift cards are available now. Hoodies, tees, hats, and stickers are on the way.",
   },
 ];
 
@@ -182,6 +191,12 @@ export const categories: CatalogCategory[] = [
     name: "Apparel",
     department: "merch",
     summary: "T-shirts, sweatshirts, and hoodies with the Illustrated Alex mark.",
+  },
+  {
+    slug: "drinkware",
+    name: "Drinkware",
+    department: "merch",
+    summary: "Glossy white ceramic mugs printed with the Illustrated Alex skull logo. Made to order with free US shipping.",
   },
   {
     slug: "gift-cards",
@@ -845,6 +860,54 @@ const seededProducts: CatalogProduct[] = [
     externalHref: SQUARE_GIFT_CARD_URL,
   },
   {
+    slug: "illustrated-alex-white-glossy-mug",
+    sku: "IA-MERCH-MUG",
+    title: "White Glossy Mug – Illustrated Alex",
+    department: "merch",
+    category: "drinkware",
+    priceCents: 1800,
+    unit: "each",
+    stockCount: null,
+    stockLabel: "Made to order · Free US shipping",
+    image: "/images/merch/illustrated-alex-white-glossy-mug.jpg",
+    imageAlt: "White glossy mug with the Illustrated Alex skull logo, handle on the right",
+    gallery: [
+      {
+        src: "/images/merch/illustrated-alex-white-glossy-mug-left.jpg",
+        alt: "White glossy mug with the Illustrated Alex skull logo, handle on the left",
+      },
+      {
+        src: "/images/merch/illustrated-alex-white-glossy-mug-15oz.jpg",
+        alt: "15 ounce white glossy mug with the Illustrated Alex skull logo",
+      },
+      {
+        src: "/images/merch/illustrated-alex-white-glossy-mug-20oz.jpg",
+        alt: "20 ounce white glossy mug with the Illustrated Alex skull logo",
+      },
+    ],
+    photoStatus: "ready",
+    description:
+      "A glossy white ceramic coffee mug printed with the Illustrated Alex skull logo. It is dishwasher and microwave safe. Made to order and shipped to your door, with free US shipping included. The 11 oz mug is 3.8 in high and 3.2 in across, the 15 oz is 4.7 in high and 3.3 in across, and the 20 oz is 4.3 in high and 3.7 in across.",
+    materials: [
+      "Glossy white ceramic",
+      "Dishwasher and microwave safe",
+      "Free US shipping",
+      "11 oz: 3.8 in high × 3.2 in diameter",
+      "15 oz: 4.7 in high × 3.3 in diameter",
+      "20 oz: 4.3 in high × 3.7 in diameter",
+    ],
+    variants: [
+      variation("11oz", "11 oz", 1800, undefined, 5623128240),
+      variation("15oz", "15 oz", 2000, undefined, 5623128241),
+      variation("20oz", "20 oz", 2200, undefined, 5623128242),
+    ],
+    featured: false,
+    fulfillment: "printful-shipped",
+    reconnect: null,
+    externalHref: null,
+    published: true,
+  },
+  {
     slug: "illustrated-alex-sticker-pack",
     sku: "IA-MERCH-STICKERS",
     title: "Sticker Pack – Illustrated Alex Logo",
@@ -996,6 +1059,7 @@ export function formatPrice(cents: number | null, unit: CatalogProduct["unit"]) 
 
 export function stockNotice(product: CatalogProduct): { kind: "out" | "onhand" | "unknown"; label: string } | null {
   if (product.externalHref) return null;
+  if (product.fulfillment === "printful-shipped") return { kind: "onhand", label: "Made to order · Free US shipping" };
   if (product.stockCount === 0) return { kind: "out", label: "Out of stock" };
   if (product.stockCount !== null && product.stockCount > 0) return { kind: "onhand", label: "In stock" };
   const priced = product.priceCents !== null || product.variants.some((variant) => variant.priceCents !== undefined);
@@ -1003,7 +1067,9 @@ export function stockNotice(product: CatalogProduct): { kind: "out" | "onhand" |
 }
 
 export function canAddToCart(product: CatalogProduct) {
-  if (product.stockCount === null || product.stockCount <= 0) return false;
   const priced = product.variants.some((variant) => linePriceCents(product, variant) !== null);
-  return priced && product.externalHref === null && product.fulfillment === "square-catalog";
+  if (!priced || product.externalHref !== null) return false;
+  if (product.fulfillment === "printful-shipped") return true;
+  if (product.stockCount === null || product.stockCount <= 0) return false;
+  return product.fulfillment === "square-catalog";
 }

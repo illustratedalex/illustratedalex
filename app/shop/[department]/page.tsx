@@ -39,7 +39,7 @@ export default async function DepartmentPage({ params }: { params: Promise<{ dep
       ) : null}
       {department.slug === "merch" ? (
         <div className="mt-6 max-w-3xl rounded-2xl border border-[#7d5b2e]/40 bg-[#14110d] p-5 text-sm leading-7 text-[#dbc8a7]">
-          <p>New Illustrated Alex hoodies, tees, hats, and stickers are in the works and coming soon.</p>
+          <p>Mugs and gift cards are available now. Hoodies, tees, hats, and stickers are in the works and coming soon.</p>
         </div>
       ) : null}
       {department.slug === "aftercare" ? (

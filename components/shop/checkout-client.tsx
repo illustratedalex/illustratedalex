@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { formatPrice, getProduct, linePriceCents } from "@/data/catalog";
-import { decideCheckout } from "@/lib/square/checkout";
+import { decideCheckout, validateUsShipping } from "@/lib/square/checkout";
 import { useCart } from "@/components/shop/cart-provider";
 
 type SquareCard = {
@@ -30,6 +30,11 @@ export function CheckoutClient() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [address1, setAddress1] = useState("");
+  const [address2, setAddress2] = useState("");
+  const [city, setCity] = useState("");
+  const [stateCode, setStateCode] = useState("");
+  const [zip, setZip] = useState("");
   const environment = process.env.NEXT_PUBLIC_SQUARE_ENVIRONMENT;
   const checkoutUrl = process.env.NEXT_PUBLIC_SQUARE_CHECKOUT_URL || "/api/shop/checkout";
 
@@ -45,7 +50,10 @@ export function CheckoutClient() {
     applicationId: process.env.NEXT_PUBLIC_SQUARE_APPLICATION_ID,
     locationId: process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID,
     checkoutUrl,
-    lines: detailed.map(({ variant }) => ({ squareCatalogVariationId: variant.squareCatalogVariationId })),
+    lines: detailed.map(({ product, variant }) => ({
+      squareCatalogVariationId: variant.squareCatalogVariationId,
+      fulfillment: product.fulfillment,
+    })),
   });
 
   useEffect(() => {
@@ -76,8 +84,18 @@ export function CheckoutClient() {
     };
   }, [decision.ready, environment]);
 
+  const needsShipping = detailed.some((entry) => entry.product.fulfillment === "printful-shipped");
+  const needsPickup = detailed.some((entry) => entry.product.fulfillment === "square-catalog" || entry.product.fulfillment === "aftercare-later");
+
   async function pay() {
     if (!decision.ready || !cardRef.current) return;
+    if (needsShipping) {
+      const shipping = validateUsShipping({ name, email, phone, address1, address2, city, stateCode, zip, country: "US" });
+      if (!shipping.ok) {
+        setResult({ message: shipping.error });
+        return;
+      }
+    }
     setPaying(true);
     setResult(null);
     const tokenized = await cardRef.current.tokenize();
@@ -94,6 +112,7 @@ export function CheckoutClient() {
         idempotencyKey: crypto.randomUUID(),
         sourceId: tokenized.token,
         pickup: { displayName: name, email, phone },
+        ...(needsShipping ? { shipping: { name, email, phone, address1, address2, city, stateCode, zip, country: "US" } } : {}),
         items: detailed.map(({ product, line }) => ({
           sku: product.sku,
           variantId: line.variantId,
@@ -141,18 +160,49 @@ export function CheckoutClient() {
             void pay();
           }}
         >
+          {needsShipping && needsPickup ? (
+            <p className="text-sm leading-6 text-[#dbc8a7]">
+              The mug ships free to this US address. Jewelry and aftercare are held for pickup at 18 Opera House Square, Claremont, NH.
+            </p>
+          ) : null}
+          {needsShipping && !needsPickup ? <p className="text-sm leading-6 text-[#dbc8a7]">Free US shipping. Made to order.</p> : null}
           <label className="block text-sm text-[#f0dfbf]">
-            Name for pickup
-            <input value={name} onChange={(event) => setName(event.target.value)} autoComplete="name" className={fieldClass} />
+            {needsShipping ? "Full name" : "Name for pickup"}
+            <input value={name} onChange={(event) => setName(event.target.value)} autoComplete="name" required={needsShipping} className={fieldClass} />
           </label>
           <label className="block text-sm text-[#f0dfbf]">
             Email
-            <input value={email} onChange={(event) => setEmail(event.target.value)} type="email" autoComplete="email" className={fieldClass} />
+            <input value={email} onChange={(event) => setEmail(event.target.value)} type="email" autoComplete="email" required={needsShipping} className={fieldClass} />
           </label>
           <label className="block text-sm text-[#f0dfbf]">
-            Phone
+            Phone <span className="font-normal text-[#be9a62]">(optional)</span>
             <input value={phone} onChange={(event) => setPhone(event.target.value)} type="tel" autoComplete="tel" className={fieldClass} />
           </label>
+          {needsShipping ? (
+            <>
+              <label className="block text-sm text-[#f0dfbf]">
+                Street address
+                <input value={address1} onChange={(event) => setAddress1(event.target.value)} autoComplete="address-line1" required className={fieldClass} />
+              </label>
+              <label className="block text-sm text-[#f0dfbf]">
+                Apt or suite <span className="font-normal text-[#be9a62]">(optional)</span>
+                <input value={address2} onChange={(event) => setAddress2(event.target.value)} autoComplete="address-line2" className={fieldClass} />
+              </label>
+              <label className="block text-sm text-[#f0dfbf]">
+                City
+                <input value={city} onChange={(event) => setCity(event.target.value)} autoComplete="address-level2" required className={fieldClass} />
+              </label>
+              <label className="block text-sm text-[#f0dfbf]">
+                State
+                <input value={stateCode} onChange={(event) => setStateCode(event.target.value.toUpperCase())} autoComplete="address-level1" maxLength={2} required placeholder="NH" className={fieldClass} />
+              </label>
+              <label className="block text-sm text-[#f0dfbf]">
+                ZIP code
+                <input value={zip} onChange={(event) => setZip(event.target.value)} autoComplete="postal-code" inputMode="numeric" required pattern="[0-9]{5}" className={fieldClass} />
+              </label>
+              <p className="text-sm text-[#dbc8a7]">Country: United States. Free US shipping.</p>
+            </>
+          ) : null}
           <div id="square-card" className="min-h-16 rounded-xl bg-[#f0dfbf] p-3" />
           <button
             type="submit"

@@ -3,12 +3,15 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
 import { canAddToCart, categories, categoriesFor, displaySku, isPublished, products, productsIn, stockNotice } from "../data/catalog.ts";
+import { buildPrintfulOrder } from "../lib/printful.ts";
+import { handleSquareCheckout } from "../server/square-checkout-handler.ts";
 import {
   assertCheckoutServer,
   buildCatalogOrderRequest,
   decideCheckout,
   resolveCatalogLines,
   squareConnectOrigin,
+  validateUsShipping,
 } from "../lib/square/checkout.ts";
 
 const jewelryPrices: Record<string, number> = {
@@ -46,13 +49,14 @@ test("merch stays unpriced and has no print-on-demand ids", () => {
       "IA-MERCH-CAP",
       "IA-MERCH-GIFT-CARD",
       "IA-MERCH-HOODIE",
+      "IA-MERCH-MUG",
       "IA-MERCH-STICKERS",
       "IA-MERCH-SWEATSHIRT",
       "IA-MERCH-TEE",
     ],
   );
   for (const product of merch) {
-    assert.equal(product.priceCents, null);
+    if (product.sku !== "IA-MERCH-MUG") assert.equal(product.priceCents, null);
     assert.equal(JSON.stringify(product).includes("printful_"), false);
     assert.equal(JSON.stringify(product).includes("printify_"), false);
   }
@@ -64,7 +68,7 @@ test("merch stays unpriced and has no print-on-demand ids", () => {
   }
   assert.deepEqual(
     productsIn("merch").map((product) => product.sku),
-    ["IA-MERCH-GIFT-CARD"],
+    ["IA-MERCH-GIFT-CARD", "IA-MERCH-MUG"],
   );
   const giftCard = products.find((entry) => entry.sku === "IA-MERCH-GIFT-CARD");
   assert.equal(giftCard?.published, undefined);
@@ -277,8 +281,8 @@ test("priced listings use the live Square variation ids", () => {
     Record<string, { squareCatalogVariationId: string }>
   >;
   const priced = products.filter((product) => product.priceCents !== null || product.variants.some((variant) => variant.priceCents !== undefined));
-  assert.equal(priced.length, 68);
-  assert.equal(Object.keys(map).length, 68);
+  assert.equal(priced.length, 69);
+  assert.equal(Object.keys(map).length, 69);
   let variations = 0;
   for (const product of priced) {
     assert.ok(map[product.slug], product.slug);
@@ -295,12 +299,173 @@ test("priced listings use the live Square variation ids", () => {
       variations += 1;
     }
   }
-  assert.equal(variations, 111);
-  const merch = products.filter((product) => product.sku.startsWith("IA-MERCH-"));
-  assert.equal(merch.length, 6);
-  for (const product of merch) {
+  assert.equal(variations, 114);
+  const unpublishedMerch = products.filter((product) => product.sku.startsWith("IA-MERCH-") && product.published === false);
+  assert.equal(unpublishedMerch.length, 5);
+  for (const product of unpublishedMerch) {
     assert.equal(product.priceCents, null);
     assert.equal(product.variants.every((variant) => variant.squareCatalogVariationId === null), true);
+  }
+});
+
+test("the glossy mug is made to order with free US shipping", async () => {
+  const mug = products.find((product) => product.sku === "IA-MERCH-MUG");
+  assert.ok(mug);
+  assert.equal(mug.slug, "illustrated-alex-white-glossy-mug");
+  assert.equal(mug.published, true);
+  assert.equal(mug.fulfillment, "printful-shipped");
+  assert.equal(canAddToCart(mug), true);
+  assert.equal(displaySku(mug), null);
+  assert.equal(stockNotice(mug)?.label, "Made to order · Free US shipping");
+  assert.equal(mug.priceCents, 1800);
+  assert.equal(mug.variants.find((variant) => variant.id === "11oz")?.priceCents, 1800);
+  assert.equal(mug.variants.find((variant) => variant.id === "15oz")?.priceCents, 2000);
+  assert.equal(mug.variants.find((variant) => variant.id === "20oz")?.priceCents, 2200);
+  assert.equal(mug.variants.find((variant) => variant.id === "11oz")?.squareCatalogVariationId, "XYGPSP2S5WMMHEABDV4SSOJR");
+  assert.equal(mug.variants.find((variant) => variant.id === "15oz")?.squareCatalogVariationId, "NI7OWEKMCEE6B3F6PS3FQAFU");
+  assert.equal(mug.variants.find((variant) => variant.id === "20oz")?.squareCatalogVariationId, "UZ4G64TXVBUX6A4BQBLF47E6");
+  assert.equal(mug.variants.find((variant) => variant.id === "11oz")?.printfulSyncVariantId, 5623128240);
+  assert.equal(mug.variants.find((variant) => variant.id === "15oz")?.printfulSyncVariantId, 5623128241);
+  assert.equal(mug.variants.find((variant) => variant.id === "20oz")?.printfulSyncVariantId, 5623128242);
+  assert.equal(existsSync(path.join(process.cwd(), "public", mug.image ?? "")), true);
+  for (const shot of mug.gallery ?? []) {
+    assert.equal(existsSync(path.join(process.cwd(), "public", shot.src)), true, shot.src);
+  }
+  assert.equal(/printful|printify|sync_variant|square catalog item/i.test(`${mug.title} ${mug.description} ${mug.materials.join(" ")}`), false);
+
+  const missing = validateUsShipping(undefined);
+  assert.equal(missing.ok, false);
+  if (!missing.ok) assert.equal(missing.status, 400);
+
+  const calls: { url: string; body: { order?: { fulfillments?: { type: string }[] }; items?: { sync_variant_id: number }[]; recipient?: { zip?: string } }; storeHeader?: string }[] = [];
+  const originalFetch = globalThis.fetch;
+  const saved = {
+    SQUARE_ENVIRONMENT: process.env.SQUARE_ENVIRONMENT,
+    SQUARE_ACCESS_TOKEN: process.env.SQUARE_ACCESS_TOKEN,
+    SQUARE_LOCATION_ID: process.env.SQUARE_LOCATION_ID,
+    PRINTFUL_API_TOKEN: process.env.PRINTFUL_API_TOKEN,
+    PRINTFUL_STORE_ID: process.env.PRINTFUL_STORE_ID,
+    PRINTFUL_AUTO_CONFIRM: process.env.PRINTFUL_AUTO_CONFIRM,
+  };
+  globalThis.fetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
+    const url = String(input);
+    const headers = new Headers(init?.headers);
+    calls.push({
+      url,
+      body: JSON.parse(String(init?.body ?? "{}")),
+      storeHeader: headers.get("X-PF-Store-Id") ?? undefined,
+    });
+    if (url.includes("/v2/orders")) {
+      return Response.json({ order: { id: "sq-order", total_money: { amount: 1800, currency: "USD" } } });
+    }
+    if (url.includes("/v2/payments")) {
+      return Response.json({ payment: { id: "pay", status: "COMPLETED", receipt_url: "https://receipt.example/r" } });
+    }
+    if (url.includes("api.printful.com/orders")) {
+      return Response.json({ result: { id: 42, status: "draft" } });
+    }
+    return new Response("missing", { status: 500 });
+  }) as typeof fetch;
+  process.env.SQUARE_ENVIRONMENT = "sandbox";
+  process.env.SQUARE_ACCESS_TOKEN = "token";
+  process.env.SQUARE_LOCATION_ID = "LOC";
+  process.env.PRINTFUL_API_TOKEN = "pf-token";
+  delete process.env.PRINTFUL_STORE_ID;
+  delete process.env.PRINTFUL_AUTO_CONFIRM;
+
+  try {
+    const refused = await handleSquareCheckout(
+      new Request("http://127.0.0.1/api/shop/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          idempotencyKey: "idem-key-1",
+          sourceId: "cnon:card-nonce",
+          items: [{ sku: "IA-MERCH-MUG", variantId: "11oz", quantity: 1 }],
+        }),
+      }),
+    );
+    assert.equal(refused.status, 400);
+    assert.equal(calls.length, 0);
+
+    const shipping = {
+      name: "Alex",
+      email: "alex@illustratedalex.com",
+      address1: "18 Opera House Square",
+      city: "Claremont",
+      stateCode: "NH",
+      zip: "03743",
+      country: "US",
+    };
+    const paid = await handleSquareCheckout(
+      new Request("http://127.0.0.1/api/shop/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          idempotencyKey: "idem-key-1",
+          sourceId: "cnon:card-nonce",
+          shipping,
+          items: [{ sku: "IA-MERCH-MUG", variantId: "11oz", quantity: 1 }],
+        }),
+      }),
+    );
+    assert.equal(paid.status, 200);
+    const payload = (await paid.json()) as { orderId: string; receiptUrl: string; printful: { id: number; status: string } };
+    assert.equal(payload.orderId, "sq-order");
+    assert.equal(payload.receiptUrl, "https://receipt.example/r");
+    assert.equal(payload.printful.id, 42);
+    assert.equal(payload.printful.status, "draft");
+    assert.match(calls[0]?.url ?? "", /\/v2\/orders$/);
+    assert.equal(calls[0]?.body.order?.fulfillments?.[0]?.type, "SHIPMENT");
+    assert.match(calls[1]?.url ?? "", /\/v2\/payments$/);
+    assert.match(calls[2]?.url ?? "", /api\.printful\.com\/orders$/);
+    assert.equal(calls[2]?.url.includes("confirm=1"), false);
+    assert.equal(calls[2]?.body.items?.[0]?.sync_variant_id, 5623128240);
+    assert.equal(calls[2]?.body.recipient?.zip, "03743");
+    assert.equal(calls[2]?.storeHeader, undefined);
+
+    globalThis.fetch = (async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url.includes("/v2/orders")) {
+        return Response.json({ order: { id: "sq-order-2", total_money: { amount: 1800, currency: "USD" } } });
+      }
+      if (url.includes("/v2/payments")) {
+        return Response.json({ payment: { id: "pay-2", status: "COMPLETED", receipt_url: "https://receipt.example/r2" } });
+      }
+      return new Response("printful down", { status: 500 });
+    }) as typeof fetch;
+    const hiccup = await handleSquareCheckout(
+      new Request("http://127.0.0.1/api/shop/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          idempotencyKey: "idem-key-2",
+          sourceId: "cnon:card-nonce",
+          shipping,
+          items: [{ sku: "IA-MERCH-MUG", variantId: "15oz", quantity: 1 }],
+        }),
+      }),
+    );
+    assert.equal(hiccup.status, 200);
+    const hiccupPayload = (await hiccup.json()) as { orderId: string; printful: { ok?: boolean } };
+    assert.equal(hiccupPayload.orderId, "sq-order-2");
+    assert.equal(hiccupPayload.printful.ok, false);
+    const draft = buildPrintfulOrder({
+      externalId: "sq-order",
+      shipping: { ...shipping, phone: "", address2: "", country: "US" },
+      items: [{ syncVariantId: 5623128241, quantity: 1, retailPrice: "20.00" }],
+    });
+    assert.equal(draft.items[0]?.sync_variant_id, 5623128241);
+    assert.equal(draft.items[1]?.sync_variant_id, undefined);
+    assert.equal(draft.recipient.state_code, "NH");
+  } finally {
+    globalThis.fetch = originalFetch;
+    process.env.SQUARE_ENVIRONMENT = saved.SQUARE_ENVIRONMENT;
+    process.env.SQUARE_ACCESS_TOKEN = saved.SQUARE_ACCESS_TOKEN;
+    process.env.SQUARE_LOCATION_ID = saved.SQUARE_LOCATION_ID;
+    process.env.PRINTFUL_API_TOKEN = saved.PRINTFUL_API_TOKEN;
+    process.env.PRINTFUL_STORE_ID = saved.PRINTFUL_STORE_ID;
+    process.env.PRINTFUL_AUTO_CONFIRM = saved.PRINTFUL_AUTO_CONFIRM;
   }
 });
 
