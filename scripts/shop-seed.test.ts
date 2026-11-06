@@ -118,8 +118,8 @@ test("jewelry listings keep the vendor reorder SKU", () => {
     assert.equal(displaySku(product), sku);
   }
   assert.equal(products.find((entry) => entry.sku === "VNO-25-ST")?.image, "/images/jewelry/mfg-steel-ball-l-bend-nose-stud.jpg");
-  assert.equal(products.find((entry) => entry.sku === "VJ-016-OP06")?.image, null);
-  assert.equal(products.find((entry) => entry.sku === "VJ-016-OP06")?.photoStatus, "needed");
+  assert.equal(products.find((entry) => entry.sku === "VJ-016-OP06")?.image, "/images/jewelry/vj-016-op06-blue-gem-curved.jpg");
+  assert.equal(products.find((entry) => entry.sku === "VJ-016-OP06")?.photoStatus, "ready");
   assert.equal(products.find((entry) => entry.sku === "NS40-LFK")?.image, "/images/jewelry/mfg-ns40-lfk.jpg");
   assert.notEqual(products.find((entry) => entry.sku === "NS40-LFK")?.image, products.find((entry) => entry.sku === "NS40-SME")?.image);
   assert.equal(products.find((entry) => entry.sku === "LA-024")?.stockCount, null);
@@ -270,6 +270,9 @@ test("priced listings use the live Square variation ids", () => {
   let variations = 0;
   for (const product of priced) {
     assert.ok(map[product.slug], product.slug);
+    assert.equal(product.photoStatus, "ready", product.slug);
+    assert.ok(product.image, product.slug);
+    assert.equal(existsSync(path.join(process.cwd(), "public", product.image)), true, product.slug);
     for (const variant of product.variants) {
       const expected = map[product.slug][variant.id];
       assert.ok(expected, `${product.slug} ${variant.id}`);
