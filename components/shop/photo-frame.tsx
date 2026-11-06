@@ -1,0 +1,51 @@
+import Image from "next/image";
+import type { CatalogProduct } from "@/data/catalog";
+
+const badgeCopy: Record<CatalogProduct["photoStatus"], string | null> = {
+  ready: null,
+  coming: "Photo coming",
+  needed: null,
+};
+
+export function PhotoFrame({
+  product,
+  sizes,
+  priority = false,
+}: {
+  product: CatalogProduct;
+  sizes: string;
+  priority?: boolean;
+}) {
+  const badge = badgeCopy[product.photoStatus];
+
+  if (product.image) {
+    return (
+      <div className="relative mx-auto mt-4 aspect-square w-3/4 bg-[#16130f]">
+        <Image
+          src={product.image}
+          alt={product.imageAlt ?? product.title}
+          fill
+          priority={priority}
+          sizes={sizes}
+          className={product.imageFit === "cover" ? "object-cover" : "object-contain p-3"}
+        />
+        {badge ? (
+          <span className="absolute top-3 left-3 rounded-full border border-[#d8b06d]/70 bg-[#0f0f0f]/90 px-2.5 py-1 text-[10px] font-semibold tracking-[0.14em] text-[#f0dfbf] uppercase">
+            {badge}
+          </span>
+        ) : null}
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className="mx-auto mt-4 flex aspect-square w-3/4 flex-col items-center justify-center gap-2 bg-[#14110d] px-4 text-center"
+      role="img"
+      aria-label={badge ?? "No product photo"}
+    >
+      {badge ? <span className="text-[11px] font-semibold tracking-[0.16em] text-[#d8b06d] uppercase">{badge}</span> : null}
+      <span className="max-w-[14rem] text-xs leading-5 text-[#dbc8a7]">A studio photo is on the way.</span>
+    </div>
+  );
+}

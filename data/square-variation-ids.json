@@ -1,0 +1,804 @@
+{
+  "ocean-blue-glitter-spiral-tapers": {
+    "matched-pair": {
+      "squareCatalogVariationId": "SEMMZJ2PCNP7YANBGPSYPVXZ",
+      "sku": "IA-BLUE-SPIRAL-PAIR",
+      "price": "5.70",
+      "qty": "5"
+    }
+  },
+  "milky-white-blank-plugs": {
+    "assorted": {
+      "squareCatalogVariationId": "I5OMYIG75CWECO57QCRBHG5G",
+      "sku": "IA-WHITE-BLANK-PLUGS",
+      "price": "4.99",
+      "qty": "4"
+    }
+  },
+  "black-blank-plugs": {
+    "assorted": {
+      "squareCatalogVariationId": "ABABFALHOYEO2ZUPBAHKDWPP",
+      "sku": "IA-BLACK-BLANK-PLUGS",
+      "price": "4.99",
+      "qty": "4"
+    }
+  },
+  "dark-wood-blank-plugs": {
+    "assorted": {
+      "squareCatalogVariationId": "3RBZJFP7OP6YGHWKS5DR4L6P",
+      "sku": "IA-WOOD-BLANK-PLUGS",
+      "price": "7.74",
+      "qty": "2"
+    }
+  },
+  "steel-bezel-set-cz-studs": {
+    "pair": {
+      "squareCatalogVariationId": "5HYS6YWFBHRK2ZITCQLM6W6O",
+      "sku": "OT-194",
+      "price": "8.10",
+      "qty": ""
+    }
+  },
+  "gold-ip-steel-5-cz-leaf-labret": {
+    "8mm": {
+      "squareCatalogVariationId": "DHA36CCGETZ3HNWMKYYEX7AP",
+      "sku": "MO-359",
+      "price": "8.76",
+      "qty": ""
+    }
+  },
+  "steel-14g-ball-tragus-labret": {
+    "12mm": {
+      "squareCatalogVariationId": "EPZ4WCLSA2ICNZRF53S44YZQ",
+      "sku": "LA-024-12MM",
+      "price": "4.99",
+      "qty": ""
+    },
+    "11mm": {
+      "squareCatalogVariationId": "CCALTM4DRDRL6AZVTFMGV7FE",
+      "sku": "LA-024-11MM",
+      "price": "4.99",
+      "qty": ""
+    },
+    "10mm": {
+      "squareCatalogVariationId": "N4NY4FJLBOGFML3C25EEPDIH",
+      "sku": "LA-024-10MM",
+      "price": "4.99",
+      "qty": ""
+    }
+  },
+  "steel-16g-ball-tragus-labret": {
+    "14mm": {
+      "squareCatalogVariationId": "56R4RT5WFQSVR24WTP4D6COE",
+      "sku": "MO-010-14MM",
+      "price": "4.99",
+      "qty": ""
+    },
+    "12mm": {
+      "squareCatalogVariationId": "IUOOUYREK575B6OJIJP5W3N2",
+      "sku": "MO-010-12MM",
+      "price": "4.99",
+      "qty": ""
+    },
+    "11mm": {
+      "squareCatalogVariationId": "EI4W5MOZ7RLBEUST66PKT2VN",
+      "sku": "MO-010-11MM",
+      "price": "4.99",
+      "qty": ""
+    },
+    "8mm": {
+      "squareCatalogVariationId": "R7QBBVGBBI4F45J34ES27NKH",
+      "sku": "MO-010-8MM",
+      "price": "4.99",
+      "qty": ""
+    }
+  },
+  "steel-16g-curved-barbell": {
+    "16mm": {
+      "squareCatalogVariationId": "3ZQJW6J4T7UPILQNARA234AM",
+      "sku": "EY-012-16MM",
+      "price": "4.99",
+      "qty": ""
+    },
+    "14mm": {
+      "squareCatalogVariationId": "LICYIZAX2VEXZCE5KF2AL5JQ",
+      "sku": "EY-012-14MM",
+      "price": "4.99",
+      "qty": ""
+    },
+    "11mm": {
+      "squareCatalogVariationId": "Y577UWYAX7TUXRXBDCJDQS5O",
+      "sku": "EY-012-11MM",
+      "price": "4.99",
+      "qty": ""
+    },
+    "10mm": {
+      "squareCatalogVariationId": "PTOW2TBI3KKC3ABMUWARE3DP",
+      "sku": "EY-012-10MM",
+      "price": "4.99",
+      "qty": ""
+    },
+    "8mm": {
+      "squareCatalogVariationId": "BFSCZFSHFMNIFB52O5JXEGQC",
+      "sku": "EY-012-8MM",
+      "price": "4.99",
+      "qty": ""
+    }
+  },
+  "steel-industrial-barbell": {
+    "14g-38mm": {
+      "squareCatalogVariationId": "563HMJ525KWQTADHX62JT4VD",
+      "sku": "IB-036-14G-38MM",
+      "price": "4.99",
+      "qty": ""
+    },
+    "14g-35mm": {
+      "squareCatalogVariationId": "JRLSNIIEQWTVBFY4DHQI3KNB",
+      "sku": "IB-036-14G-35MM",
+      "price": "4.99",
+      "qty": ""
+    },
+    "14g-31mm": {
+      "squareCatalogVariationId": "43SJOESJMAC7J4PTZ432UFU5",
+      "sku": "IB-036-14G-31MM",
+      "price": "4.99",
+      "qty": ""
+    },
+    "16g-38mm": {
+      "squareCatalogVariationId": "HERLOS2VIFJPF54XLMKXAG7L",
+      "sku": "IB-036-16G-38MM",
+      "price": "4.99",
+      "qty": ""
+    },
+    "16g-35mm": {
+      "squareCatalogVariationId": "X2LAFA3LR3WBDN3SFL5737IQ",
+      "sku": "IB-036-16G-35MM",
+      "price": "4.99",
+      "qty": ""
+    },
+    "16g-31mm": {
+      "squareCatalogVariationId": "CJO67OKRMMQTC74G5G5L6BE7",
+      "sku": "IB-036-16G-31MM",
+      "price": "4.99",
+      "qty": ""
+    }
+  },
+  "g23-ti-cz-dangle-cone-labret": {
+    "8mm": {
+      "squareCatalogVariationId": "FTVWOFSQW4V7L3APK572STHI",
+      "sku": "T-MO-402",
+      "price": "11.76",
+      "qty": ""
+    }
+  },
+  "g23-gold-pvd-ti-cz-dangle-cone-labret": {
+    "8mm": {
+      "squareCatalogVariationId": "4WYW7FPWPN4YBDUDVNE6CVPJ",
+      "sku": "T-MO-403",
+      "price": "12.96",
+      "qty": ""
+    }
+  },
+  "g23-gold-pvd-ti-5-cz-petal-flower-labret": {
+    "8mm": {
+      "squareCatalogVariationId": "K2WBV7PFP4EUFQ5MIQWZEOJY",
+      "sku": "T-MO-395",
+      "price": "15.96",
+      "qty": ""
+    }
+  },
+  "steel-16g-xl-cz-cheek-labret": {
+    "22mm": {
+      "squareCatalogVariationId": "AR7KCLIHZBDM5QP2PRZRHNFX",
+      "sku": "LA-099-22MM",
+      "price": "4.99",
+      "qty": ""
+    },
+    "19mm": {
+      "squareCatalogVariationId": "X4F4UJURYGOWHNXG6LOX2LPH",
+      "sku": "LA-099-19MM",
+      "price": "4.99",
+      "qty": ""
+    },
+    "16mm": {
+      "squareCatalogVariationId": "LSWUXQ3TTTYDRBBCE2ESJQ6T",
+      "sku": "LA-099-16MM",
+      "price": "4.99",
+      "qty": ""
+    }
+  },
+  "steel-14g-xl-cheek-labret": {
+    "25mm": {
+      "squareCatalogVariationId": "H57LEFK4HCTGY4AA4XIY4TX5",
+      "sku": "LA-054-25MM",
+      "price": "4.99",
+      "qty": ""
+    },
+    "22mm": {
+      "squareCatalogVariationId": "DJRC5WCNXRBUJW3OL4UDS23L",
+      "sku": "LA-054-22MM",
+      "price": "4.99",
+      "qty": ""
+    },
+    "16mm": {
+      "squareCatalogVariationId": "ZKHECKJVIKRUUNF67A447BJB",
+      "sku": "LA-054-16MM",
+      "price": "4.99",
+      "qty": ""
+    }
+  },
+  "steel-16g-xl-cheek-labret": {
+    "25mm": {
+      "squareCatalogVariationId": "X7DRH7CYZWWOR23L5JA4JTVL",
+      "sku": "LA-074-25MM",
+      "price": "4.99",
+      "qty": ""
+    },
+    "22mm": {
+      "squareCatalogVariationId": "RYIN4LQWIFACJAB47KZG3SGT",
+      "sku": "LA-074-22MM",
+      "price": "4.99",
+      "qty": ""
+    },
+    "19mm": {
+      "squareCatalogVariationId": "YTKTD5H2GPA4JS26CZZOOI2B",
+      "sku": "LA-074-19MM",
+      "price": "4.99",
+      "qty": ""
+    },
+    "16mm": {
+      "squareCatalogVariationId": "DGPAE27KULKD6DCFOG6FWGPN",
+      "sku": "LA-074-16MM",
+      "price": "4.99",
+      "qty": ""
+    }
+  },
+  "g23-pvd-ti-double-flat-cz-belly": {
+    "12mm": {
+      "squareCatalogVariationId": "HQWMSMAMSBL6OE4XQ2WDNLP7",
+      "sku": "T-BA-649-12MM",
+      "price": "9.72",
+      "qty": ""
+    },
+    "11mm": {
+      "squareCatalogVariationId": "QIOGNILKOYJSV5KCUVXNRQO6",
+      "sku": "T-BA-649-11MM",
+      "price": "9.72",
+      "qty": ""
+    },
+    "10mm": {
+      "squareCatalogVariationId": "XSGP5DOILAB3NCSSBU3TDMCM",
+      "sku": "T-BA-649-10MM",
+      "price": "9.72",
+      "qty": ""
+    }
+  },
+  "steel-double-gem-cz-belly": {
+    "clear": {
+      "squareCatalogVariationId": "IBXYQE3GLSO3XJ3Q3BL4DOCO",
+      "sku": "BA-002-CLEAR",
+      "price": "4.99",
+      "qty": "24"
+    },
+    "ab": {
+      "squareCatalogVariationId": "GYUIXOIUKPOW6RGGV45XRTDZ",
+      "sku": "BA-002-AB",
+      "price": "4.99",
+      "qty": "1"
+    },
+    "red": {
+      "squareCatalogVariationId": "JH5NUX5IL7NWSTBP3WRPMHEJ",
+      "sku": "BA-002-RED",
+      "price": "4.99",
+      "qty": "22"
+    },
+    "green": {
+      "squareCatalogVariationId": "UELRVBMRA7GPDR5YKS6W4DAR",
+      "sku": "BA-002-GREEN",
+      "price": "4.99",
+      "qty": "13"
+    },
+    "dark-blue": {
+      "squareCatalogVariationId": "6LZE6GQ3RDMPOKAWL6T5QOOF",
+      "sku": "BA-002-DARK-BLUE",
+      "price": "4.99",
+      "qty": "9"
+    },
+    "black": {
+      "squareCatalogVariationId": "MUWHCZHC7UIDMMEDOWFH4FHH",
+      "sku": "BA-002-BLACK",
+      "price": "4.99",
+      "qty": "8"
+    },
+    "light-blue": {
+      "squareCatalogVariationId": "LHTN7KS263LNW47UZY2E4OED",
+      "sku": "BA-002-LIGHT-BLUE",
+      "price": "4.99",
+      "qty": "4"
+    },
+    "emerald": {
+      "squareCatalogVariationId": "XKK4HSFI3TT264RHHTANVIDG",
+      "sku": "BA-002-EMERALD",
+      "price": "4.99",
+      "qty": "1"
+    }
+  },
+  "h2ocean-piercing-spray-4oz": {
+    "4oz": {
+      "squareCatalogVariationId": "B6X5MT5P27POF6XM3DL22O5Y",
+      "sku": "Y231959",
+      "price": "16.00",
+      "qty": "0"
+    }
+  },
+  "h2ocean-piercing-spray-1-5oz": {
+    "1-5oz": {
+      "squareCatalogVariationId": "2KALOWLDHKVDW7UQJLZYXJVR",
+      "sku": "810048W",
+      "price": "12.00",
+      "qty": "0"
+    }
+  },
+  "h2ocean-healing-rinse-8oz": {
+    "8oz": {
+      "squareCatalogVariationId": "Q4564BXX535DAP2OIPFRCFIO",
+      "sku": "V613008",
+      "price": "10.00",
+      "qty": "14"
+    }
+  },
+  "recovery-mouth-rinse-8oz": {
+    "8oz": {
+      "squareCatalogVariationId": "TIAITWZ23ZOVCOYWYFWBU22D",
+      "sku": "692020Q",
+      "price": "10.00",
+      "qty": "11"
+    }
+  },
+  "ns40-lfk": {
+    "one": {
+      "squareCatalogVariationId": "VAHH4JKLMWHAQ23QT7XGRDRO",
+      "sku": "NS40-LFK",
+      "price": "4.99",
+      "qty": "10"
+    }
+  },
+  "ns40-sme": {
+    "one": {
+      "squareCatalogVariationId": "7ZXMSBAPUD7WTKFJ7P4QGA7U",
+      "sku": "NS40-SME",
+      "price": "4.99",
+      "qty": "10"
+    }
+  },
+  "ns40-fme": {
+    "one": {
+      "squareCatalogVariationId": "JNA3LKKUGBV5KYJZVXGJHRZ2",
+      "sku": "NS40-FME",
+      "price": "4.99",
+      "qty": "10"
+    }
+  },
+  "ns40-sxb": {
+    "one": {
+      "squareCatalogVariationId": "MP3MI7O636DXXEVTYTR7TZMM",
+      "sku": "NS40-SXB",
+      "price": "4.99",
+      "qty": "10"
+    }
+  },
+  "ns40-isw": {
+    "one": {
+      "squareCatalogVariationId": "AUMR6E5BALGMTW3BT4IJYQ72",
+      "sku": "NS40-ISW",
+      "price": "4.99",
+      "qty": "9"
+    }
+  },
+  "ns40-lmp": {
+    "one": {
+      "squareCatalogVariationId": "W6KVRPOWQ6NCYBPDXVI2AXHE",
+      "sku": "NS40-LMP",
+      "price": "4.99",
+      "qty": "8"
+    }
+  },
+  "ns40-sww": {
+    "one": {
+      "squareCatalogVariationId": "3JM5JEHZVLIBEWTENQA6NULU",
+      "sku": "NS40-SWW",
+      "price": "4.99",
+      "qty": "8"
+    }
+  },
+  "ns40-sww-check": {
+    "one": {
+      "squareCatalogVariationId": "G73SJ64FKNFDQ3XLIWRJ4C4U",
+      "sku": "NS40-SWW-ALT",
+      "price": "4.99",
+      "qty": "1"
+    }
+  },
+  "ns40-lme": {
+    "one": {
+      "squareCatalogVariationId": "R47HVVQPXPLH3H5NGUQBIS2M",
+      "sku": "NS40-LME",
+      "price": "4.99",
+      "qty": "10"
+    }
+  },
+  "est-ball": {
+    "one": {
+      "squareCatalogVariationId": "US7X776KRC3VT5CCS4HEMTPW",
+      "sku": "EST-BALL",
+      "price": "4.99",
+      "qty": "6"
+    }
+  },
+  "est-flwr": {
+    "one": {
+      "squareCatalogVariationId": "4FT4VBP5RHTJI7JUO4DBC2JG",
+      "sku": "EST-FLWR",
+      "price": "4.99",
+      "qty": "2"
+    }
+  },
+  "est-crys": {
+    "one": {
+      "squareCatalogVariationId": "ICAMWXPI5UHAXMA3YJV246AE",
+      "sku": "EST-CRYS",
+      "price": "4.99",
+      "qty": "1"
+    }
+  },
+  "est-bflwr": {
+    "one": {
+      "squareCatalogVariationId": "IGLHALCZ4P4ESSPWPJEVCXF6",
+      "sku": "EST-BFLWR",
+      "price": "4.99",
+      "qty": "1"
+    }
+  },
+  "est-vine": {
+    "one": {
+      "squareCatalogVariationId": "DNNHWOMKRDMTFVT3DWRPKRE3",
+      "sku": "EST-VINE",
+      "price": "4.99",
+      "qty": "3"
+    }
+  },
+  "est-dang": {
+    "one": {
+      "squareCatalogVariationId": "3UW7Q5DWBZXIAUK63QRE5WGX",
+      "sku": "EST-DANG",
+      "price": "4.99",
+      "qty": "4"
+    }
+  },
+  "est-stack": {
+    "one": {
+      "squareCatalogVariationId": "UU4FYGQW252AHVYN7LN5YTWP",
+      "sku": "EST-STACK",
+      "price": "4.99",
+      "qty": "2"
+    }
+  },
+  "est-love-g": {
+    "one": {
+      "squareCatalogVariationId": "EUWI24F35O2TIKZ7OPCICEGB",
+      "sku": "EST-LOVE-G",
+      "price": "4.99",
+      "qty": "6"
+    }
+  },
+  "est-love-s": {
+    "one": {
+      "squareCatalogVariationId": "SKFSWOR4UXDLDECWTC4K6ISB",
+      "sku": "EST-LOVE-S",
+      "price": "4.99",
+      "qty": "6"
+    }
+  },
+  "abbuv-tongue-barbells": {
+    "marble-grey": {
+      "squareCatalogVariationId": "DHYIGTSVWNZH5GIA2YQBE2SQ",
+      "sku": "ABBUV-TYPE-MARBLE-GREY",
+      "price": "4.99",
+      "qty": "2"
+    },
+    "tie-dye": {
+      "squareCatalogVariationId": "36R42MHO452DGVDKAPNMFKZ3",
+      "sku": "ABBUV-TYPE-TIE-DYE",
+      "price": "4.99",
+      "qty": "2"
+    },
+    "neon-yellow": {
+      "squareCatalogVariationId": "DUI3KWU6OBZDNFDW4YU6OSRF",
+      "sku": "ABBUV-TYPE-NEON-YELLOW",
+      "price": "4.99",
+      "qty": "1"
+    },
+    "zebra": {
+      "squareCatalogVariationId": "VVJW6E6OF2RNO3UWLA3TRT44",
+      "sku": "ABBUV-TYPE-ZEBRA",
+      "price": "4.99",
+      "qty": "1"
+    },
+    "marble-bw": {
+      "squareCatalogVariationId": "F7JQ2AZ5RZWPHRZ55UN4X3P4",
+      "sku": "ABBUV-TYPE-MARBLE-BW",
+      "price": "4.99",
+      "qty": "1"
+    },
+    "blue-glitter": {
+      "squareCatalogVariationId": "PO224LNJFRK4LFFIUSZDRMWN",
+      "sku": "ABBUV-TYPE-BLUE-GLITTER",
+      "price": "4.99",
+      "qty": "3"
+    },
+    "swirl": {
+      "squareCatalogVariationId": "IO27LTZ4BIIADIUFRNNXMSZL",
+      "sku": "ABBUV-TYPE-SWIRL",
+      "price": "4.99",
+      "qty": "2"
+    },
+    "gradient": {
+      "squareCatalogVariationId": "OALXVVG5ZYEMY64VVIUY5YUP",
+      "sku": "ABBUV-TYPE-GRADIENT",
+      "price": "4.99",
+      "qty": "2"
+    }
+  },
+  "est-anod-tongue": {
+    "oil-slick": {
+      "squareCatalogVariationId": "EOCSGBURAGB6SBONU7GY3DB4",
+      "sku": "EST-ANOD-OIL-SLICK",
+      "price": "4.99",
+      "qty": "1"
+    },
+    "metallic-blue": {
+      "squareCatalogVariationId": "NBM5HXV33AGZB23HCJPKMG42",
+      "sku": "EST-ANOD-METALLIC-BLUE",
+      "price": "4.99",
+      "qty": "2"
+    },
+    "purple": {
+      "squareCatalogVariationId": "YMHSTUPPFTWS75QNVLRGRG2A",
+      "sku": "EST-ANOD-PURPLE",
+      "price": "4.99",
+      "qty": "2"
+    }
+  },
+  "est-curv": {
+    "red-glitter": {
+      "squareCatalogVariationId": "4QQ4LM2ESGQAYWKDSHINMYQL",
+      "sku": "EST-CURV-RED-GLITTER",
+      "price": "4.99",
+      "qty": "1"
+    },
+    "black": {
+      "squareCatalogVariationId": "AOINIQOJQKR7DA5NZ2QX3BMX",
+      "sku": "EST-CURV-BLACK",
+      "price": "4.99",
+      "qty": "1"
+    }
+  },
+  "abbsa-black-tongue": {
+    "one": {
+      "squareCatalogVariationId": "2DW2N33MJRTY45NCUDYOHGAT",
+      "sku": "ABBSA-TYPE",
+      "price": "4.99",
+      "qty": "1"
+    }
+  },
+  "plain-steel-tongue-barbell": {
+    "one": {
+      "squareCatalogVariationId": "HD32GUAKIOFHN4GZQ2ZMYC7V",
+      "sku": "APM-14G-BARBELL",
+      "price": "4.99",
+      "qty": "1"
+    }
+  },
+  "est-gem": {
+    "purple-gem": {
+      "squareCatalogVariationId": "DSRBRZJVJSUN2NTMCFQM5OZP",
+      "sku": "EST-GEM-PURPLE-GEM",
+      "price": "4.99",
+      "qty": "2"
+    },
+    "lilac-gem": {
+      "squareCatalogVariationId": "AVEAJ2NO2TSAGA6XSFLCFALJ",
+      "sku": "EST-GEM-LILAC-GEM",
+      "price": "4.99",
+      "qty": "2"
+    }
+  },
+  "est-bob": {
+    "clear": {
+      "squareCatalogVariationId": "6YFCAR7VCCQKPJUF4QXSVGVH",
+      "sku": "EST-BOB-CLEAR",
+      "price": "8.10",
+      "qty": "2"
+    },
+    "blue": {
+      "squareCatalogVariationId": "HSQGOOG3VWJBP3RXQDEA6RR5",
+      "sku": "EST-BOB-BLUE",
+      "price": "8.10",
+      "qty": "2"
+    },
+    "pink": {
+      "squareCatalogVariationId": "26KWDEUH6SRSW5SDZ3MEY3OJ",
+      "sku": "EST-BOB-PINK",
+      "price": "8.10",
+      "qty": "1"
+    }
+  },
+  "est-girl": {
+    "one": {
+      "squareCatalogVariationId": "KBD552SXWFWV3VYXUV57PNEP",
+      "sku": "EST-GIRL",
+      "price": "4.99",
+      "qty": "1"
+    }
+  },
+  "oufer-moon-nipple-pair": {
+    "one": {
+      "squareCatalogVariationId": "L47IJK3TGPV23BIQ37BW7JCN",
+      "sku": "OUFER-MOON-2PCS",
+      "price": "20.01",
+      "qty": "1"
+    }
+  },
+  "h2ocean-blue-green-foam-soap": {
+    "one": {
+      "squareCatalogVariationId": "UJSHWOVVSEIP27U57Q33GXOD",
+      "sku": "BLUEGREENFOAMSOAP",
+      "price": "10.25",
+      "qty": "4"
+    }
+  },
+  "spike-horseshoe": {
+    "one": {
+      "squareCatalogVariationId": "IEV7EIGW63PYD3N6TJCDFV2O",
+      "sku": "SPIKE_HORSESHOE",
+      "price": "4.99",
+      "qty": "170"
+    }
+  },
+  "ball-horseshoe": {
+    "one": {
+      "squareCatalogVariationId": "ZXWT4QWDPUBUAD7BW4YMRV5K",
+      "sku": "BALL_HORSESHOE",
+      "price": "4.99",
+      "qty": "133"
+    }
+  },
+  "cbr": {
+    "one": {
+      "squareCatalogVariationId": "DOTWR5KDEYFGLE7ENBR67X3Q",
+      "sku": "CBR",
+      "price": "4.99",
+      "qty": "46"
+    }
+  },
+  "seamless-ring": {
+    "one": {
+      "squareCatalogVariationId": "6NAPQESJSYNAXDVO42HWWFQJ",
+      "sku": "SEAMLESS_RING",
+      "price": "4.99",
+      "qty": "9"
+    }
+  },
+  "anodized-rainbow-cbr": {
+    "one": {
+      "squareCatalogVariationId": "JE37DAQU3JUXOKAQTZ7JXGFH",
+      "sku": "ANODIZED_RAINBOW_CBR",
+      "price": "4.99",
+      "qty": "3"
+    }
+  },
+  "spike-labret": {
+    "one": {
+      "squareCatalogVariationId": "GQ5GBPML6TYGSD2TLDYYVEZQ",
+      "sku": "SPIKE_LABRET",
+      "price": "4.99",
+      "qty": "10"
+    }
+  },
+  "gold-tone-labret": {
+    "one": {
+      "squareCatalogVariationId": "PW24AL5TVV32NL3C2ZYCSWGB",
+      "sku": "GOLD_TONE_LABRET",
+      "price": "4.99",
+      "qty": "12"
+    }
+  },
+  "anodized-rainbow-spike-horseshoe": {
+    "one": {
+      "squareCatalogVariationId": "SQLN7XYBXGH7WIA2GCKVGBGC",
+      "sku": "ANODIZED_RAINBOW_SPIKE_HORSESHOE",
+      "price": "4.99",
+      "qty": "3"
+    }
+  },
+  "anodized-rainbow-ball-horseshoe": {
+    "one": {
+      "squareCatalogVariationId": "GSILJGIXZGISGRRBI5CGS44E",
+      "sku": "ANODIZED_RAINBOW_BALL_HORSESHOE",
+      "price": "4.99",
+      "qty": "3"
+    }
+  },
+  "black-spike-curved": {
+    "one": {
+      "squareCatalogVariationId": "FVAX45PEUK3LA6S75AGV2W4D",
+      "sku": "BLACK_SPIKE_CURVED",
+      "price": "4.99",
+      "qty": "10"
+    }
+  },
+  "purple-rose-tongue": {
+    "one": {
+      "squareCatalogVariationId": "SQ22LX6QXARK5ZI3YUUK6HWH",
+      "sku": "PURPLE_ROSE_TONGUE",
+      "price": "4.99",
+      "qty": "2"
+    }
+  },
+  "devil-heart-nipple-shield": {
+    "one": {
+      "squareCatalogVariationId": "KEKHZD5WASMNODEGOSGM246H",
+      "sku": "DEVIL_HEART_NIPPLE_SHIELD",
+      "price": "4.99",
+      "qty": "2"
+    }
+  },
+  "crystal-chain-nipple": {
+    "one": {
+      "squareCatalogVariationId": "PXF6CBKJJ5HKO43TTX2GHBSR",
+      "sku": "CRYSTAL_CHAIN_NIPPLE",
+      "price": "4.99",
+      "qty": "2"
+    }
+  },
+  "vno-25-st-l-bend-nose-studs": {
+    "one": {
+      "squareCatalogVariationId": "4XZCOSP4UHQIKCCZZ5S2RVZB",
+      "sku": "VNO-25-ST",
+      "price": "4.99",
+      "qty": "7"
+    }
+  },
+  "vh-003-3-steel-ball-labrets": {
+    "one": {
+      "squareCatalogVariationId": "PR63YAGQYEXZTIIZQ7EQVHSO",
+      "sku": "VH-003-3",
+      "price": "4.99",
+      "qty": "3"
+    }
+  },
+  "vh-003-4-iridescent-horseshoes": {
+    "one": {
+      "squareCatalogVariationId": "JPSQITUKM2ADQDZXODPMX4CM",
+      "sku": "VH-003-4",
+      "price": "4.99",
+      "qty": "18"
+    }
+  },
+  "vj-016-op06-blue-gem-curved": {
+    "one": {
+      "squareCatalogVariationId": "TYJC5WPBX5HZMMYOQOJDRQIK",
+      "sku": "VJ-016-OP06",
+      "price": "4.99",
+      "qty": "3"
+    }
+  },
+  "vj-016-op17-iridescent-horseshoes": {
+    "one": {
+      "squareCatalogVariationId": "FDSNOE3YHRRHCE2KMMKY3O6Z",
+      "sku": "VJ-016-OP17",
+      "price": "4.99",
+      "qty": "5"
+    }
+  }
+}

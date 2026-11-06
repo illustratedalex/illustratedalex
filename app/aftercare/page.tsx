@@ -1,11 +1,8 @@
 import { createPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { PiercingAftercareSelector } from "@/components/piercing-aftercare-selector";
-import {
-  PIERCING_AFTERCARE_SHOP_URL,
-  piercingAftercareItems,
-  tattooAftercareSteps,
-} from "@/data/aftercare";
+import { piercingAftercareItems, tattooAftercareSteps } from "@/data/aftercare";
+import { displaySku, priceSummary, productPath, productsIn } from "@/data/catalog";
 
 export const metadata = createPageMetadata(
   "/aftercare",
@@ -14,6 +11,8 @@ export const metadata = createPageMetadata(
 );
 
 export default function AftercarePage() {
+  const piercingShop = productsIn("aftercare", "piercing-aftercare");
+
   return (
     <div className="bg-[#111] text-[#f0dfbf]">
       <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
@@ -56,6 +55,13 @@ export default function AftercarePage() {
             If you notice spreading redness, unusual swelling, heat, pus, fever, severe pain, or symptoms that concern
             you, contact a medical professional.
           </div>
+          <p className="mt-6 text-sm leading-7 text-[#dbc8a7]">
+            Tattoo aftercare products will be listed with the shop when those SKUs are ready.{" "}
+            <Link href="/shop/aftercare/tattoo-aftercare" className="text-[#e1c18c] underline underline-offset-4">
+              Tattoo aftercare in the shop
+            </Link>
+            .
+          </p>
         </section>
 
         <section className="mt-8 rounded-xl border border-[#7d5b2e]/40 bg-[#0f0f0f] p-6 sm:p-8">
@@ -69,13 +75,31 @@ export default function AftercarePage() {
           <div className="mt-6 rounded-xl border border-[#7d5b2e]/40 bg-[#12100d] p-5 sm:p-6">
             <p className="font-display text-2xl font-semibold text-[#f0dfbf]">Need piercing aftercare?</p>
             <p className="mt-2 text-sm leading-7 text-[#dbc8a7]">
-              Sterile saline wound wash and aftercare products are available through the shop.
+              Sterile saline spray, foam soap, and alcohol-free rinses for healing piercings.
             </p>
+            <ul className="mt-4 space-y-2 text-sm leading-7">
+              {piercingShop.map((product) => {
+                const sku = displaySku(product);
+                return (
+                  <li key={product.slug}>
+                    <Link href={productPath(product)} className="text-[#e1c18c] underline underline-offset-4">
+                      {product.title}
+                    </Link>
+                    <span className={product.stockCount === 0 ? "text-[#be9a62]" : "text-[#dbc8a7]"}>
+                      {" "}
+                      · {priceSummary(product)}
+                      {sku ? ` · SKU ${sku}` : ""}
+                      {product.stockCount === 0 ? " · Out of stock" : ""}
+                      {product.stockCount !== null && product.stockCount > 0 ? " · In stock" : ""}
+                      {product.stockCount === null ? " · Check studio availability" : ""}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
             <Link
-              href={PIERCING_AFTERCARE_SHOP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex rounded-full border border-[#bc8f4d] bg-[#bc8f4d] px-6 py-2.5 text-xs font-semibold tracking-[0.1em] text-[#1e1408]"
+              href="/shop/aftercare/piercing-aftercare"
+              className="mt-4 inline-flex min-h-11 items-center rounded-full border border-[#bc8f4d] bg-[#bc8f4d] px-6 py-2.5 text-xs font-semibold tracking-[0.1em] text-[#1e1408]"
             >
               SHOP PIERCING AFTERCARE
             </Link>
