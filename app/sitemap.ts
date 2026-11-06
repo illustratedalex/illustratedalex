@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { categories, categoryPath, departments, productPath, products } from "@/data/catalog";
+import { categoriesWithProducts, categoryPath, departments, productPath, publishedProducts } from "@/data/catalog";
 
 export const dynamic = "force-static";
 
@@ -18,8 +18,8 @@ const routes = [
   "/shop/checkout",
   "/shop/custom-print",
   ...departments.map((department) => `/shop/${department.slug}`),
-  ...categories.map((category) => categoryPath(category)),
-  ...products.map((product) => productPath(product)),
+  ...departments.flatMap((department) => categoriesWithProducts(department.slug).map((category) => categoryPath(category))),
+  ...publishedProducts().map((product) => productPath(product)),
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

@@ -2,12 +2,14 @@ import { createPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProductGrid } from "@/components/shop/product-card";
-import { categories, categoryPath, getCategory, getDepartment, productsIn } from "@/data/catalog";
+import { categoriesWithProducts, categoryPath, departments, getCategory, getDepartment, productsIn } from "@/data/catalog";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return categories.map((category) => ({ department: category.department, category: category.slug }));
+  return departments.flatMap((department) =>
+    categoriesWithProducts(department.slug).map((category) => ({ department: department.slug, category: category.slug })),
+  );
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ department: string; category: string }> }) {

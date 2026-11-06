@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
-import { canAddToCart, categories, categoriesFor, displaySku, products, stockNotice } from "../data/catalog.ts";
+import { canAddToCart, categories, categoriesFor, displaySku, isPublished, products, productsIn, stockNotice } from "../data/catalog.ts";
 import {
   assertCheckoutServer,
   buildCatalogOrderRequest,
@@ -56,10 +56,22 @@ test("merch stays unpriced and has no print-on-demand ids", () => {
     assert.equal(JSON.stringify(product).includes("printful_"), false);
     assert.equal(JSON.stringify(product).includes("printify_"), false);
   }
-  for (const sku of ["IA-MERCH-TEE", "IA-MERCH-SWEATSHIRT", "IA-MERCH-HOODIE"]) {
+  for (const sku of ["IA-MERCH-CAP", "IA-MERCH-TEE", "IA-MERCH-SWEATSHIRT", "IA-MERCH-HOODIE", "IA-MERCH-STICKERS"]) {
     const product = products.find((entry) => entry.sku === sku);
-    assert.equal(product?.photoStatus, "needed");
-    assert.equal(product?.reconnect, "Printify or Printful");
+    assert.equal(product?.published, false);
+    assert.equal(product?.reconnect, null);
+    assert.equal(isPublished(product!), false);
+  }
+  assert.deepEqual(
+    productsIn("merch").map((product) => product.sku),
+    ["IA-MERCH-GIFT-CARD"],
+  );
+  const giftCard = products.find((entry) => entry.sku === "IA-MERCH-GIFT-CARD");
+  assert.equal(giftCard?.published, undefined);
+  assert.match(giftCard?.description ?? "", /digital Illustrated Alex gift card/i);
+  assert.equal(/printful|printify|square register|shitty tees/i.test(giftCard?.description ?? ""), false);
+  for (const product of products.filter(isPublished)) {
+    assert.ok(product.image, product.slug);
   }
 });
 

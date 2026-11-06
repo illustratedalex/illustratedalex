@@ -69,6 +69,8 @@ export type CatalogProduct = {
   /** Shown on merch that needs a print-on-demand account reconnected. */
   reconnect: string | null;
   externalHref: string | null;
+  /** False hides the product from the public shop until it is ready to sell. */
+  published?: boolean;
   /**
    * True only for a plug, tunnel, or other flat-face blank that can take a UV print.
    * Thin posts, balls, and curved barbells stay unset.
@@ -98,8 +100,7 @@ export const departments: CatalogDepartment[] = [
   {
     slug: "merch",
     name: "Merch",
-    summary:
-      "Illustrated Alex studio merch placeholders. Shitty Tees, Tattoo T’s, and Green Mountain Printing are separate shops and are not listed here.",
+    summary: "Gift cards for tattoos, piercings, and studio jewelry. Hoodies, tees, hats, and stickers are on the way.",
   },
 ];
 
@@ -174,25 +175,25 @@ export const categories: CatalogCategory[] = [
     slug: "accessories",
     name: "Accessories",
     department: "merch",
-    summary: "Hats and similar studio accessories. Coming soon.",
+    summary: "Hats and similar studio accessories.",
   },
   {
     slug: "apparel",
     name: "Apparel",
     department: "merch",
-    summary: "T-shirts, sweatshirts, and hoodies with the Illustrated Alex mark. Coming soon.",
+    summary: "T-shirts, sweatshirts, and hoodies with the Illustrated Alex mark.",
   },
   {
     slug: "gift-cards",
     name: "Gift Cards",
     department: "merch",
-    summary: "Gift cards already exist on the Square register. This page points at that flow.",
+    summary: "Digital gift cards in any amount for tattoos, piercings, or studio jewelry.",
   },
   {
     slug: "stickers",
     name: "Stickers",
     department: "merch",
-    summary: "Studio sticker packs. Coming soon.",
+    summary: "Studio sticker packs.",
   },
 ];
 
@@ -746,13 +747,13 @@ const seededProducts: CatalogProduct[] = [
     image: null,
     imageAlt: null,
     photoStatus: "needed",
-    description:
-      "An Illustrated Alex cap or beanie with the studio mark. Coming soon. Ask the studio if you want one held for you.",
+    description: "An Illustrated Alex cap or beanie with the studio mark. Coming soon.",
     materials: ["Illustrated Alex studio branding"],
     variants: [variation("one-style", "One style")],
     featured: false,
     fulfillment: "pod-placeholder",
     reconnect: null,
+    published: false,
     externalHref: null,
   },
   {
@@ -768,13 +769,13 @@ const seededProducts: CatalogProduct[] = [
     image: null,
     imageAlt: null,
     photoStatus: "needed",
-    description:
-      "An Illustrated Alex logo t-shirt. Coming soon. Sizes and the finished print will be confirmed before it is offered for sale.",
+    description: "An Illustrated Alex logo t-shirt. Coming soon.",
     materials: ["Illustrated Alex studio branding"],
     variants: [variation("size-tbd", "Size when available")],
     featured: false,
     fulfillment: "pod-placeholder",
-    reconnect: "Printify or Printful",
+    reconnect: null,
+    published: false,
     externalHref: null,
   },
   {
@@ -790,13 +791,13 @@ const seededProducts: CatalogProduct[] = [
     image: null,
     imageAlt: null,
     photoStatus: "needed",
-    description:
-      "An Illustrated Alex sweatshirt. Coming soon. Sizes and the finished print will be confirmed before it is offered for sale.",
+    description: "An Illustrated Alex sweatshirt. Coming soon.",
     materials: ["Illustrated Alex studio branding"],
     variants: [variation("size-tbd", "Size when available")],
     featured: false,
     fulfillment: "pod-placeholder",
-    reconnect: "Printify or Printful",
+    reconnect: null,
+    published: false,
     externalHref: null,
   },
   {
@@ -812,13 +813,13 @@ const seededProducts: CatalogProduct[] = [
     image: null,
     imageAlt: null,
     photoStatus: "needed",
-    description:
-      "An Illustrated Alex hoodie. Coming soon. Sizes and the finished print will be confirmed before it is offered for sale.",
+    description: "An Illustrated Alex hoodie. Coming soon.",
     materials: ["Illustrated Alex studio branding"],
     variants: [variation("size-tbd", "Size when available")],
     featured: false,
     fulfillment: "pod-placeholder",
-    reconnect: "Printify or Printful",
+    reconnect: null,
+    published: false,
     externalHref: null,
   },
   {
@@ -832,11 +833,11 @@ const seededProducts: CatalogProduct[] = [
     stockCount: null,
     stockLabel: null,
     image: "/images/brand/illustratedalex-logo-main.png",
-    imageAlt: "Illustrated Alex logo, used as the gift card mark rather than a product photo",
+    imageAlt: "Illustrated Alex gift card",
     photoStatus: "ready",
     description:
-      "Gift cards and appointment deposits already exist on the Square register. This page does not create a second gift-card price. Buy one through Square.",
-    materials: ["Sold through Square gift cards today", "Amount is chosen on Square"],
+      "A digital Illustrated Alex gift card in any amount. Use it for a tattoo, a piercing, or studio jewelry. Buy it directly through Square.",
+    materials: ["Digital gift card", "Any amount", "Tattoos, piercings, and studio jewelry"],
     variants: [variation("square-gift-card", "Amount chosen on Square")],
     featured: false,
     fulfillment: "square-gift-card",
@@ -856,13 +857,13 @@ const seededProducts: CatalogProduct[] = [
     image: null,
     imageAlt: null,
     photoStatus: "needed",
-    description:
-      "A pack of Illustrated Alex stickers. Coming soon.",
+    description: "A pack of Illustrated Alex stickers. Coming soon.",
     materials: ["Illustrated Alex studio branding"],
     variants: [variation("pack", "Pack")],
     featured: false,
     fulfillment: "pod-placeholder",
     reconnect: null,
+    published: false,
     externalHref: null,
   },
   ...photoCountedListings,
@@ -888,7 +889,7 @@ export const studioCaseNotes = [
   "Nose chain",
   "LOVE belly ring",
   "Nose hoop",
-  "Other labret and industrial styles already on the Square register",
+  "Other labret and industrial styles",
 ] as const;
 
 export function categoryPath(category: CatalogCategory) {
@@ -914,15 +915,27 @@ export function categoriesFor(department: DepartmentSlug) {
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
+export function isPublished(product: CatalogProduct) {
+  return product.published !== false;
+}
+
 export function getProduct(slug: string) {
   return products.find((product) => product.slug === slug) ?? null;
 }
 
+export function publishedProducts() {
+  return products.filter(isPublished);
+}
+
 export function productsIn(department: string, category?: string) {
-  return products
+  return publishedProducts()
     .filter((product) => product.department === department && (category === undefined || product.category === category))
     .slice()
     .sort((a, b) => a.title.localeCompare(b.title));
+}
+
+export function categoriesWithProducts(department: DepartmentSlug) {
+  return categoriesFor(department).filter((category) => productsIn(department, category.slug).length > 0);
 }
 
 export function featuredProducts() {

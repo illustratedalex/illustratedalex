@@ -119,7 +119,7 @@ export default function ShopPage() {
           </Link>
         </div>
         <p className="mt-2 max-w-3xl text-sm leading-7 text-[#dbc8a7]">
-          Illustrated Alex apparel and stickers are coming soon. Gift cards are available through Square.
+          New Illustrated Alex hoodies, tees, hats, and stickers are in the works and coming soon. Gift cards are available now.
         </p>
         <div className="mt-6">
           <ProductGrid products={merch} />

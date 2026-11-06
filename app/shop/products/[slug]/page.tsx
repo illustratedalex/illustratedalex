@@ -4,12 +4,12 @@ import { notFound } from "next/navigation";
 import { AddToCart } from "@/components/shop/add-to-cart";
 import { PhotoFrame } from "@/components/shop/photo-frame";
 import { ProductGallery } from "@/components/shop/product-gallery";
-import { categories, displaySku, getCategory, getProduct, priceSummary, productPath, products, stockNotice } from "@/data/catalog";
+import { categories, displaySku, getCategory, getProduct, isPublished, priceSummary, productPath, products, stockNotice } from "@/data/catalog";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return products.map((product) => ({ slug: product.slug }));
+  return products.filter(isPublished).map((product) => ({ slug: product.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const product = getProduct(slug);
-  if (!product) notFound();
+  if (!product || !isPublished(product)) notFound();
   const category = categories.find((entry) => entry.department === product.department && entry.slug === product.category) ?? getCategory(product.department, product.category);
   const sku = displaySku(product);
   const stock = stockNotice(product);
@@ -68,11 +68,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <li key={item}>{item}</li>
           ))}
         </ul>
-        {sku ? null : product.fulfillment !== "square-catalog" ? (
-          <p className="mt-4 text-xs tracking-[0.08em] text-[#be9a62] uppercase">
-            Draft ref {product.sku}. Not a Printful or Printify id.
-          </p>
-        ) : null}
         <div className="mt-6">
           <AddToCart product={product} />
         </div>
