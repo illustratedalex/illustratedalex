@@ -66,5 +66,11 @@
       "destination": "/shop",
       "permanent": true
     }
+  ],
+  "crons": [
+    {
+      "path": "/api/shop/recover",
+      "schedule": "17 * * * *"
+    }
   ]
 }

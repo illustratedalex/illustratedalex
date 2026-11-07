@@ -1,7 +1,7 @@
 import type { NormalizedShipping, ShippedCheckoutLine } from "./square/checkout.ts";
 
 export function printfulOrdersUrl() {
-  return process.env.PRINTFUL_AUTO_CONFIRM === "true" ? "https://api.printful.com/orders?confirm=1" : "https://api.printful.com/orders";
+  return printfulConfig().confirm ? "https://api.printful.com/orders?confirm=1" : "https://api.printful.com/orders";
 }
 
 export function buildPrintfulOrder(input: { externalId: string; shipping: NormalizedShipping; items: ShippedCheckoutLine[] }) {
@@ -27,34 +27,45 @@ export function buildPrintfulOrder(input: { externalId: string; shipping: Normal
   };
 }
 
-export async function submitPrintfulOrder(input: { externalId: string; shipping: NormalizedShipping; items: ShippedCheckoutLine[] }) {
-  const token = process.env.PRINTFUL_API_TOKEN;
-  if (!token || input.items.length === 0) return { skipped: true as const };
-  const url = printfulOrdersUrl();
-  const body = JSON.stringify(buildPrintfulOrder(input));
-  const post = (withStore: boolean) =>
-    fetch(url, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-        ...(withStore && process.env.PRINTFUL_STORE_ID ? { "X-PF-Store-Id": process.env.PRINTFUL_STORE_ID } : {}),
-      },
-      body,
+export function printfulConfig() {
+  const sandbox = process.env.SQUARE_ENVIRONMENT === "sandbox";
+  return {
+    token: sandbox ? process.env.PRINTFUL_SANDBOX_API_TOKEN : process.env.PRINTFUL_API_TOKEN,
+    store: sandbox ? process.env.PRINTFUL_SANDBOX_STORE_ID : process.env.PRINTFUL_STORE_ID,
+    confirm: !sandbox && process.env.PRINTFUL_AUTO_CONFIRM === "true",
+  };
+}
+
+type PrintfulResult = { id: number; status: string; external_id?: string };
+export async function submitPrintfulOrder(input: { externalId: string; shipping: NormalizedShipping; items: ShippedCheckoutLine[] }, existingOnly = false) {
+  const config = printfulConfig();
+  if (!config.token || !config.store || input.items.length === 0) return { ok: false as const, reason: "configuration_missing" };
+  const headers = { Authorization: `Bearer ${config.token}`, "Content-Type": "application/json", "X-PF-Store-Id": config.store };
+  const lookup = async () => {
+    const response = await fetch(`https://api.printful.com/orders/@${encodeURIComponent(input.externalId)}`, {
+      headers, signal: AbortSignal.timeout(10000), cache: "no-store",
     });
+    const payload = await response.json().catch(() => null) as { result?: PrintfulResult } | null;
+    return { response, result: payload?.result };
+  };
+  const valid = (value: PrintfulResult | undefined): value is PrintfulResult =>
+    Number.isInteger(value?.id) && typeof value?.status === "string" && value.external_id === input.externalId;
   try {
-    let response = await post(false);
-    if ((response.status === 400 || response.status === 403) && process.env.PRINTFUL_STORE_ID) {
-      response = await post(true);
-    }
-    const payload = (await response.json().catch(() => null)) as { result?: { id?: number; status?: string } } | null;
-    if (!response.ok) {
-      console.error("Printful order was not created", response.status);
-      return { ok: false as const };
-    }
-    return { ok: true as const, id: payload?.result?.id ?? null, status: payload?.result?.status ?? null };
-  } catch (error) {
-    console.error("Printful order was not created", error);
-    return { ok: false as const };
+    const existing = await lookup();
+    if (existing.response.ok) return valid(existing.result)
+      ? { ok: true as const, ...existing.result }
+      : { ok: false as const, reason: "invalid_response" };
+    // A failed lookup is never permission to submit a second order.
+    if (existing.response.status !== 404) return { ok: false as const, reason: "lookup_failed" };
+    if (existingOnly) return { ok: false as const, reason: "existing_order_missing" };
+    const response = await fetch(`https://api.printful.com/orders${config.confirm ? "?confirm=1" : ""}`, {
+      method: "POST", headers, body: JSON.stringify(buildPrintfulOrder(input)), signal: AbortSignal.timeout(10000),
+    });
+    const payload = await response.json().catch(() => null) as { result?: PrintfulResult } | null;
+    if (response.ok && valid(payload?.result)) return { ok: true as const, ...payload.result };
+    // Duplicate external_id, timeout-after-create, or a malformed response: next attempt reconciles by external ID.
+    return { ok: false as const, reason: "submission_unverified" };
+  } catch {
+    return { ok: false as const, reason: "provider_unavailable" };
   }
 }
