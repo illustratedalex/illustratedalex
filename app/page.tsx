@@ -43,10 +43,10 @@ export default function Home() {
       />
       <div className="border-b border-[#7d5b2e]/40 bg-[#14110d] px-4 py-2 text-center">
         <a
-          href="https://madflasher.com/"
+          href="https://madflasher.com/studios/illustratedalex"
           className="inline-flex min-h-11 items-center rounded px-2 text-sm font-semibold text-[#f0dfbf] underline decoration-[#bc8f4d] underline-offset-4 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#bc8f4d]"
         >
-          Mad Flasher · $75 Get What You Get
+          Mad Flasher · Studio Flash &amp; Events
         </a>
       </div>
       <section className="relative min-h-[82vh] overflow-hidden">
