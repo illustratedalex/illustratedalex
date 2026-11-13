@@ -25,6 +25,7 @@ const fieldClass =
 export function CheckoutClient() {
   const { lines, ready, clear } = useCart();
   const cardRef = useRef<SquareCard | null>(null);
+  const busyRef = useRef(false);
   const [paying, setPaying] = useState(false);
   const [result, setResult] = useState<PayResult | null>(null);
   const [name, setName] = useState("");
@@ -88,7 +89,7 @@ export function CheckoutClient() {
   const needsPickup = detailed.some((entry) => entry.product.fulfillment === "square-catalog" || entry.product.fulfillment === "aftercare-later");
 
   async function pay() {
-    if (!decision.ready || !cardRef.current) return;
+    if (!decision.ready || !cardRef.current || busyRef.current) return;
     if (needsShipping) {
       const shipping = validateUsShipping({ name, email, phone, address1, address2, city, stateCode, zip, country: "US" });
       if (!shipping.ok) {
@@ -96,7 +97,9 @@ export function CheckoutClient() {
         return;
       }
     }
+    busyRef.current = true;
     setPaying(true);
+    try {
     setResult(null);
     const tokenized = await cardRef.current.tokenize();
     if (tokenized.status !== "OK" || !tokenized.token) {
@@ -105,11 +108,18 @@ export function CheckoutClient() {
       return;
     }
 
+    // Retain the same checkout identity across network errors, double taps, and reloads.
+    // Never store card tokens or customer addresses in browser storage.
+    let checkoutKey = localStorage.getItem("ia-pending-checkout");
+    if (!checkoutKey) {
+      checkoutKey = crypto.randomUUID();
+      localStorage.setItem("ia-pending-checkout", checkoutKey);
+    }
     const response = await fetch(checkoutUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        idempotencyKey: crypto.randomUUID(),
+        idempotencyKey: checkoutKey,
         sourceId: tokenized.token,
         pickup: { displayName: name, email, phone },
         ...(needsShipping ? { shipping: { name, email, phone, address1, address2, city, stateCode, zip, country: "US" } } : {}),
@@ -120,14 +130,21 @@ export function CheckoutClient() {
         })),
       }),
     });
-    const payload = (await response.json().catch(() => null)) as { error?: string; orderId?: string; receiptUrl?: string | null } | null;
+    const payload = (await response.json().catch(() => null)) as { error?: string; message?: string; status?: string; orderId?: string; receiptUrl?: string | null } | null;
     setPaying(false);
-    if (response.ok && payload?.orderId) {
+    if (response.ok && payload?.orderId && payload.status === "COMPLETED") {
+      localStorage.removeItem("ia-pending-checkout");
       clear();
-      setResult({ message: "Order confirmed", receiptUrl: payload.receiptUrl });
+      setResult({ message: `${payload.message || "Payment received."} Order: ${payload.orderId}`, receiptUrl: payload.receiptUrl });
       return;
     }
-    setResult({ message: payload?.error || "Checkout did not complete." });
+    setResult({ message: payload?.message || payload?.error || "Checkout could not be verified. Retry this same checkout; do not start a new payment." });
+    } catch {
+      setResult({ message: "Checkout could not be verified. Retry this same checkout; do not start a new payment. Call (603) 843-7005 if you need help." });
+    } finally {
+      busyRef.current = false;
+      setPaying(false);
+    }
   }
 
   return (
