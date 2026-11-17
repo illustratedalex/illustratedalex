@@ -1,10 +1,11 @@
-import { createPageMetadata } from "@/lib/seo";
+import { createPageMetadata, SITE_URL } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AddToCart } from "@/components/shop/add-to-cart";
 import { PhotoFrame } from "@/components/shop/photo-frame";
 import { ProductGallery } from "@/components/shop/product-gallery";
 import { categories, displaySku, getCategory, getProduct, isPublished, priceSummary, productPath, products, stockNotice } from "@/data/catalog";
+import { productJsonLd } from "@/data/product-schema";
 
 export const dynamicParams = false;
 
@@ -16,7 +17,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const product = getProduct(slug);
   if (!product) return {};
-  return createPageMetadata(productPath(product), `${product.title} | Illustrated Alex`, product.description);
+  const metadata = createPageMetadata(productPath(product), `${product.title} | Illustrated Alex`, product.description);
+  if (!product.image) return metadata;
+  const image = { url: product.image, alt: product.imageAlt ?? product.title };
+  return {
+    ...metadata,
+    openGraph: { ...metadata.openGraph, images: [image] },
+    twitter: { ...metadata.twitter, card: "summary_large_image" as const, images: [product.image] },
+  };
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -27,9 +35,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const sku = displaySku(product);
   const stock = stockNotice(product);
   const aftercareHref = product.department === "body-jewelry" ? "/shop/aftercare/piercing-aftercare" : "/shop/aftercare";
+  const jsonLd = productJsonLd(product, SITE_URL);
 
   return (
     <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:px-8">
+      {jsonLd ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+        />
+      ) : null}
       {product.image ? (
         <ProductGallery
           fit={product.imageFit}

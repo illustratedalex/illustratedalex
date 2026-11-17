@@ -3,7 +3,7 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import Link from "next/link";
 import { GalleryPageClient } from "@/components/gallery-page-client";
-import { galleryItems, instagramHandles } from "@/data/site-content";
+import { galleryItems, instagramProfiles } from "@/data/site-content";
 
 export const metadata = createPageMetadata(
   "/portfolio",
@@ -20,12 +20,6 @@ const publishedItems = galleryItems
   .filter((item) => item.status === "published")
   .sort((a, b) => a.sortOrder - b.sortOrder)
   .map((item) => ({ ...item, hasImage: hasPublicAsset(item.imageUrl) }));
-
-const instagramUrlsByHandle: Record<string, string> = {
-  "@illustratedalex": "https://www.instagram.com/illustratedalex/",
-  "@alexdoestattooing": "https://www.instagram.com/alexdoestattooing/",
-  "@alexdoespiercing": "https://www.instagram.com/alexdoespiercing/",
-};
 
 export default function PortfolioPage() {
   return (
@@ -48,15 +42,15 @@ export default function PortfolioPage() {
           in progress, available designs, piercing updates, and day-to-day studio posts, follow Alex on Instagram.
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
-          {instagramHandles.map((handle) => (
+          {instagramProfiles.map((profile) => (
             <Link
-              key={handle}
-              href={instagramUrlsByHandle[handle] ?? `https://instagram.com/${handle.replace("@", "")}`}
+              key={profile.handle}
+              href={profile.href}
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-full border border-[#bc8f4d] bg-transparent px-5 py-2.5 text-xs font-semibold tracking-[0.1em] text-[#e7d4b4] transition hover:bg-[#bc8f4d]/10"
             >
-              {handle} ↗
+              {profile.handle} ↗
             </Link>
           ))}
         </div>

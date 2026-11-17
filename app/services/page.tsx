@@ -1,22 +1,24 @@
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { SectionHeading } from "@/components/section-heading";
 import { ServiceCard } from "@/components/service-card";
 import { bookingUrl, services } from "@/data/site-content";
 
-export const metadata: Metadata = {
-  title: "Services",
-  description:
-    "Custom tattooing, body piercing, cover-ups, sleeves, and traveling guest artist availability at Illustrated Alex.",
-};
+export const metadata = createPageMetadata(
+  "/services",
+  "Services | Illustrated Alex",
+  "Custom tattooing, body piercing, cover-ups, sleeves, and traveling guest artist availability at Illustrated Alex.",
+);
 
 export default function ServicesPage() {
   return (
+    <div className="bg-[#f3efe6] text-[#1a1511]">
     <div className="mx-auto w-full max-w-6xl space-y-12 px-4 py-16 sm:px-6 lg:px-8">
       <SectionHeading
         eyebrow="Services"
         title="What we do"
         description="Every service is personal. No templates, no rush, no compromise on quality."
+        level={1}
       />
 
       <div className="space-y-3">
@@ -33,6 +35,15 @@ export default function ServicesPage() {
           Every project is different. Appointments are recommended, and walk-ins may be available depending on timing.
           Text first so you can avoid waiting or arriving during a large tattoo session.
         </p>
+        <p className="mt-3 text-sm text-[#5c5047]">
+          <Link href="/tattoos" className="underline underline-offset-4">
+            Tattoo shop
+          </Link>
+          {" · "}
+          <Link href="/piercings" className="underline underline-offset-4">
+            Piercings
+          </Link>
+        </p>
         <Link
           href={bookingUrl}
           target="_blank"
@@ -42,6 +53,7 @@ export default function ServicesPage() {
           Book a Consultation
         </Link>
       </div>
+    </div>
     </div>
   );
 }

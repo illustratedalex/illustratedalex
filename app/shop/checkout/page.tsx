@@ -1,11 +1,15 @@
+import type { Metadata } from "next";
 import { createPageMetadata } from "@/lib/seo";
 import { CheckoutClient } from "@/components/shop/checkout-client";
 
-export const metadata = createPageMetadata(
-  "/shop/checkout",
-  "Checkout | Illustrated Alex",
-  "Pay for studio pickup at Illustrated Alex, 18 Opera House Square, Claremont, NH.",
-);
+export const metadata: Metadata = {
+  ...createPageMetadata(
+    "/shop/checkout",
+    "Checkout | Illustrated Alex",
+    "Pay for studio pickup at Illustrated Alex, 18 Opera House Square, Claremont, NH.",
+  ),
+  robots: { index: false, follow: false },
+};
 
 export default function CheckoutPage() {
   return (

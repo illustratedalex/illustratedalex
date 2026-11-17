@@ -4,6 +4,7 @@ import Script from "next/script";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { GA_MEASUREMENT_ID } from "@/data/site-content";
+import { defaultShareImage } from "@/lib/seo";
 import "./globals.css";
 
 const inter = Inter({
@@ -27,6 +28,11 @@ export const metadata: Metadata = {
     url: "https://www.illustratedalex.com",
     siteName: "Illustrated Alex",
     type: "website",
+    images: [defaultShareImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: [defaultShareImage.url],
   },
 };
 

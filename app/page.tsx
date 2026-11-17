@@ -4,7 +4,16 @@ import Link from "next/link";
 import { FloatingTextButton } from "@/components/floating-text-button";
 import { TrackedLink } from "@/components/tracked-link";
 import { clientReviews, PUBLIC_SITE_SLUG, REVIEWS_SOURCE_URL } from "@/data/reviews";
-import { BOOKING_URL, GIFT_CARD_URL, TEXT_STUDIO_URL, businessTagline, galleryItems } from "@/data/site-content";
+import {
+  BOOKING_URL,
+  GIFT_CARD_URL,
+  TEXT_STUDIO_URL,
+  businessTagline,
+  galleryItems,
+  madFlasherStudioUrl,
+  serviceAreaSentence,
+  studioHoursSummary,
+} from "@/data/site-content";
 
 export const metadata = createPageMetadata(
   "/",
@@ -43,7 +52,7 @@ export default function Home() {
       />
       <div className="border-b border-[#7d5b2e]/40 bg-[#14110d] px-4 py-2 text-center">
         <a
-          href="https://madflasher.com/studios/illustratedalex"
+          href={madFlasherStudioUrl}
           className="inline-flex min-h-11 items-center rounded px-2 text-sm font-semibold text-[#f0dfbf] underline decoration-[#bc8f4d] underline-offset-4 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#bc8f4d]"
         >
           Mad Flasher · Studio Flash &amp; Events
@@ -85,6 +94,11 @@ export default function Home() {
                 Guest Artist: Redondo Beach CA
               </span>
             </div>
+
+            <p className="mt-4 max-w-xl text-sm leading-6 text-[#ead6b3]">
+              <span className="font-semibold tracking-[0.12em] text-[#d6b27d]">HOURS </span>
+              {studioHoursSummary}
+            </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <TrackedLink
@@ -145,7 +159,12 @@ export default function Home() {
       <section className="border-t border-[#7d5b2e]/40 bg-[#0f0f0f] py-14 text-[#f0dfbf]">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="font-display text-3xl font-semibold tracking-[0.02em] sm:text-4xl">Featured Portfolio</h2>
-          <p className="mt-2 text-sm text-[#d4c09c]">Custom tattoo work from recent sessions.</p>
+          <p className="mt-2 text-sm text-[#d4c09c]">
+            Custom tattoo work from recent sessions.{" "}
+            <Link href="/tattoos" className="text-[#e1c18c] underline underline-offset-4">
+              Tattoo shop in Claremont
+            </Link>
+          </p>
           <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {featuredPortfolio.map((item) => (
               <article key={item.id} className="group overflow-hidden rounded-xl border border-[#7d5b2e]/30 bg-black/25">
@@ -236,7 +255,7 @@ export default function Home() {
           <h2 className="font-display text-3xl font-semibold tracking-[0.02em] text-[#f0dfbf] sm:text-4xl">The studio</h2>
           <p className="mt-3 max-w-3xl text-base leading-8 text-[#dbc8a7]">
             Welcome to my new studio at 18 Opera House Square in Claremont, New Hampshire. Appointments are one-on-one
-            for tattoo and piercing.
+            for tattoo and piercing. {serviceAreaSentence}
           </p>
         </div>
       </section>

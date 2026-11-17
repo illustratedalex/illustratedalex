@@ -10,7 +10,7 @@ export function MobileNav({ items }: { items: NavItem[] }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="relative md:hidden">
+    <div className="relative xl:hidden">
       <button
         onClick={() => setOpen(!open)}
         aria-label={open ? "Close menu" : "Open menu"}

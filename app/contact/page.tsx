@@ -1,8 +1,9 @@
 import { createPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { FloatingTextButton } from "@/components/floating-text-button";
+import { StudioHours } from "@/components/studio-hours";
 import { StudioMedia } from "@/components/studio-media";
-import { BOOKING_URL, STUDIO_PHONE, TEXT_STUDIO_URL } from "@/data/site-content";
+import { BOOKING_URL, STUDIO_PHONE, TEXT_STUDIO_URL, serviceAreaSentence } from "@/data/site-content";
 
 export const metadata = createPageMetadata(
   "/contact",
@@ -24,6 +25,8 @@ export default function ContactPage() {
 
         <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="space-y-6">
+            <StudioHours />
+
             <section className="rounded-xl border border-[#7d5b2e]/40 bg-[#0f0f0f] p-6 sm:p-8">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#be9a62]">Shop Cell</p>
               <p className="mt-2 font-display text-3xl font-semibold text-[#f0dfbf] sm:text-4xl">(603) 843-7005</p>
@@ -106,6 +109,7 @@ export default function ContactPage() {
                   <br />
                   Claremont, NH
                 </p>
+                <p className="mt-2 max-w-sm text-sm leading-6 text-[#f0dfbf]">{serviceAreaSentence}</p>
               </div>
             </div>
           </div>

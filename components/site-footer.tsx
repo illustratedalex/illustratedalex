@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { TrackedLink } from "@/components/tracked-link";
-import { businessFullName, GIFT_CARD_URL, primaryNav, studioAddress } from "@/data/site-content";
+import { businessFullName, GIFT_CARD_URL, primaryNav, studioAddress, studioHoursCompact } from "@/data/site-content";
 
 export function SiteFooter() {
   return (
@@ -8,6 +8,7 @@ export function SiteFooter() {
       <div className="mx-auto w-full max-w-6xl px-4 pt-8 pb-28 sm:px-6 md:pb-20 lg:px-8">
         <p className="text-sm font-medium">{businessFullName}</p>
         <p className="mt-1 text-sm text-[#dbc8a7]">{studioAddress}</p>
+        <p className="mt-1 text-sm text-[#dbc8a7]">{studioHoursCompact}</p>
         <nav aria-label="Footer navigation" className="mt-3">
           <ul className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-[#d7c4a1]">
             {primaryNav.map((item) => (
@@ -28,6 +29,11 @@ export function SiteFooter() {
                 )}
               </li>
             ))}
+            <li>
+              <Link href="/mountainside" className="inline-block py-1 hover:underline">
+                Mountainside Legacy
+              </Link>
+            </li>
             <li>
               <TrackedLink
                 href={GIFT_CARD_URL}
