@@ -55,6 +55,44 @@ export const businessFullName = "Illustrated Alex Tattoo & Piercing";
 
 export const studioAddress = "18 Opera House Square, Claremont, NH";
 export const studioAddressFull = "18 Opera House Square\nClaremont, NH 03743";
+
+// ArcGIS World Geocoder PointAddress for 18 Opera House Square, Claremont, NH 03743 (score 100).
+export const studioGeo = {
+  latitude: 43.373065,
+  longitude: -72.338352,
+} as const;
+
+export const studioHours = [
+  {
+    label: "Wednesday–Saturday",
+    hours: "10 AM–8 PM",
+    days: ["Wednesday", "Thursday", "Friday", "Saturday"],
+    opens: "10:00",
+    closes: "20:00",
+  },
+  {
+    label: "Sunday",
+    hours: "12–6 PM",
+    days: ["Sunday"],
+    opens: "12:00",
+    closes: "18:00",
+  },
+] as const;
+
+export const studioHoursSummary =
+  "Open Wednesday–Saturday, 10 AM–8 PM. Sunday, 12–6 PM. Closed Monday and Tuesday.";
+export const studioHoursCompact = "Wed–Sat 10 AM–8 PM · Sun 12–6 PM · Closed Mon and Tue";
+
+export const serviceAreaSentence =
+  "The Claremont studio sees clients from town and from Newport and Lebanon, New Hampshire, and from Springfield and Bellows Falls, Vermont.";
+
+export const instagramProfiles = [
+  { handle: "@illustratedalex", href: "https://www.instagram.com/illustratedalex/" },
+  { handle: "@alexdoestattooing", href: "https://www.instagram.com/alexdoestattooing/" },
+  { handle: "@alexdoespiercing", href: "https://www.instagram.com/alexdoespiercing/" },
+] as const;
+
+export const madFlasherStudioUrl = "https://madflasher.com/studios/illustratedalex";
 export const NEEDLEBOOK_BOOKING_URL =
   "https://needlebook.com/alex/book?source=website_embed";
 export const ALEX_BOOKING_URL =
@@ -77,7 +115,9 @@ export const GA_MEASUREMENT_ID = "G-Z9393L9072";
 
 export const primaryNav = [
   { href: "/portfolio", label: "Portfolio" },
+  { href: "/tattoos", label: "Tattoos" },
   { href: "/piercings", label: "Piercings" },
+  { href: "/services", label: "Services" },
   { href: "/aftercare", label: "Aftercare" },
   { href: "/travel", label: "Travel" },
   { href: "/artists", label: "Artists" },
@@ -440,8 +480,4 @@ export const galleryItems: GalleryItem[] = [
   },
 ];
 
-export const instagramHandles = [
-  "@illustratedalex",
-  "@alexdoestattooing",
-  "@alexdoespiercing",
-];
+export const instagramHandles = instagramProfiles.map((profile) => profile.handle);

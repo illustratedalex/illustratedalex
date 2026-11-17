@@ -21,8 +21,8 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav aria-label="Primary" className="hidden md:block">
-          <ul className="flex items-center gap-5 text-xs tracking-[0.14em] text-[#f0e2c3]">
+        <nav aria-label="Primary" className="hidden xl:block">
+          <ul className="flex items-center gap-4 text-xs tracking-[0.12em] text-[#f0e2c3]">
             {primaryNav.map((item) => (
               <li key={item.href}>
                 {item.href === "/shop" ? (

@@ -445,7 +445,7 @@ const seededProducts: CatalogProduct[] = [
     sku: "IB-036",
     title: "Industrial Barbell – Steel – 14G / 16G",
     department: "body-jewelry",
-    category: "ear",
+    category: "industrial",
     priceCents: 499,
     unit: "each",
     stockCount: 116,

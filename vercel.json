@@ -65,6 +65,11 @@
       "source": "/s/shop",
       "destination": "/shop",
       "permanent": true
+    },
+    {
+      "source": "/tattoo",
+      "destination": "/tattoos",
+      "permanent": true
     }
   ]
 }

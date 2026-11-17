@@ -2,13 +2,13 @@ import { createPageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProductGrid } from "@/components/shop/product-card";
-import { categoriesWithProducts, categoryPath, departments, getCategory, getDepartment, productsIn } from "@/data/catalog";
+import { categoriesFor, categoryPath, departments, getCategory, getDepartment, productsIn } from "@/data/catalog";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
   return departments.flatMap((department) =>
-    categoriesWithProducts(department.slug).map((category) => ({ department: department.slug, category: category.slug })),
+    categoriesFor(department.slug).map((category) => ({ department: department.slug, category: category.slug })),
   );
 }
 
@@ -16,7 +16,15 @@ export async function generateMetadata({ params }: { params: Promise<{ departmen
   const { department, category: categorySlug } = await params;
   const category = getCategory(department, categorySlug);
   if (!category) return {};
-  return createPageMetadata(`/shop/${department}/${category.slug}`, `${category.name} | Illustrated Alex`, category.summary);
+  const metadata = createPageMetadata(
+    `/shop/${department}/${category.slug}`,
+    `${category.name} | Illustrated Alex`,
+    category.summary,
+  );
+  if (productsIn(department, category.slug).length === 0) {
+    return { ...metadata, robots: { index: false, follow: true } };
+  }
+  return metadata;
 }
 
 export default async function CategoryPage({ params }: { params: Promise<{ department: string; category: string }> }) {

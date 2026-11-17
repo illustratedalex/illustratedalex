@@ -1,11 +1,15 @@
+import type { Metadata } from "next";
 import { createPageMetadata } from "@/lib/seo";
 import { CartView } from "@/components/shop/cart-view";
 
-export const metadata = createPageMetadata(
-  "/shop/cart",
-  "Cart | Illustrated Alex",
-  "Review body jewelry in your Illustrated Alex cart before studio pickup in Claremont, NH.",
-);
+export const metadata: Metadata = {
+  ...createPageMetadata(
+    "/shop/cart",
+    "Cart | Illustrated Alex",
+    "Review body jewelry in your Illustrated Alex cart before studio pickup in Claremont, NH.",
+  ),
+  robots: { index: false, follow: false },
+};
 
 export default function CartPage() {
   return (
