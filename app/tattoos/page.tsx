@@ -20,6 +20,7 @@ const tattooNotes = [
   },
   {
     heading: "One-on-one",
+    guideHref: "https://needlebooking.com/guides/tattoo-walk-in-or-appointment",
     body: "Appointments at the Claremont studio are one-on-one. Walk-ins may be available when the schedule allows. Text a reference first — the image, approximate size, body placement, and whether it is new work or a cover-up — and Alex will say how much time to book.",
   },
   {
@@ -46,6 +47,15 @@ export default function TattoosPage() {
               <div key={item.heading} className="border-b border-[#7d5b2e]/30 pb-6 last:border-0">
                 <h2 className="font-display text-2xl font-semibold text-[#f0dfbf]">{item.heading}</h2>
                 <p className="mt-3 text-base leading-7 text-[#dbc8a7]">{item.body}</p>
+                {item.guideHref && (
+                  <p className="mt-3 text-base leading-7 text-[#dbc8a7]">
+                    Still deciding whether to walk in or book ahead? Read the{" "}
+                    <a href={item.guideHref} className="text-[#e1c18c] underline underline-offset-4">
+                      NeedleBooking walk-in tattoo and appointment guide
+                    </a>
+                    {" "}for what to ask before you go.
+                  </p>
+                )}
               </div>
             ))}
           </div>
